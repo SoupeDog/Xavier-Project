@@ -11,7 +11,7 @@ import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
 import org.xavier.common.utils.JsonHelper;
 import org.xavier.common.utils.PropertiesHelper;
 import org.xavier.common.utils.UtilsCreator;
-import org.xavier.common.utils.enums.ColumnType;
+import org.xavier.common.enums.ColumnType;
 
 import java.io.IOException;
 import java.util.HashMap;

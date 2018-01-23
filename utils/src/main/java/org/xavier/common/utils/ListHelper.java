@@ -1,7 +1,8 @@
 package org.xavier.common.utils;
 
 
-import org.xavier.common.utils.enums.ColumnType;
+
+import org.xavier.common.enums.ColumnType;
 
 import java.util.ArrayList;
 import java.util.List;

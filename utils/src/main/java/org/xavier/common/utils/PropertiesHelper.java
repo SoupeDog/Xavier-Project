@@ -1,8 +1,8 @@
 package org.xavier.common.utils;
 
 
-import org.xavier.common.utils.enums.ColumnType;
-import org.xavier.common.utils.enums.StringFormatMode;
+import org.xavier.common.enums.ColumnType;
+import org.xavier.common.enums.StringFormatMode;
 
 /**
  * 描述信息：<br/>

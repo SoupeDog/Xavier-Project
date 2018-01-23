@@ -1,4 +1,4 @@
-package org.xavier.common.utils.enums;
+package org.xavier.common.enums;
 
 /**
  * 描述信息：<br/>

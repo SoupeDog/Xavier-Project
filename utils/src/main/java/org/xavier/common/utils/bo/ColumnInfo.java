@@ -1,10 +1,10 @@
 package org.xavier.common.utils.bo;
 
 
+import org.xavier.common.enums.ColumnType;
 import org.xavier.common.exception.PropertiesException_Runtime;
 import org.xavier.common.utils.PropertiesHelper;
 import org.xavier.common.utils.UtilsCreator;
-import org.xavier.common.utils.enums.ColumnType;
 import org.xavier.common.utils.impl.DefaultPropertiesHelper;
 
 /**

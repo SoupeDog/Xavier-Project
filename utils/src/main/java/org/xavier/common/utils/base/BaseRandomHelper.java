@@ -1,7 +1,7 @@
 package org.xavier.common.utils.base;
 
 import org.xavier.common.exception.Universal_400_X_Exception_Runtime;
-import org.xavier.common.utils.enums.StringCategory;
+import org.xavier.common.enums.StringCategory;
 import org.xavier.common.utils.RandomHelper;
 
 import java.util.concurrent.ThreadLocalRandom;

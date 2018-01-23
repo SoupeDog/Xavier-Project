@@ -3,8 +3,8 @@ package org.xavier.common.utils.base;
 import org.xavier.common.exception.PropertiesException_Runtime;
 import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
 import org.xavier.common.utils.PropertiesHelper;
-import org.xavier.common.utils.enums.ColumnType;
-import org.xavier.common.utils.enums.StringFormatMode;
+import org.xavier.common.enums.ColumnType;
+import org.xavier.common.enums.StringFormatMode;
 
 /**
  * 描述信息：<br/>

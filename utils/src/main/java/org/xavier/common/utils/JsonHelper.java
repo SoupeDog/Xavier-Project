@@ -1,7 +1,7 @@
 package org.xavier.common.utils;
 
 
-import org.xavier.common.utils.enums.ColumnType;
+import org.xavier.common.enums.ColumnType;
 
 /**
  * 描述信息：<br/>

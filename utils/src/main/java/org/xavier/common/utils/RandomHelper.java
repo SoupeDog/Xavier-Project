@@ -1,7 +1,7 @@
 package org.xavier.common.utils;
 
 
-import org.xavier.common.utils.enums.StringCategory;
+import org.xavier.common.enums.StringCategory;
 
 /**
  * 描述信息：<br/>

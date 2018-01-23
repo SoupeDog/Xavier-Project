@@ -1,11 +1,11 @@
 package org.xavier.common.utils.base;
 
+import org.xavier.common.enums.ColumnType;
 import org.xavier.common.exception.PropertiesException_Runtime;
 import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
 import org.xavier.common.utils.ListHelper;
 import org.xavier.common.utils.PropertiesHelper;
 import org.xavier.common.utils.UtilsCreator;
-import org.xavier.common.utils.enums.ColumnType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

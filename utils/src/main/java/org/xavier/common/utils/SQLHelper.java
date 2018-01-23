@@ -1,7 +1,7 @@
 package org.xavier.common.utils;
 
 import org.xavier.common.utils.bo.ColumnInfo;
-import org.xavier.common.utils.enums.ColumnType;
+import org.xavier.common.enums.ColumnType;
 
 import java.util.HashMap;
 import java.util.List;

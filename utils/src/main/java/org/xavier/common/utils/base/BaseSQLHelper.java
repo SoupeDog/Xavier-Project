@@ -6,7 +6,7 @@ import org.xavier.common.utils.PropertiesHelper;
 import org.xavier.common.utils.SQLHelper;
 import org.xavier.common.utils.UtilsCreator;
 import org.xavier.common.utils.bo.ColumnInfo;
-import org.xavier.common.utils.enums.ColumnType;
+import org.xavier.common.enums.ColumnType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
