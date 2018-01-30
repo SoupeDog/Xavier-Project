@@ -1,7 +1,6 @@
 package org.xavier.common.utils;
 
 
-
 import org.xavier.common.enums.ColumnType;
 
 import java.util.ArrayList;
@@ -19,9 +18,14 @@ import java.util.List;
 public interface ListHelper {
 
     /**
+     * 快捷创建一个只有一个元素的 ArrayList
+     */
+    <T> ArrayList<T> createSingleList(T target);
+
+    /**
      * 序列化基本数据类型或其包装类 List 对象
      *
-     * @param format   是否打印 [ ]
+     * @param format     是否打印 [ ]
      * @param itemType   ListItem 数据类型
      * @param targetList 目标 List
      * @return List 的序列化对象
@@ -31,7 +35,7 @@ public interface ListHelper {
     /**
      * 序列化特定 Item 字段
      *
-     * @param format   是否打印 [ ]
+     * @param format     是否打印 [ ]
      * @param itemType   ListItem 数据类型
      * @param targetList 目标 List
      * @param methodName 对象获取方法名

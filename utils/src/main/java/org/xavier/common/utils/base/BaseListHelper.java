@@ -39,6 +39,14 @@ public abstract class BaseListHelper implements ListHelper {
         this.propertiesHelper = propertiesHelper;
     }
 
+
+    @Override
+    public <T> ArrayList<T> createSingleList(T target) {
+        ArrayList<T> result = new ArrayList();
+        result.add(target);
+        return result;
+    }
+
     @Override
     public String serializeList(Boolean format, ColumnType itemType, List targetList) {
         StringBuilder builder = new StringBuilder();
