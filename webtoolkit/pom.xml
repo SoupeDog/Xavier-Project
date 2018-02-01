@@ -21,6 +21,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${springboot.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hibernate-validator</artifactId>
+                    <groupId>org.hibernate</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--Spring Boot 测试环境-->
         <dependency>
@@ -28,6 +38,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${springboot.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!--log4j2-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <version>1.5.10.RELEASE</version>
         </dependency>
         <!--工具-->
         <dependency>

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.xavier.common.utils.*;
+import org.xavier.web.logger.XavierLoggerImpl;
 
 /**
  * 描述信息：<br/>
@@ -33,5 +34,7 @@ public class DefaultUtils {
     protected ListHelper listHelper;
     @Autowired
     protected MapHelper mapHelper;
+    @Autowired
+    protected XavierLoggerImpl logger;
 
 }
