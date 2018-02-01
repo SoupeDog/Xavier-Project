@@ -19,7 +19,7 @@ import org.xavier.common.utils.base.BaseJsonHelper;
  * @since Jdk 1.8
  */
 @Configuration
-public class CustomerBean {
+public class XavierProjectDefaultBean {
     @Autowired
     ObjectMapper mapper;
 
