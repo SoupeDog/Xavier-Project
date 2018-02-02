@@ -66,13 +66,19 @@
             </exclusions>
         </dependency>
     </dependencies>
-
     <!--打包插件-->
     <build>
         <plugins>
-            <!--打包保留接口形参-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attch-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
