@@ -11,7 +11,7 @@ package org.xavier.common.exception.base;
  */
 public class RequestException_Runtime extends RuntimeException {
     /**
-     * 自定义状态码 默认400d
+     * 自定义状态码 默认400F
      */
     private Float stateCode = 400F;
     /**

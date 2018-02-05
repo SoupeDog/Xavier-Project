@@ -11,7 +11,7 @@ package org.xavier.common.exception.base;
  */
 public class ServiceException extends Exception {
     /**
-     * 自定义状态码 默认500d
+     * 自定义状态码 默认500F
      */
     private Float stateCode = 500F;
     /**
