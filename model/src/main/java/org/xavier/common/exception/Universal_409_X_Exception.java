@@ -15,27 +15,27 @@ import org.xavier.common.exception.base.RequestException;
 public class Universal_409_X_Exception extends RequestException {
     public Universal_409_X_Exception() {
         super();
-        setStateCode(409d);
+        setStateCode(409F);
     }
 
     public Universal_409_X_Exception(String msg) {
         super(msg);
-        setStateCode(409d);
+        setStateCode(409F);
     }
 
-    public Universal_409_X_Exception(Double stateCode, String msg) {
+    public Universal_409_X_Exception(Float stateCode, String msg) {
         super(stateCode, msg);
     }
 
-    public Universal_409_X_Exception(Double stateCode, String msg, Throwable cause) {
+    public Universal_409_X_Exception(Float stateCode, String msg, Throwable cause) {
         super(stateCode, msg, cause);
     }
 
-    public Universal_409_X_Exception(Double stateCode, String msg, String extraInfo) {
+    public Universal_409_X_Exception(Float stateCode, String msg, String extraInfo) {
         super(stateCode, msg, extraInfo);
     }
 
-    public Universal_409_X_Exception(Double stateCode, String msg, String extraInfo, Throwable cause) {
+    public Universal_409_X_Exception(Float stateCode, String msg, String extraInfo, Throwable cause) {
         super(stateCode, msg, extraInfo, cause);
     }
 }

@@ -21,6 +21,6 @@ public class PropertiesException extends RequestException {
     }
 
     public PropertiesException(String msg, Throwable cause) {
-        super(400d, msg, cause);
+        super(400F, msg, cause);
     }
 }

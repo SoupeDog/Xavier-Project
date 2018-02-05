@@ -13,7 +13,7 @@ public class ServiceException extends Exception {
     /**
      * 自定义状态码 默认500d
      */
-    private Double stateCode = 500d;
+    private Float stateCode = 500F;
     /**
      * 存储的额外信息
      */
@@ -27,33 +27,33 @@ public class ServiceException extends Exception {
         super(msg);
     }
 
-    public ServiceException(Double stateCode, String msg) {
+    public ServiceException(Float stateCode, String msg) {
         super(msg);
         this.stateCode = stateCode;
     }
 
-    public ServiceException(Double stateCode, String msg, Throwable cause) {
+    public ServiceException(Float stateCode, String msg, Throwable cause) {
         super(msg, cause);
         this.stateCode = stateCode;
     }
 
-    public ServiceException(Double stateCode, String msg, String extraInfo) {
+    public ServiceException(Float stateCode, String msg, String extraInfo) {
         super(msg);
         this.stateCode = stateCode;
         this.extraInfo = extraInfo;
     }
 
-    public ServiceException(Double stateCode, String msg, String extraInfo, Throwable cause) {
+    public ServiceException(Float stateCode, String msg, String extraInfo, Throwable cause) {
         super(msg, cause);
         this.stateCode = stateCode;
         this.extraInfo = extraInfo;
     }
 
-    public Double getStateCode() {
+    public Float getStateCode() {
         return stateCode;
     }
 
-    public void setStateCode(Double stateCode) {
+    public void setStateCode(Float stateCode) {
         this.stateCode = stateCode;
     }
 

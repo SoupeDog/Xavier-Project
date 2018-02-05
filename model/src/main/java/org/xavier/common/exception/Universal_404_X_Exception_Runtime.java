@@ -14,27 +14,27 @@ import org.xavier.common.exception.base.RequestException_Runtime;
 public class Universal_404_X_Exception_Runtime extends RequestException_Runtime {
     public Universal_404_X_Exception_Runtime() {
         super();
-        setStateCode(404d);
+        setStateCode(404F);
     }
 
     public Universal_404_X_Exception_Runtime(String msg) {
         super(msg);
-        setStateCode(404d);
+        setStateCode(404F);
     }
 
-    public Universal_404_X_Exception_Runtime(Double stateCode, String msg) {
+    public Universal_404_X_Exception_Runtime(Float stateCode, String msg) {
         super(stateCode, msg);
     }
 
-    public Universal_404_X_Exception_Runtime(Double stateCode, String msg, Throwable cause) {
+    public Universal_404_X_Exception_Runtime(Float stateCode, String msg, Throwable cause) {
         super(stateCode, msg, cause);
     }
 
-    public Universal_404_X_Exception_Runtime(Double stateCode, String msg, String extraInfo) {
+    public Universal_404_X_Exception_Runtime(Float stateCode, String msg, String extraInfo) {
         super(stateCode, msg, extraInfo);
     }
 
-    public Universal_404_X_Exception_Runtime(Double stateCode, String msg, Throwable cause, String extraInfo) {
+    public Universal_404_X_Exception_Runtime(Float stateCode, String msg, Throwable cause, String extraInfo) {
         super(stateCode, msg, extraInfo, cause);
     }
 

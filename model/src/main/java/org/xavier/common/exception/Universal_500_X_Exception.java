@@ -20,19 +20,19 @@ public class Universal_500_X_Exception extends ServiceException {
         super(msg);
     }
 
-    public Universal_500_X_Exception(Double stateCode, String msg) {
+    public Universal_500_X_Exception(Float stateCode, String msg) {
         super(stateCode, msg);
     }
 
-    public Universal_500_X_Exception(Double stateCode, String msg, Throwable cause) {
+    public Universal_500_X_Exception(Float stateCode, String msg, Throwable cause) {
         super(stateCode, msg, cause);
     }
 
-    public Universal_500_X_Exception(Double stateCode, String msg, String extraInfo) {
+    public Universal_500_X_Exception(Float stateCode, String msg, String extraInfo) {
         super(stateCode, msg, extraInfo);
     }
 
-    public Universal_500_X_Exception(Double stateCode, String msg, String extraInfo, Throwable cause) {
+    public Universal_500_X_Exception(Float stateCode, String msg, String extraInfo, Throwable cause) {
         super(stateCode, msg, extraInfo, cause);
     }
 

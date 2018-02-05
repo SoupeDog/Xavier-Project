@@ -34,13 +34,13 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BasePropertiesHelper)) {
-                throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BasePropertiesHelper.");
+                throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BasePropertiesHelper.");
             }
             return (PropertiesHelper) result;
         } catch (InstantiationException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to get PropertiesHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to get PropertiesHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend PropertiesHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend PropertiesHelper.", e);
         }
     }
 
@@ -53,13 +53,13 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BaseSQLHelper)) {
-                throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseSQLHelper.");
+                throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseSQLHelper.");
             }
             return (SQLHelper) result;
         } catch (InstantiationException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to get BaseSQLHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to get BaseSQLHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseSQLHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseSQLHelper.", e);
         }
     }
 
@@ -72,13 +72,13 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BaseListHelper)) {
-                throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseListHelper.");
+                throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseListHelper.");
             }
             return (ListHelper) result;
         } catch (InstantiationException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to get BaseListHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseListHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseListHelper.", e);
         }
     }
 
@@ -91,13 +91,13 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BaseJsonHelper)) {
-                throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseJsonHelper.");
+                throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseJsonHelper.");
             }
             return (JsonHelper) result;
         } catch (InstantiationException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to get BaseListHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseJsonHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseJsonHelper.", e);
         }
     }
 
@@ -110,13 +110,13 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BaseRandomHelper)) {
-                throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseRandomHelper.");
+                throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseRandomHelper.");
             }
             return (RandomHelper) result;
         } catch (InstantiationException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to get BaseListHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseRandomHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseRandomHelper.", e);
         }
     }
 
@@ -129,13 +129,13 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BaseMapHelper)) {
-                throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseMapHelper.");
+                throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseMapHelper.");
             }
             return (MapHelper) result;
         } catch (InstantiationException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to get BaseListHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "[tClass] should extend BaseMapHelper.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "[tClass] should extend BaseMapHelper.", e);
         }
     }
 

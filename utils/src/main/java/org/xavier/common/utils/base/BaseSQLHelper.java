@@ -184,11 +184,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             builder.deleteCharAt(builder.length() - 1);
             builder.append(")");
         } catch (NoSuchMethodException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, methodName + "() was not found.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, methodName + "() was not found.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (InvocationTargetException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         }
         return builder.toString();
     }
@@ -237,11 +237,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             builder.deleteCharAt(builder.length() - 1);
             builder.append(")");
         } catch (NoSuchMethodException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, methodName + "() was not found.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, methodName + "() was not found.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (InvocationTargetException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         }
         return builder.toString();
     }
@@ -379,11 +379,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             builder.deleteCharAt(builder.length() - 1);
             builder.append(")");
         } catch (NoSuchMethodException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, methodName + "() was not found.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, methodName + "() was not found.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (InvocationTargetException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         }
         return builder.toString();
     }
@@ -433,11 +433,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             builder.deleteCharAt(builder.length() - 1);
             builder.append(")");
         } catch (NoSuchMethodException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, methodName + "() was not found.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, methodName + "() was not found.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (InvocationTargetException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         }
         return builder.toString();
     }
@@ -486,11 +486,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             builder.deleteCharAt(builder.length() - 1);
             builder.append(")");
         } catch (NoSuchMethodException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, methodName + "() was not found.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, methodName + "() was not found.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (InvocationTargetException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         }
         return builder.toString();
     }
@@ -539,11 +539,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             builder.deleteCharAt(builder.length() - 1);
             builder.append(")");
         } catch (NoSuchMethodException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, methodName + "() was not found.", e);
+            throw new Universal_500_X_Exception_Runtime(555F, methodName + "() was not found.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (InvocationTargetException e) {
-            throw new Universal_500_X_Exception_Runtime(555d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         }
         return builder.toString();
     }

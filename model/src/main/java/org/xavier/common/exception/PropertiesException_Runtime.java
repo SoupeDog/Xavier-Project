@@ -21,6 +21,6 @@ public class PropertiesException_Runtime extends RequestException_Runtime {
     }
 
     public PropertiesException_Runtime(String msg, Throwable cause) {
-        super(400d, msg, cause);
+        super(400F, msg, cause);
     }
 }

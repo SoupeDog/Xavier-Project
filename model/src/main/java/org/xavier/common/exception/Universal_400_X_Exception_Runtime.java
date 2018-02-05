@@ -20,19 +20,19 @@ public class Universal_400_X_Exception_Runtime extends RequestException_Runtime 
         super(msg);
     }
 
-    public Universal_400_X_Exception_Runtime(Double stateCode, String msg) {
+    public Universal_400_X_Exception_Runtime(Float stateCode, String msg) {
         super(stateCode, msg);
     }
 
-    public Universal_400_X_Exception_Runtime(Double stateCode, String msg, Throwable cause) {
+    public Universal_400_X_Exception_Runtime(Float stateCode, String msg, Throwable cause) {
         super(stateCode, msg, cause);
     }
 
-    public Universal_400_X_Exception_Runtime(Double stateCode, String msg, String extraInfo) {
+    public Universal_400_X_Exception_Runtime(Float stateCode, String msg, String extraInfo) {
         super(stateCode, msg, extraInfo);
     }
 
-    public Universal_400_X_Exception_Runtime(Double stateCode, String msg, String extraInfo, Throwable cause) {
+    public Universal_400_X_Exception_Runtime(Float stateCode, String msg, String extraInfo, Throwable cause) {
         super(stateCode, msg, extraInfo, cause);
     }
 

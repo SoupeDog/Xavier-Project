@@ -74,7 +74,7 @@ public abstract class BaseJsonHelper implements JsonHelper {
                         result = mapper.writeValueAsString(mapper.readValue(target.toString(), HashMap.class));
                         break;
                     default:
-                        throw new Universal_400_X_Exception_Runtime(400d, "Fail to format : " + target);
+                        throw new Universal_400_X_Exception_Runtime(400F, "Fail to format : " + target);
                 }
             } else {
                 result = mapper.writeValueAsString(target);
@@ -102,7 +102,7 @@ public abstract class BaseJsonHelper implements JsonHelper {
                     root = mapper.readTree(mapper.writeValueAsString(targetObj));//TODO 可优化为遍历
                     break;
                 default:
-                    new Universal_500_X_Exception_Runtime(555d, "[jsonType] should be String,List,Map or Object.(1)");
+                    new Universal_500_X_Exception_Runtime(555F, "[jsonType] should be String,List,Map or Object.(1)");
             }
             JsonNode resultNode = root.findValue(key);
             if (resultNode == null) {
@@ -123,7 +123,7 @@ public abstract class BaseJsonHelper implements JsonHelper {
                     result = (T) propertiesHelper.booleanFormat(resultNode.textValue(), "Invalid [" + resultNode.textValue() + "],it can't format to " + resultType.getMsg());
                     break;
                 default:
-                    throw new Universal_500_X_Exception_Runtime(555d, "Invalid [resultType].");
+                    throw new Universal_500_X_Exception_Runtime(555F, "Invalid [resultType].");
             }
             hookGetValueByKey(resultType, result);
             return result;
@@ -151,7 +151,7 @@ public abstract class BaseJsonHelper implements JsonHelper {
                     root = mapper.readTree(mapper.writeValueAsString(targetObj));//TODO 可优化为遍历
                     break;
                 default:
-                    new Universal_500_X_Exception_Runtime(555d, "[jsonType] should be String,List,Map or Object.(2)");
+                    new Universal_500_X_Exception_Runtime(555F, "[jsonType] should be String,List,Map or Object.(2)");
             }
             List<JsonNode> resultNodes = root.findValues(key);
             if (resultNodes == null) {
@@ -172,7 +172,7 @@ public abstract class BaseJsonHelper implements JsonHelper {
                     result = (T) propertiesHelper.booleanFormat(resultNodes.get(index).textValue(), "Invalid [" + resultNodes.get(index).textValue() + "],it can't format to " + resultType.getMsg());
                     break;
                 default:
-                    throw new Universal_500_X_Exception_Runtime(555d, "Invalid [resultType].");
+                    throw new Universal_500_X_Exception_Runtime(555F, "Invalid [resultType].");
             }
             hookGetValueByKey(resultType, result);
             return result;

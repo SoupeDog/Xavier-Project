@@ -14,7 +14,7 @@ public class ErrorResult {
     /**
      * 自定义状态码
      */
-    private Double errorCode;
+    private Float errorCode;
     /**
      * 错误信息
      */
@@ -23,16 +23,16 @@ public class ErrorResult {
     public ErrorResult() {
     }
 
-    public ErrorResult(Double errorCode, String msg) {
+    public ErrorResult(Float errorCode, String msg) {
         this.errorCode = errorCode;
         this.msg = msg;
     }
 
-    public Double getErrorCode() {
+    public Float getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(Double errorCode) {
+    public void setErrorCode(Float errorCode) {
         this.errorCode = errorCode;
     }
 

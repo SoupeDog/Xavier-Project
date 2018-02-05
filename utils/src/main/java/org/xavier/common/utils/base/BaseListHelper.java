@@ -209,11 +209,11 @@ public abstract class BaseListHelper implements ListHelper {
             }
             return builder.toString();
         } catch (NoSuchMethodException e) {
-            throw new Universal_500_X_Exception_Runtime(500d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(500d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         } catch (InvocationTargetException e) {
-            throw new Universal_500_X_Exception_Runtime(500d, "Fail to execute " + methodName + "()", e);
+            throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
         }
     }
 
@@ -236,11 +236,11 @@ public abstract class BaseListHelper implements ListHelper {
                     }
                 }
             } catch (NoSuchMethodException e) {
-                throw new Universal_500_X_Exception_Runtime(500d, methodName + "() was not found.", e);
+                throw new Universal_500_X_Exception_Runtime(555F, methodName + "() was not found.", e);
             } catch (IllegalAccessException e) {
-                throw new Universal_500_X_Exception_Runtime(500d, "Fail to execute " + methodName + "()", e);
+                throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
             } catch (InvocationTargetException e) {
-                throw new Universal_500_X_Exception_Runtime(500d, "Fail to execute " + methodName + "()", e);
+                throw new Universal_500_X_Exception_Runtime(555F, "Fail to execute " + methodName + "()", e);
             }
         }
         return result;

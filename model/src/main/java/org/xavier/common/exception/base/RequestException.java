@@ -13,7 +13,7 @@ public class RequestException extends Exception {
     /**
      * 自定义状态码 默认400d
      */
-    private Double stateCode = 400d;
+    private Float stateCode = 400F;
     /**
      * 存储的额外信息
      */
@@ -27,33 +27,33 @@ public class RequestException extends Exception {
         super(msg);
     }
 
-    public RequestException(Double stateCode, String msg) {
+    public RequestException(Float stateCode, String msg) {
         super(msg);
         this.stateCode = stateCode;
     }
 
-    public RequestException(Double stateCode, String msg, Throwable cause) {
+    public RequestException(Float stateCode, String msg, Throwable cause) {
         super(msg, cause);
         this.stateCode = stateCode;
     }
 
-    public RequestException(Double stateCode, String msg, String extraInfo) {
+    public RequestException(Float stateCode, String msg, String extraInfo) {
         super(msg);
         this.stateCode = stateCode;
         this.extraInfo = extraInfo;
     }
 
-    public RequestException(Double stateCode, String msg, String extraInfo, Throwable cause) {
+    public RequestException(Float stateCode, String msg, String extraInfo, Throwable cause) {
         super(msg, cause);
         this.stateCode = stateCode;
         this.extraInfo = extraInfo;
     }
 
-    public Double getStateCode() {
+    public Float getStateCode() {
         return stateCode;
     }
 
-    public void setStateCode(Double stateCode) {
+    public void setStateCode(Float stateCode) {
         this.stateCode = stateCode;
     }
 

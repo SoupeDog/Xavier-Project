@@ -1,11 +1,14 @@
 package org.xavier.web.extend;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.xavier.common.exception.base.RequestException_Runtime;
+import org.xavier.web.logger.LogTypeEnums;
+import org.xavier.web.logger.RequestLogItem;
 
 import java.nio.charset.Charset;
 
@@ -19,7 +22,7 @@ import java.nio.charset.Charset;
  * @since Jdk 1.8
  */
 @RestController
-public class DefaultController extends DefaultUtils{
+public class DefaultController extends DefaultUtils {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> serviceErrorHandler(Throwable e) {
@@ -27,7 +30,7 @@ public class DefaultController extends DefaultUtils{
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         builder.contentType(mediaType);
-        return builder.body(new ErrorResult(500d, e.getMessage()));
+        return builder.body(new ErrorResult(500F, e.getMessage()));
     }
 
     @ExceptionHandler(RequestException_Runtime.class)
@@ -37,7 +40,6 @@ public class DefaultController extends DefaultUtils{
         builder.contentType(mediaType);
         return builder.body(new ErrorResult(e.getStateCode(), e.getMessage()));
     }
-
 
 
     public ResponseEntity<?> success() {
@@ -54,12 +56,53 @@ public class DefaultController extends DefaultUtils{
         return builder.body(entity);
     }
 
-    public ResponseEntity<?> fail(Double code, String msg, HttpStatus status) {
+    public ResponseEntity<?> fail(HttpMethod httpMethod, String path, Object requestObject, HttpStatus status, Float errorCode, String msg) {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(status);
         builder.contentType(mediaType);
-        return builder.body(new ErrorResult(code, msg));
+        RequestLogItem requestLogItem = new RequestLogItem(jsonHelper_Log, propertiesHelper);
+        requestLogItem.setHttpMethod(httpMethod);
+        requestLogItem.setPath(path);
+        requestLogItem.setRequestObject(requestObject);
+        requestLogItem.setErrorCode(errorCode);
+        requestLogItem.setMsg(msg);
+        errorLog(LogTypeEnums.WARN_UNEXPECTED_REQUEST, requestLogItem);
+        return builder.body(new ErrorResult(errorCode, msg));
     }
 
+    public void alwaysLog(HttpMethod httpMethod, String path, Object requestObject) {
+        if (requestObject == null) {
+            logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
+        } else {
+            logger.always(httpMethod.name() + " | Path: " + path);
+        }
+    }
 
+    public void errorLog(LogTypeEnums logType, RequestLogItem requestLogItem) {
+        switch (logType) {
+            case WARN_UNEXPECTED_REQUEST:
+                logger.warn(requestLogItem.createLogString(logType));
+                break;
+            case ERROR_UNEXPECTED_SERVICEERROR:
+                logger.error(requestLogItem.createLogString(logType));
+                break;
+            default:
+                //TODO 未知异常捕获
+                break;
+        }
+    }
+
+    public void errorLog(LogTypeEnums logType, RequestLogItem requestLogItem, Throwable e) {
+        switch (logType) {
+            case WARN_UNEXPECTED_REQUEST:
+                logger.warn(requestLogItem.createLogString(logType), e);
+                break;
+            case ERROR_UNEXPECTED_SERVICEERROR:
+                logger.error(requestLogItem.createLogString(logType), e);
+                break;
+            default:
+                //TODO 未知异常捕获
+                break;
+        }
+    }
 }
