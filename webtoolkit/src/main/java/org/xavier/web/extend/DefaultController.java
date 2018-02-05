@@ -11,6 +11,7 @@ import org.xavier.web.logger.LogTypeEnums;
 import org.xavier.web.logger.RequestLogItem;
 
 import java.nio.charset.Charset;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 描述信息：<br/>
@@ -30,6 +31,7 @@ public class DefaultController extends DefaultUtils {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         builder.contentType(mediaType);
+        logger.error(e.getMessage(), e);
         return builder.body(new ErrorResult(500F, e.getMessage()));
     }
 
@@ -38,6 +40,7 @@ public class DefaultController extends DefaultUtils {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.BAD_REQUEST);
         builder.contentType(mediaType);
+        logger.warn(e.getMessage());
         return builder.body(new ErrorResult(e.getStateCode(), e.getMessage()));
     }
 
@@ -60,49 +63,24 @@ public class DefaultController extends DefaultUtils {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(status);
         builder.contentType(mediaType);
-        RequestLogItem requestLogItem = new RequestLogItem(jsonHelper_Log, propertiesHelper);
-        requestLogItem.setHttpMethod(httpMethod);
-        requestLogItem.setPath(path);
-        requestLogItem.setRequestObject(requestObject);
-        requestLogItem.setErrorCode(errorCode);
-        requestLogItem.setMsg(msg);
-        errorLog(LogTypeEnums.WARN_UNEXPECTED_REQUEST, requestLogItem);
+        warn_RequestLog_Async(httpMethod, path, requestObject, errorCode, msg);
         return builder.body(new ErrorResult(errorCode, msg));
     }
 
-    public void alwaysLog(HttpMethod httpMethod, String path, Object requestObject) {
-        if (requestObject == null) {
-            logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
-        } else {
-            logger.always(httpMethod.name() + " | Path: " + path);
-        }
+    private void warn_RequestLog_Async(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg) {
+        CompletableFuture.runAsync(() -> {
+            RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper_Log, propertiesHelper);
+            logger.warn(requestLogItem.createLogString(LogTypeEnums.WARN_UNEXPECTED_REQUEST));
+        });
     }
 
-    public void errorLog(LogTypeEnums logType, RequestLogItem requestLogItem) {
-        switch (logType) {
-            case WARN_UNEXPECTED_REQUEST:
-                logger.warn(requestLogItem.createLogString(logType));
-                break;
-            case ERROR_UNEXPECTED_SERVICEERROR:
-                logger.error(requestLogItem.createLogString(logType));
-                break;
-            default:
-                //TODO 未知异常捕获
-                break;
-        }
-    }
-
-    public void errorLog(LogTypeEnums logType, RequestLogItem requestLogItem, Throwable e) {
-        switch (logType) {
-            case WARN_UNEXPECTED_REQUEST:
-                logger.warn(requestLogItem.createLogString(logType), e);
-                break;
-            case ERROR_UNEXPECTED_SERVICEERROR:
-                logger.error(requestLogItem.createLogString(logType), e);
-                break;
-            default:
-                //TODO 未知异常捕获
-                break;
-        }
+    public void alway_RequestsLog_Async(HttpMethod httpMethod, String path, Object requestObject) {
+        CompletableFuture.runAsync(() -> {
+            if (requestObject == null) {
+                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
+            } else {
+                logger.always(httpMethod.name() + " | Path: " + path);
+            }
+        });
     }
 }

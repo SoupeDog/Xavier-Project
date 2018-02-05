@@ -16,11 +16,12 @@ import org.xavier.common.utils.UtilsCreator;
  * @since Jdk 1.8
  */
 public class RequestLogItem {
-    private String path;
     private HttpMethod httpMethod;
+    private String path;
     private Object requestObject;
-    private String msg;
     private Float errorCode;
+    private String msg;
+
 
     public JsonHelper jsonHelper;
     public PropertiesHelper propertiesHelper;
@@ -31,6 +32,16 @@ public class RequestLogItem {
     }
 
     public RequestLogItem(JsonHelper jsonHelper, PropertiesHelper propertiesHelper) {
+        this.jsonHelper = jsonHelper;
+        this.propertiesHelper = propertiesHelper;
+    }
+
+    public RequestLogItem(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg, JsonHelper jsonHelper, PropertiesHelper propertiesHelper) {
+        this.httpMethod = httpMethod;
+        this.path = path;
+        this.requestObject = requestObject;
+        this.errorCode = errorCode;
+        this.msg = msg;
         this.jsonHelper = jsonHelper;
         this.propertiesHelper = propertiesHelper;
     }
@@ -86,7 +97,6 @@ public class RequestLogItem {
                 }
                 break;
             case WARN_UNEXPECTED_REQUEST:
-            case ERROR_UNEXPECTED_SERVICEERROR:
                 if (requestObject == null) {
                     result = httpMethod.name() + " | Path: " + path + " | errorCode :" + errorCode + " | Msg :" + msg;
                 } else {
