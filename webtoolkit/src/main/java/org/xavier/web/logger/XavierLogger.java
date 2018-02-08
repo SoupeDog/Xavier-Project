@@ -31,4 +31,19 @@ public interface XavierLogger {
 
     void debug(String message, Throwable e);
 
+    void assertFail_Debug(String target, String expected, String actual);
+
+    void assertFail_Debug_WithParameter(String target, String expected, String actual, Object parameter);
+
+    void assertFail_Info(String target, String expected, String actual);
+
+    void assertFail_Info_WithParameter(String target, String expected, String actual, Object parameter);
+
+    void assertFail_Warn(String target, String expected, String actual);
+
+    void assertFail_Warn_WithParameter(String target, String expected, String actual, Object parameter);
+
+    void assertFail_Error(String target, String expected, String actual);
+
+    void assertFail_Error_WithParameter(String target, String expected, String actual, Object parameter);
 }

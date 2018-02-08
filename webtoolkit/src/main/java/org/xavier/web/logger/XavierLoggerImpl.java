@@ -2,6 +2,7 @@ package org.xavier.web.logger;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
+import org.xavier.common.utils.JsonHelper;
 
 /**
  * 描述信息：<br/>
@@ -14,11 +15,14 @@ import org.apache.logging.log4j.Logger;
 public class XavierLoggerImpl implements XavierLogger {
     private Logger logger;
 
+    private static JsonHelper jsonHelper;
+
     public XavierLoggerImpl() {
     }
 
-    public XavierLoggerImpl(Logger log4j) {
+    public XavierLoggerImpl(Logger log4j, JsonHelper jsonHelper) {
         this.logger = log4j;
+        this.jsonHelper = jsonHelper;
     }
 
     @Override
@@ -69,5 +73,45 @@ public class XavierLoggerImpl implements XavierLogger {
     @Override
     public void debug(String message, Throwable e) {
         logger.debug(message, e);
+    }
+
+    @Override
+    public void assertFail_Debug(String target, String expected, String actual) {
+        debug("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    }
+
+    @Override
+    public void assertFail_Debug_WithParameter(String target, String expected, String actual, Object parameter) {
+        debug("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
+    }
+
+    @Override
+    public void assertFail_Info(String target, String expected, String actual) {
+        info("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    }
+
+    @Override
+    public void assertFail_Info_WithParameter(String target, String expected, String actual, Object parameter) {
+        info("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
+    }
+
+    @Override
+    public void assertFail_Warn(String target, String expected, String actual) {
+        warn("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    }
+
+    @Override
+    public void assertFail_Warn_WithParameter(String target, String expected, String actual, Object parameter) {
+        warn("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
+    }
+
+    @Override
+    public void assertFail_Error(String target, String expected, String actual) {
+        error("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    }
+
+    @Override
+    public void assertFail_Error_WithParameter(String target, String expected, String actual, Object parameter) {
+        error("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
     }
 }
