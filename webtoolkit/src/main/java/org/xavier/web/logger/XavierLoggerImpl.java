@@ -76,42 +76,66 @@ public class XavierLoggerImpl implements XavierLogger {
     }
 
     @Override
-    public void assertFail_Debug(String target, String expected, String actual) {
-        debug("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    public void assertFail_Debug(String target, String expected, Object actual) {
+        if (actual == null) {
+            debug("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL");
+        }
+        debug("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual);
     }
 
     @Override
-    public void assertFail_Debug_WithParameter(String target, String expected, String actual, Object parameter) {
+    public void assertFail_Debug_WithParameter(String target, String expected, Object actual, Object parameter) {
+        if (actual == null) {
+            debug("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL" + " | Parameter:" + jsonHelper.format(parameter));
+        }
         debug("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
     }
 
     @Override
-    public void assertFail_Info(String target, String expected, String actual) {
-        info("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    public void assertFail_Info(String target, String expected, Object actual) {
+        if (actual == null) {
+            info("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL");
+        }
+        info("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual);
     }
 
     @Override
-    public void assertFail_Info_WithParameter(String target, String expected, String actual, Object parameter) {
+    public void assertFail_Info_WithParameter(String target, String expected, Object actual, Object parameter) {
+        if (actual == null) {
+            info("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL" + " | Parameter:" + jsonHelper.format(parameter));
+        }
         info("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
     }
 
     @Override
-    public void assertFail_Warn(String target, String expected, String actual) {
-        warn("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    public void assertFail_Warn(String target, String expected, Object actual) {
+        if (actual == null) {
+            warn("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL");
+        }
+        warn("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual);
     }
 
     @Override
-    public void assertFail_Warn_WithParameter(String target, String expected, String actual, Object parameter) {
+    public void assertFail_Warn_WithParameter(String target, String expected, Object actual, Object parameter) {
+        if (actual == null) {
+            warn("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL" + " | Parameter:" + jsonHelper.format(parameter));
+        }
         warn("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
     }
 
     @Override
-    public void assertFail_Error(String target, String expected, String actual) {
-        error("AssertFail [" + target + "] expected:" + expected + " | actual:" + actual);
+    public void assertFail_Error(String target, String expected, Object actual) {
+        if (actual == null) {
+            error("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL");
+        }
+        error("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual);
     }
 
     @Override
-    public void assertFail_Error_WithParameter(String target, String expected, String actual, Object parameter) {
+    public void assertFail_Error_WithParameter(String target, String expected, Object actual, Object parameter) {
+        if (actual == null) {
+            error("AssertFail [" + target + "] Expected:" + expected + " | Actual:NULL" + " | Parameter:" + jsonHelper.format(parameter));
+        }
         error("AssertFail [" + target + "] Expected:" + expected + " | Actual:" + actual + " | Parameter:" + jsonHelper.format(parameter));
     }
 }
