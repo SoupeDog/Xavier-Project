@@ -77,9 +77,9 @@ public class DefaultController extends DefaultUtils {
     public void alway_RequestsLog_Async(HttpMethod httpMethod, String path, Object requestObject) {
         CompletableFuture.runAsync(() -> {
             if (requestObject == null) {
-                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
-            } else {
                 logger.always(httpMethod.name() + " | Path: " + path);
+            } else {
+                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
             }
         });
     }
