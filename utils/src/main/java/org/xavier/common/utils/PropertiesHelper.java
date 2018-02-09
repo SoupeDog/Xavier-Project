@@ -26,6 +26,15 @@ public interface PropertiesHelper {
 
 
     /**
+     * 判断字符串是否为 空(去格式后空字符串) 或 null
+     *
+     * @param target 目标对象
+     * @return true 为 null 或空串  false 为有效值
+     */
+    Boolean is_Null_Or_Empty(Object target);
+
+
+    /**
      * 将目标对象转化为字符串，可为 null  非空时调用其 toString() 方法
      *
      * @param target 目标对象
