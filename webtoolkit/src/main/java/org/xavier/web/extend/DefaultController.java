@@ -67,6 +67,11 @@ public class DefaultController extends DefaultUtils {
         return builder.body(new ErrorResult(errorCode, msg));
     }
 
+    private void warn_RequestLog(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg) {
+        RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper_Log, propertiesHelper);
+        logger.warn(requestLogItem.createLogString(LogTypeEnums.WARN_UNEXPECTED_REQUEST));
+    }
+
     private void warn_RequestLog_Async(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg) {
         CompletableFuture.runAsync(() -> {
             RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper_Log, propertiesHelper);
@@ -74,12 +79,21 @@ public class DefaultController extends DefaultUtils {
         });
     }
 
+    public void alway_RequestsLog(HttpMethod httpMethod, String path, Object requestObject) {
+        if (requestObject == null) {
+            logger.always(httpMethod.name() + " | Path: " + path);
+        } else {
+            logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
+        }
+    }
+
+
     public void alway_RequestsLog_Async(HttpMethod httpMethod, String path, Object requestObject) {
         CompletableFuture.runAsync(() -> {
             if (requestObject == null) {
-                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
-            } else {
                 logger.always(httpMethod.name() + " | Path: " + path);
+            } else {
+                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
             }
         });
     }

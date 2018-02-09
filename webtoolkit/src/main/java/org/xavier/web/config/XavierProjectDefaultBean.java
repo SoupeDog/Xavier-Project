@@ -63,8 +63,8 @@ public class XavierProjectDefaultBean {
     }
 
     @Bean
-    public XavierLoggerImpl logger() {
-        XavierLoggerImpl xavierLogger = new XavierLoggerImpl(LogManager.getLogger("XavierLogger"));
+    public XavierLoggerImpl logger(JsonHelper jsonHelper_Log) {
+        XavierLoggerImpl xavierLogger = new XavierLoggerImpl(LogManager.getLogger("XavierLogger"),jsonHelper_Log);
         return xavierLogger;
     }
 
