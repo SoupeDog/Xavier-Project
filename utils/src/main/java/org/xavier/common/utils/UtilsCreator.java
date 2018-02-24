@@ -14,12 +14,12 @@ import org.xavier.common.utils.impl.*;
  * @since Jdk 1.8
  */
 public class UtilsCreator {
-    private static PropertiesHelper propertiesHelper = getPropertiesHelper(DefaultPropertiesHelper.class);
-    private static SQLHelper sqlHelper = getSQLHelper(DefaultSQLHelper.class);
-    private static ListHelper listHelper = getListHelper(DefaultListHelper.class);
-    private static JsonHelper jsonHelper = getJsonHelper(DefaultJsonHelper.class);
-    private static RandomHelper randomHelper = getRandomHelper(DefaultRandomHelper.class);
-    private static MapHelper mapHelper = getMapHelper(DefaultMapHelper.class);
+    private static volatile PropertiesHelper propertiesHelper = null;
+    private static volatile SQLHelper sqlHelper = null;
+    private static volatile ListHelper listHelper = null;
+    private static volatile JsonHelper jsonHelper = null;
+    private static volatile RandomHelper randomHelper = null;
+    private static volatile MapHelper mapHelper = null;
 
 
     private UtilsCreator() {
@@ -143,6 +143,13 @@ public class UtilsCreator {
      * 返回一个 DefaultPropertiesHelper 实例(单例)
      */
     public static PropertiesHelper getInstance_DefaultPropertiesHelper() {
+        if (propertiesHelper == null) {
+            synchronized (DefaultPropertiesHelper.class) {
+                if (propertiesHelper == null) {
+                    propertiesHelper = new DefaultPropertiesHelper();
+                }
+            }
+        }
         return propertiesHelper;
     }
 
@@ -150,6 +157,13 @@ public class UtilsCreator {
      * 返回一个 DefaultSQLHelper 实例(单例)
      */
     public static SQLHelper getInstance_DefaultSQLHelper() {
+        if (sqlHelper == null) {
+            synchronized (DefaultSQLHelper.class) {
+                if (sqlHelper == null) {
+                    sqlHelper = new DefaultSQLHelper();
+                }
+            }
+        }
         return sqlHelper;
     }
 
@@ -157,6 +171,13 @@ public class UtilsCreator {
      * 返回一个 DefaultListHelper 实例(单例)
      */
     public static ListHelper getInstance_DefaultListHelper() {
+        if (listHelper == null) {
+            synchronized (DefaultListHelper.class) {
+                if (listHelper == null) {
+                    listHelper = new DefaultListHelper();
+                }
+            }
+        }
         return listHelper;
     }
 
@@ -164,6 +185,13 @@ public class UtilsCreator {
      * 返回一个 DefaultJsonHelper 实例(单例)
      */
     public static JsonHelper getInstance_DefaultJsonHelper() {
+        if (jsonHelper == null) {
+            synchronized (DefaultJsonHelper.class) {
+                if (jsonHelper == null) {
+                    jsonHelper = new DefaultJsonHelper();
+                }
+            }
+        }
         return jsonHelper;
     }
 
@@ -172,6 +200,13 @@ public class UtilsCreator {
      * PS: 字母 O 会被替换成 X ,数字 0 会被替换成 2
      */
     public static RandomHelper getInstance_DefaultRandomHelper() {
+        if (randomHelper == null) {
+            synchronized (DefaultRandomHelper.class) {
+                if (randomHelper == null) {
+                    randomHelper = new DefaultRandomHelper();
+                }
+            }
+        }
         return randomHelper;
     }
 
@@ -179,6 +214,13 @@ public class UtilsCreator {
      * 返回一个 DefaultMapHelper 实例(单例)<br/>
      */
     public static MapHelper getInstance_DefaultMapHelper() {
+        if (mapHelper == null) {
+            synchronized (DefaultMapHelper.class) {
+                if (mapHelper == null) {
+                    mapHelper = new DefaultMapHelper();
+                }
+            }
+        }
         return mapHelper;
     }
 }
