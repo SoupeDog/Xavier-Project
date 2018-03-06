@@ -59,11 +59,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
         switch (targetType) {
             case STRING:
                 for (int i = 0; i < targetArray.length; i++) {
-                    builder.append("'");
+                    builder.append("\"");
                     String item = propertiesHelper.stringNotNull(targetArray[i], "Unexpected Properties,index: " + i + ".");
                     item = hookArray_String(item);
                     builder.append(item);
-                    builder.append("'");
+                    builder.append("\"");
                     builder.append(",");
                 }
                 break;
@@ -103,11 +103,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
         switch (targetType) {
             case STRING:
                 for (int i = 0; i < targetArray.length; i++) {
-                    builder.append("'");
+                    builder.append("\"");
                     String item = propertiesHelper.stringNotNull(targetArray[i], minLength.intValue(), maxLength.intValue(), "Unexpected Properties,index: " + i + ".");
                     item = hookArray_String(item);
                     builder.append(item);
-                    builder.append("'");
+                    builder.append("\"");
                     builder.append(",");
                 }
                 break;
@@ -149,11 +149,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             switch (targetType) {
                 case STRING:
                     for (int i = 0; i < targetArray.length; i++) {
-                        builder.append("'");
+                        builder.append("\"");
                         String item = propertiesHelper.stringNotNull(method.invoke(targetArray[i]), "Unexpected Properties,index: " + i + ".");
                         item = hookArray_String(item);
                         builder.append(item);
-                        builder.append("'");
+                        builder.append("\"");
                         builder.append(",");
                     }
                     break;
@@ -202,11 +202,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             switch (targetType) {
                 case STRING:
                     for (int i = 0; i < targetArray.length; i++) {
-                        builder.append("'");
+                        builder.append("\"");
                         String item = propertiesHelper.stringNotNull(method.invoke(targetArray[i]), minLength.intValue(), maxLength.intValue(), "Unexpected Properties,index: " + i + ".");
                         item = hookArray_String(item);
                         builder.append(item);
-                        builder.append("'");
+                        builder.append("\"");
                         builder.append(",");
                     }
                     break;
@@ -253,11 +253,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
         switch (targetType) {
             case STRING:
                 for (int i = 0; i < targetList.size(); i++) {
-                    builder.append("'");
+                    builder.append("\"");
                     String item = propertiesHelper.stringNotNull(targetList.get(i), "Unexpected Properties,index: " + i + ".");
                     item = hookList_String(item);
                     builder.append(item);
-                    builder.append("'");
+                    builder.append("\"");
                     builder.append(",");
                 }
                 break;
@@ -297,11 +297,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
         switch (targetType) {
             case STRING:
                 for (int i = 0; i < targetList.size(); i++) {
-                    builder.append("'");
+                    builder.append("\"");
                     String item = propertiesHelper.stringNotNull(targetList.get(i), minLength.intValue(), maxLength.intValue(), "Unexpected Properties,index: " + i + ".");
                     item = hookList_String(item);
                     builder.append(item);
-                    builder.append("'");
+                    builder.append("\"");
                     builder.append(",");
                 }
                 break;
@@ -343,11 +343,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             switch (targetType) {
                 case STRING:
                     for (int i = 0; i < targetList.size(); i++) {
-                        builder.append("'");
+                        builder.append("\"");
                         String item = propertiesHelper.stringNotNull(method.invoke(targetList.get(i)), "Unexpected Properties,index: " + i + ".");
                         item = hookList_String(item);
                         builder.append(item);
-                        builder.append("'");
+                        builder.append("\"");
                         builder.append(",");
                     }
                     break;
@@ -397,11 +397,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             switch (targetType) {
                 case STRING:
                     for (int i = 0; i < targetList.size(); i++) {
-                        builder.append("'");
+                        builder.append("\"");
                         String item = propertiesHelper.stringNotNull(method.invoke(targetList.get(i)), minLength.intValue(), maxLength.intValue(), "Unexpected Properties,index: " + i + ".");
                         item = hookList_String(item);
                         builder.append(item);
-                        builder.append("'");
+                        builder.append("\"");
                         builder.append(",");
                     }
                     break;
@@ -451,11 +451,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             switch (targetType) {
                 case STRING:
                     for (V mapObj : targetMap.values()) {
-                        builder.append("'");
+                        builder.append("\"");
                         String item = propertiesHelper.stringNotNull(method.invoke(mapObj), "Unexpected Properties,value: " + mapObj.toString() + ".");
                         item = hookMap_String(item);
                         builder.append(item);
-                        builder.append("'");
+                        builder.append("\"");
                         builder.append(",");
                     }
                     break;
@@ -504,11 +504,11 @@ public abstract class BaseSQLHelper implements SQLHelper {
             switch (targetType) {
                 case STRING:
                     for (V mapObj : targetMap.values()) {
-                        builder.append("'");
+                        builder.append("\"");
                         String item = propertiesHelper.stringNotNull(method.invoke(mapObj), minLength.intValue(), maxLength.intValue(), "Unexpected Properties,value: " + mapObj.toString() + ".");
                         item = hookMap_String(item);
                         builder.append(item);
-                        builder.append("'");
+                        builder.append("\"");
                         builder.append(",");
                     }
                     break;
