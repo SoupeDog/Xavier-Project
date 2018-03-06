@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @since Jdk 1.8
  */
 @Service
-public class DefaultService extends DefaultUtils{
+public class DefaultService extends DefaultUtils {
     /**
      * 逆序常量字符串
      */
@@ -20,4 +20,12 @@ public class DefaultService extends DefaultUtils{
      * 正序序常量字符串
      */
     protected static final String ASC = "ASC";
+    /**
+     * 最后修改时间戳常量字符
+     */
+    protected static final String LASTUPDATETS = "lastUpdateTs";
+    /**
+     * 创建时间戳常量字符
+     */
+    protected static final String REGISTERTS = "registerTs";
 }
