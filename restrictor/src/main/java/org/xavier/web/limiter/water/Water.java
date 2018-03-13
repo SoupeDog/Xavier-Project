@@ -1,4 +1,4 @@
-package org.xavier.web.domain.water;
+package org.xavier.web.limiter.water;
 
 import org.springframework.http.HttpMethod;
 

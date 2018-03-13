@@ -1,6 +1,6 @@
-package org.xavier.web.domain.bucket;
+package org.xavier.web.limiter.restrictor;
 
-import org.xavier.web.domain.water.Water_AppId_Frequency;
+import org.xavier.web.limiter.water.Water_GUID_Frequency;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2018.03.09
  * @since Jdk 1.8
  */
-public class Bucket_AppId_Frequency extends Bucket<Water_AppId_Frequency> {
+public class Restrictor_GUID_Frequency extends Restrictor<Water_GUID_Frequency> {
 
     /**
      * 桶刷新间隔 单位(毫秒)
@@ -64,7 +64,7 @@ public class Bucket_AppId_Frequency extends Bucket<Water_AppId_Frequency> {
 
 
     @Override
-    public boolean is_Full(Water_AppId_Frequency water) {
+    public boolean is_Full(Water_GUID_Frequency water) {
         long currentTs = System.currentTimeMillis();
         if (currentTs - lastRefreshTs > refreshInterval) {
             refreshBucket();
@@ -83,7 +83,7 @@ public class Bucket_AppId_Frequency extends Bucket<Water_AppId_Frequency> {
     }
 
     @Override
-    public void contain(Water_AppId_Frequency water) {
+    public void contain(Water_GUID_Frequency water) {
         ConcurrentHashMap<String, AtomicInteger> counterMap = getCounterMap(water);
         AtomicInteger counter = counterMap.get(water.getAppId());
         counter.decrementAndGet();
@@ -104,7 +104,7 @@ public class Bucket_AppId_Frequency extends Bucket<Water_AppId_Frequency> {
         }
     }
 
-    private ConcurrentHashMap<String, AtomicInteger> getCounterMap(Water_AppId_Frequency water) {
+    private ConcurrentHashMap<String, AtomicInteger> getCounterMap(Water_GUID_Frequency water) {
         switch (water.getHttpMethod()) {
             case GET:
                 return counterMap_Get;

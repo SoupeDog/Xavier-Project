@@ -1,4 +1,4 @@
-package org.xavier.web.domain.api;
+package org.xavier.web.limiter.api;
 
 /**
  * 描述信息：<br/>

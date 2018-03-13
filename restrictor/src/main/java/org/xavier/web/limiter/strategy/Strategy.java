@@ -1,4 +1,4 @@
-package org.xavier.web.domain.strategy;
+package org.xavier.web.limiter.strategy;
 
 import org.springframework.http.HttpMethod;
 

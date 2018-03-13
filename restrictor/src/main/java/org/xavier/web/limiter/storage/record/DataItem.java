@@ -1,6 +1,6 @@
-package org.xavier.web.domain.storage.record;
+package org.xavier.web.limiter.storage.record;
 
-import org.xavier.web.domain.water.Water;
+import org.xavier.web.limiter.water.Water;
 
 /**
  * 描述信息：<br/>

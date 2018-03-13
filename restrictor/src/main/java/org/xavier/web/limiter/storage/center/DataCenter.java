@@ -1,8 +1,8 @@
-package org.xavier.web.domain.storage.center;
+package org.xavier.web.limiter.storage.center;
 
-import org.xavier.web.domain.api.Path;
-import org.xavier.web.domain.partition.Partition;
-import org.xavier.web.domain.storage.record.DataItem;
+import org.xavier.web.limiter.partition.Partition;
+import org.xavier.web.limiter.api.Path;
+import org.xavier.web.limiter.storage.record.DataItem;
 
 /**
  * 描述信息：<br/>
@@ -14,5 +14,8 @@ import org.xavier.web.domain.storage.record.DataItem;
  * @since Jdk 1.8
  */
 public interface DataCenter<D extends DataItem, P extends Partition, U extends Path> {
+    /**
+     * 查询目标 DataItem
+     */
     D getDataItem(P partition, U path);
 }

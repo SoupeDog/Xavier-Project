@@ -1,6 +1,6 @@
-package org.xavier.web.domain.bucket;
+package org.xavier.web.limiter.restrictor;
 
-import org.xavier.web.domain.water.Water;
+import org.xavier.web.limiter.water.Water;
 
 /**
  * 描述信息：<br/>
@@ -11,7 +11,7 @@ import org.xavier.web.domain.water.Water;
  * @date 2018.03.09
  * @since Jdk 1.8
  */
-public abstract class Bucket<T extends Water> {
+public abstract class Restrictor<T extends Water> {
     /**
      * 检测流量容器是否满载(满载时抛出异常)
      *
