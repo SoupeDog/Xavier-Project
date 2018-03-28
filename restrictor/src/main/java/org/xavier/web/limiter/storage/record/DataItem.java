@@ -16,7 +16,6 @@ public abstract class DataItem<W extends Water> {
      * 执行一次业务操作数据更新
      */
     public abstract Boolean run(W water);
-
     /**
      * @return 是否准许访问业务执行
      */

@@ -4,7 +4,7 @@ import org.xavier.web.limiter.water.Water;
 
 /**
  * 描述信息：<br/>
- * 桶 描述流量容纳能力
+ * 限流器
  *
  * @author Xavier
  * @version 1.0

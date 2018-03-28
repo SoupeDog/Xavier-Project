@@ -10,13 +10,16 @@ package org.xavier.web.limiter.partition;
  * @since Jdk 1.8
  */
 public class Partition_GUID extends Partition{
-    private String appId;
+    /**
+     * 唯一标识
+     */
+    private String GUID;
 
-    public String getAppId() {
-        return appId;
+    public String getGUID() {
+        return GUID;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setGUID(String GUID) {
+        this.GUID = GUID;
     }
 }

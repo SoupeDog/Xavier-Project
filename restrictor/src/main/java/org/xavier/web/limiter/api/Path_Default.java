@@ -1,8 +1,10 @@
 package org.xavier.web.limiter.api;
 
+import org.springframework.http.HttpMethod;
+
 /**
  * 描述信息：<br/>
- * 字符串描述接口路径
+ * 字符串式接口描述
  *
  * @author Xavier
  * @version 1.0
@@ -14,4 +16,9 @@ public class Path_Default extends Path {
      * 接口请求路径
      */
     private String path;
+
+    /**
+     * 请求类型
+     */
+    private HttpMethod httpMethod;
 }

@@ -2,7 +2,7 @@ package org.xavier.web.limiter.api;
 
 /**
  * 描述信息：<br/>
- * 接口路径基类
+ * 接口描述基类
  *
  * @author Xavier
  * @version 1.0

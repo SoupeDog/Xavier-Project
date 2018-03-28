@@ -1,6 +1,7 @@
 package org.xavier.web.limiter.water;
 
-import org.springframework.http.HttpMethod;
+import org.xavier.web.limiter.api.Path;
+import org.xavier.web.limiter.partition.Partition;
 
 /**
  * 描述信息：<br/>
@@ -11,29 +12,32 @@ import org.springframework.http.HttpMethod;
  * @date 2018.03.09
  * @since Jdk 1.8
  */
-public class Water {
-    /**
-     * 请求路径信息
-     */
-    protected String path;
-    /**
-     * 请求类型信息
-     */
-    protected HttpMethod httpMethod;
+public class Water<P extends Partition,U extends Path> {
+    protected U path;
 
-    public String getPath() {
+    protected P partition;
+
+    public Water() {
+    }
+
+    public Water(U path, P partition) {
+        this.path = path;
+        this.partition = partition;
+    }
+
+    public U getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(U path) {
         this.path = path;
     }
 
-    public HttpMethod getHttpMethod() {
-        return httpMethod;
+    public P getPartition() {
+        return partition;
     }
 
-    public void setHttpMethod(HttpMethod httpMethod) {
-        this.httpMethod = httpMethod;
+    public void setPartition(P partition) {
+        this.partition = partition;
     }
 }

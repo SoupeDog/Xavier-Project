@@ -1,6 +1,5 @@
 package org.xavier.web.limiter.strategy;
 
-
 /**
  * 描述信息：<br/>
  * 根据 唯一标识 限制次数策略
@@ -16,5 +15,8 @@ public class Strategy_GUID_Frequency extends Strategy {
      */
     private Long refreshInterval;
 
-
+    /**
+     * 单位间隔时间内最大访问次数
+     */
+    private Integer maxLimit;
 }

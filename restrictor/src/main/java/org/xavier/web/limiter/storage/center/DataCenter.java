@@ -3,6 +3,7 @@ package org.xavier.web.limiter.storage.center;
 import org.xavier.web.limiter.partition.Partition;
 import org.xavier.web.limiter.api.Path;
 import org.xavier.web.limiter.storage.record.DataItem;
+import org.xavier.web.limiter.strategy.Strategy;
 
 /**
  * 描述信息：<br/>
@@ -13,9 +14,14 @@ import org.xavier.web.limiter.storage.record.DataItem;
  * @date 2018.03.12
  * @since Jdk 1.8
  */
-public interface DataCenter<D extends DataItem, P extends Partition, U extends Path> {
+public interface DataCenter<S extends Strategy, D extends DataItem, P extends Partition, U extends Path> {
     /**
      * 查询目标 DataItem
      */
     D getDataItem(P partition, U path);
+
+    /**
+     * 查询目标 限流策略
+     */
+    S getStrategy(P partition, U path);
 }
