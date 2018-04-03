@@ -1,5 +1,6 @@
-package org.xavier.common.utils.base;
+package org.xavier.common.utils.impl;
 
+import org.xavier.common.exception.PropertiesException_Runtime;
 import org.xavier.common.exception.base.ServiceException_Runtime;
 import org.xavier.common.utils.TimeHelper;
 
@@ -14,7 +15,7 @@ import java.time.*;
  * @date 2018/4/2
  * @since Jdk 1.8
  */
-public class BaseTimeHelper implements TimeHelper {
+public class DefaultTimeHelper implements TimeHelper {
     /**
      * 默认该工具环境为 东八区
      */
@@ -28,28 +29,23 @@ public class BaseTimeHelper implements TimeHelper {
      */
     public static final Integer DAY_SECOND = 86400;
 
-    public static void main(String[] args) {
-        BaseTimeHelper baseTimeHelper = new BaseTimeHelper();
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(2018, 2, 21, 0, 0, 0, 0, CHINA);
-        System.out.println(baseTimeHelper.getDeadlineRemain(1));
-    }
-
     @Override
     public Long getDeadlineRemain(Integer x) {
         ZonedDateTime currentDateTime = ZonedDateTime.now(CHINA);
         ZonedDateTime aimDateTime = ZonedDateTime.of(currentDateTime.getYear(), currentDateTime.getMonth().getValue(), currentDateTime.getDayOfMonth() + x, 0, 0, 0, 0, CHINA);
         if (!aimDateTime.isAfter(currentDateTime)) {
-            throw new ServiceException_Runtime("已过期");
+            throw new PropertiesException_Runtime("已过期");
         }
         return aimDateTime.toInstant().toEpochMilli() - currentDateTime.toInstant().toEpochMilli();
     }
 
     @Override
-    public Integer getDeadlineRemain(ZonedDateTime dommsday) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime dommsdayDateTime = LocalDateTime.ofInstant(dommsday.toInstant(), ZoneId.systemDefault());
-        Period period = Period.between(currentDateTime.toLocalDate(), dommsdayDateTime.toLocalDate());
-        return period.getYears();
+    public Long getDeadlineRemain(ZonedDateTime aimDateTime) {
+        ZonedDateTime currentDateTime = ZonedDateTime.now(CHINA);
+        if (!aimDateTime.isAfter(currentDateTime)) {
+            throw new PropertiesException_Runtime("已过期");
+        }
+        return aimDateTime.toInstant().toEpochMilli() - currentDateTime.toInstant().toEpochMilli();
     }
 
     public static ZoneId getZoneId() {

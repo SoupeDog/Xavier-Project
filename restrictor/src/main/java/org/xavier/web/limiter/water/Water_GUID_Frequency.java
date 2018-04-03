@@ -1,6 +1,6 @@
 package org.xavier.web.limiter.water;
 
-import org.xavier.web.limiter.api.Path_Default;
+import org.xavier.web.limiter.api.ApiInfo_Default;
 import org.xavier.web.limiter.partition.Partition_GUID;
 
 /**
@@ -12,5 +12,5 @@ import org.xavier.web.limiter.partition.Partition_GUID;
  * @date 2018.03.09
  * @since Jdk 1.8
  */
-public class Water_GUID_Frequency extends Water<Partition_GUID, Path_Default> {
+public class Water_GUID_Frequency extends Water<Partition_GUID, ApiInfo_Default> {
 }

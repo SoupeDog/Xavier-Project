@@ -22,12 +22,12 @@ public interface TimeHelper {
     Long getDeadlineRemain(Integer x);
 
     /**
-     * 获取当前瞬时距离 "审判日" 的剩余毫秒数
+     * 获取当前瞬时距离目标时间的剩余毫秒数
      *
-     * @param dommsday
-     * @return
+     * @param aimDateTime 目标时间
+     * @return 当前时间距离 目标时间的剩余毫秒数
      */
-    Integer getDeadlineRemain(ZonedDateTime dommsday);
+    Long getDeadlineRemain(ZonedDateTime aimDateTime);
 
 
 }

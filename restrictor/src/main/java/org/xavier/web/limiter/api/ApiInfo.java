@@ -9,5 +9,5 @@ package org.xavier.web.limiter.api;
  * @date 2018.03.12
  * @since Jdk 1.8
  */
-public class Path {
+public class ApiInfo {
 }

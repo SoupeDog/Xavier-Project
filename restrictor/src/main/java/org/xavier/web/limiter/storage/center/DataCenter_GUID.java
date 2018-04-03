@@ -1,7 +1,7 @@
 package org.xavier.web.limiter.storage.center;
 
 import org.springframework.http.HttpMethod;
-import org.xavier.web.limiter.api.Path_Default;
+import org.xavier.web.limiter.api.ApiInfo_Default;
 import org.xavier.web.limiter.partition.Partition_GUID;
 import org.xavier.web.limiter.storage.record.DataItem_GUID_Frequency;
 import org.xavier.web.limiter.strategy.Strategy_GUID_Frequency;
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2018.03.12
  * @since Jdk 1.8
  */
-public class DataCenter_GUID implements DataCenter<Strategy_GUID_Frequency, DataItem_GUID_Frequency, Partition_GUID, Path_Default> {
+public class DataCenter_GUID implements DataCenter<Strategy_GUID_Frequency, DataItem_GUID_Frequency, Partition_GUID, ApiInfo_Default> {
 
     /**
      * 流量计数器池<appId,计数器>
@@ -44,14 +44,14 @@ public class DataCenter_GUID implements DataCenter<Strategy_GUID_Frequency, Data
 
 
     @Override
-    public DataItem_GUID_Frequency getDataItem(Partition_GUID partition, Path_Default path) {
+    public DataItem_GUID_Frequency getDataItem(Partition_GUID partition, ApiInfo_Default path) {
 
 
         return null;
     }
 
     @Override
-    public Strategy_GUID_Frequency getStrategy(Partition_GUID partition, Path_Default path) {
+    public Strategy_GUID_Frequency getStrategy(Partition_GUID partition, ApiInfo_Default path) {
         return null;
     }
 }

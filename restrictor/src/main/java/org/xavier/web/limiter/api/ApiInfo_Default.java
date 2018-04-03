@@ -11,7 +11,7 @@ import org.springframework.http.HttpMethod;
  * @date 2018.03.12
  * @since Jdk 1.8
  */
-public class Path_Default extends Path {
+public class ApiInfo_Default extends ApiInfo {
     /**
      * 接口请求路径
      */

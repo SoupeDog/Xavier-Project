@@ -1,6 +1,6 @@
 package org.xavier.web.limiter.water;
 
-import org.xavier.web.limiter.api.Path;
+import org.xavier.web.limiter.api.ApiInfo;
 import org.xavier.web.limiter.partition.Partition;
 
 /**
@@ -12,7 +12,7 @@ import org.xavier.web.limiter.partition.Partition;
  * @date 2018.03.09
  * @since Jdk 1.8
  */
-public class Water<P extends Partition,U extends Path> {
+public class Water<P extends Partition,U extends ApiInfo> {
     protected U path;
 
     protected P partition;

@@ -1,7 +1,7 @@
 package org.xavier.web.limiter.strategy;
 
 
-import org.xavier.web.limiter.api.Path;
+import org.xavier.web.limiter.api.ApiInfo;
 import org.xavier.web.limiter.partition.Partition;
 
 /**
@@ -13,26 +13,25 @@ import org.xavier.web.limiter.partition.Partition;
  * @date 2018.03.12
  * @since Jdk 1.8
  */
-public class Strategy<P extends Partition, U extends Path> {
-    protected U path;
+public class Strategy<P extends Partition, A extends ApiInfo> {
+    protected A path;
 
     protected P partition;
 
-    protected R resetInfo;
 
     public Strategy() {
     }
 
-    public Strategy(U path, P partition) {
+    public Strategy(A path, P partition) {
         this.path = path;
         this.partition = partition;
     }
 
-    public U getPath() {
+    public A getPath() {
         return path;
     }
 
-    public void setPath(U path) {
+    public void setPath(A path) {
         this.path = path;
     }
 

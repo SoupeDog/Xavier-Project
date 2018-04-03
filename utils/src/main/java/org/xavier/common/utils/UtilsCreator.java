@@ -20,6 +20,7 @@ public class UtilsCreator {
     private static volatile JsonHelper jsonHelper = null;
     private static volatile RandomHelper randomHelper = null;
     private static volatile MapHelper mapHelper = null;
+    private static volatile TimeHelper timeHelper = null;
 
 
     private UtilsCreator() {
@@ -222,5 +223,19 @@ public class UtilsCreator {
             }
         }
         return mapHelper;
+    }
+
+    /**
+     * 返回一个 DefaultTimeHelper 实例(单例)<br/>
+     */
+    public static TimeHelper getInstance_DefaultTimeHelper() {
+        if (timeHelper == null) {
+            synchronized (DefaultTimeHelper.class) {
+                if (timeHelper == null) {
+                    timeHelper = new DefaultTimeHelper();
+                }
+            }
+        }
+        return timeHelper;
     }
 }

@@ -1,7 +1,7 @@
 package org.xavier.web.limiter.storage.center;
 
 import org.xavier.web.limiter.partition.Partition;
-import org.xavier.web.limiter.api.Path;
+import org.xavier.web.limiter.api.ApiInfo;
 import org.xavier.web.limiter.storage.record.DataItem;
 import org.xavier.web.limiter.strategy.Strategy;
 
@@ -14,7 +14,7 @@ import org.xavier.web.limiter.strategy.Strategy;
  * @date 2018.03.12
  * @since Jdk 1.8
  */
-public interface DataCenter<S extends Strategy, D extends DataItem, P extends Partition, U extends Path> {
+public interface DataCenter<S extends Strategy, D extends DataItem, P extends Partition, U extends ApiInfo> {
     /**
      * 查询目标 DataItem
      */
