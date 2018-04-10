@@ -2,7 +2,11 @@ package org.xavier.common.utils;
 
 import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
 import org.xavier.common.utils.base.*;
+import org.xavier.common.utils.bo.encrypt.WorkMode_AES;
 import org.xavier.common.utils.impl.*;
+
+import java.security.Security;
+import java.util.UUID;
 
 /**
  * 描述信息：<br/>
@@ -21,6 +25,11 @@ public class UtilsCreator {
     private static volatile RandomHelper randomHelper = null;
     private static volatile MapHelper mapHelper = null;
     private static volatile TimeHelper timeHelper = null;
+    private static volatile EncryptHelper_AES encryptHelper_aes = null;
+
+    static {
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+    }
 
 
     private UtilsCreator() {
@@ -237,5 +246,18 @@ public class UtilsCreator {
             }
         }
         return timeHelper;
+    }
+    /**
+     * 返回一个 EncryptHelper_AES 实例(单例)<br/>
+     */
+    public static EncryptHelper_AES getInstance_EncryptHelper_AES() {
+        if (encryptHelper_aes == null) {
+            synchronized (DefaultTimeHelper.class) {
+                if (encryptHelper_aes == null) {
+                    encryptHelper_aes = new EncryptHelper_AES();
+                }
+            }
+        }
+        return encryptHelper_aes;
     }
 }
