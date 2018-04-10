@@ -39,6 +39,12 @@ public abstract class BaseListHelper implements ListHelper {
         this.propertiesHelper = propertiesHelper;
     }
 
+    @Override
+    public void listNotEmpty(List list, String targetDescription) {
+        if (list == null || list.size() < 1) {
+            throw new PropertiesException_Runtime("[" + targetDescription + "] can't be null,and it can't be empty.");
+        }
+    }
 
     @Override
     public <T> ArrayList<T> createSingleList(T target) {

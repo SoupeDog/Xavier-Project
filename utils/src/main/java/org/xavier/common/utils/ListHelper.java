@@ -18,6 +18,14 @@ import java.util.List;
 public interface ListHelper {
 
     /**
+     * 校验 目标 list 不可为空 且 size 不小于 1
+     *
+     * @param list 待校验 List
+     * @param targetDescription 待校验描述信息
+     */
+    void listNotEmpty(List list, String targetDescription);
+
+    /**
      * 快捷创建一个只有一个元素的 ArrayList
      */
     <T> ArrayList<T> createSingleList(T target);
