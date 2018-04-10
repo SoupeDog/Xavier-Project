@@ -1,5 +1,6 @@
 package org.xavier.common.utils.base;
 
+import org.xavier.common.exception.PropertiesException_Runtime;
 import org.xavier.common.utils.MapHelper;
 
 import java.util.*;
@@ -14,13 +15,19 @@ import java.util.*;
  * @since Jdk 1.8
  */
 public abstract class BaseMapHelper implements MapHelper {
-
     /**
      * 取到元素时触发，可能为 null
      *
      * @param item 假定的第一个元素
      */
     protected abstract <T> T hook_getFirstItem(T item);
+
+    @Override
+    public void mapNotEmpty(Map map, String targetDescription) {
+        if (map == null || map.size() < 1) {
+            throw new PropertiesException_Runtime("[" + targetDescription + "] can't be null,and it can't be empty.");
+        }
+    }
 
     @Override
     public <K, V> V getFirstItem(Map<K, V> targetMap, Class<K> keyClass, Class<V> valueClass) {

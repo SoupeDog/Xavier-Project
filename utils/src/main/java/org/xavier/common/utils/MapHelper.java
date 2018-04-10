@@ -1,9 +1,6 @@
 package org.xavier.common.utils;
 
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * 描述信息：<br/>
@@ -15,6 +12,13 @@ import java.util.TreeMap;
  * @since Jdk 1.8
  */
 public interface MapHelper {
+    /**
+     * 校验 目标 map 不可为空 且 size 不小于 1
+     *
+     * @param map 待校验 map
+     * @param targetDescription 待校验描述信息
+     */
+    void mapNotEmpty(Map map, String targetDescription);
 
     /**
      * 从目标 Map 中取出第一个元素(可能为空)
