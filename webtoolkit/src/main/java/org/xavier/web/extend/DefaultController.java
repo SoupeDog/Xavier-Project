@@ -27,7 +27,6 @@ public class DefaultController extends DefaultUtils {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> serviceErrorHandler(Throwable e) {
-        e.printStackTrace();
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         builder.contentType(mediaType);
