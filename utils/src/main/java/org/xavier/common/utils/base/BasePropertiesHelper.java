@@ -100,7 +100,7 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
     @Override
     public Boolean is_Null_Or_Empty(Object target) {
         if (target == null) {
-            return false;
+            return true;
         } else {
             return target.toString().trim().equals("");
         }
