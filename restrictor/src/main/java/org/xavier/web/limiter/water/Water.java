@@ -15,6 +15,7 @@ import org.xavier.web.limiter.partition.Partition;
 public class Water<P extends Partition,U extends ApiInfo> {
     protected U path;
 
+
     protected P partition;
 
     public Water() {
