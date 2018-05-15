@@ -17,7 +17,6 @@ public class RestrictorContainer {
     /**
      * 桶容器名
      */
-
     private String name;
     /**
      * 桶池
