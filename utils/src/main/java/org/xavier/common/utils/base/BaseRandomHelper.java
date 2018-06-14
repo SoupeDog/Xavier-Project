@@ -4,6 +4,7 @@ import org.xavier.common.exception.Universal_400_X_Exception_Runtime;
 import org.xavier.common.enums.StringCategory;
 import org.xavier.common.utils.RandomHelper;
 
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -42,5 +43,10 @@ public abstract class BaseRandomHelper implements RandomHelper {
             stringBuilder.append(randomTemp);
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String getUUID() {
+        return UUID.randomUUID().toString().replace("-","");
     }
 }

@@ -22,4 +22,9 @@ public interface RandomHelper {
      */
     String getRandomString(Integer size, StringCategory... stringCategory);
 
+    /**
+     * 返回 32位无空格 UUID
+     */
+    String getUUID();
+
 }
