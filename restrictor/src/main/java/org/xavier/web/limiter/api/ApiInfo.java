@@ -10,4 +10,5 @@ package org.xavier.web.limiter.api;
  * @since Jdk 1.8
  */
 public class ApiInfo {
+
 }
