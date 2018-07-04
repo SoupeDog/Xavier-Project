@@ -1,6 +1,9 @@
 package org.xavier.web.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -22,8 +25,6 @@ import org.xavier.web.logger.XavierLoggerImpl;
  */
 @Configuration
 public class XavierProjectDefaultBean {
-    @Autowired
-    ObjectMapper mapper;
 
     @Bean
     public PropertiesHelper propertiesHelper() {
@@ -44,6 +45,10 @@ public class XavierProjectDefaultBean {
     @Bean
     @ConditionalOnClass(BaseJsonHelper.class)
     public JsonHelper jsonHelper_Log() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, false);// 开启缩进
+        mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);// 开启允许数字以 0 开头
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); //属性为NULL不序列化
         return new BaseJsonHelper(mapper) {
             @Override
             protected void hookGetValueByKey(ColumnType resultType, Object target) {
@@ -64,7 +69,7 @@ public class XavierProjectDefaultBean {
 
     @Bean
     public XavierLoggerImpl logger(JsonHelper jsonHelper_Log) {
-        XavierLoggerImpl xavierLogger = new XavierLoggerImpl(LogManager.getLogger("XavierLogger"),jsonHelper_Log);
+        XavierLoggerImpl xavierLogger = new XavierLoggerImpl(LogManager.getLogger("XavierLogger"), jsonHelper_Log);
         return xavierLogger;
     }
 
