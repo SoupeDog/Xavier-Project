@@ -15,7 +15,7 @@ import org.xavier.common.utils.JsonHelper;
 public class XavierLoggerImpl implements XavierLogger {
     private Logger logger;
 
-    private static JsonHelper jsonHelper;
+    private JsonHelper jsonHelper;
 
     public XavierLoggerImpl() {
     }
@@ -23,6 +23,14 @@ public class XavierLoggerImpl implements XavierLogger {
     public XavierLoggerImpl(Logger log4j, JsonHelper jsonHelper) {
         this.logger = log4j;
         this.jsonHelper = jsonHelper;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public JsonHelper getJsonHelper() {
+        return jsonHelper;
     }
 
     @Override
