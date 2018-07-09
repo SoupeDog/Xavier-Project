@@ -74,7 +74,6 @@ public class ControllerLogAspect {
         Object retVal = joinPoint.proceed();
         logOBJ.initResponse(retVal);
         logOBJ.setEndTs(System.currentTimeMillis());
-        System.out.println(UtilsCreator.getInstance_DefaultJsonHelper().format(logOBJ));
         // stop stopwatch
         return retVal;
     }
