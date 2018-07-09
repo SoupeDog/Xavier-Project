@@ -58,11 +58,10 @@ public class DefaultController extends DefaultUtils {
         return builder.body(entity);
     }
 
-    public ResponseEntity<?> fail(HttpMethod httpMethod, String path, Object requestObject, HttpStatus status, Float errorCode, String msg) {
+    public ResponseEntity<?> fail(HttpStatus status, Float errorCode, String msg) {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(status);
         builder.contentType(mediaType);
-//        warn_RequestLog_Async(httpMethod, path, requestObject, errorCode, msg);
         return builder.body(new ErrorResult(errorCode, msg));
     }
 
