@@ -2,6 +2,7 @@ package org.xavier.common.utils.base;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -53,6 +54,7 @@ public abstract class BaseJsonHelper implements JsonHelper {
 
     protected void initDefaultObjectMapper() {
         mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);//反序列化出现多余属性时,选择忽略不抛出异常
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);// 开启缩进
         mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);// 开启允许数字以 0 开头
     }

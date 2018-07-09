@@ -32,6 +32,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--Spring Boot Test 基础环境-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--切面注解-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.13</version>
+        </dependency>
         <!--log4j2-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

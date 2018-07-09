@@ -62,7 +62,7 @@ public class DefaultController extends DefaultUtils {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(status);
         builder.contentType(mediaType);
-        warn_RequestLog_Async(httpMethod, path, requestObject, errorCode, msg);
+//        warn_RequestLog_Async(httpMethod, path, requestObject, errorCode, msg);
         return builder.body(new ErrorResult(errorCode, msg));
     }
 
