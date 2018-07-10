@@ -40,8 +40,12 @@ public class DefaultControllerLog extends ControllerLog {
 
     @Override
     public void initResponse(Object responseOBJ) {
-        ResponseEntity<?> responseEntity = (ResponseEntity<?>) responseOBJ;
-        this.httpStatus = responseEntity.getStatusCode().value();
-        this.responseProperties = responseEntity.getBody();
+        if (responseOBJ != null) {
+            ResponseEntity<?> responseEntity = (ResponseEntity<?>) responseOBJ;
+            this.httpStatus = responseEntity.getStatusCode().value();
+            this.responseProperties = responseEntity.getBody();
+        } else {
+            this.httpStatus = 500;
+        }
     }
 }

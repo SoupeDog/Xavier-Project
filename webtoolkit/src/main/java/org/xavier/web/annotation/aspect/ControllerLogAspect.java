@@ -97,22 +97,26 @@ public class ControllerLogAspect {
         Object[] propertiesValue = joinPoint.getArgs();
         logOBJ.setStartTs(System.currentTimeMillis());
         logOBJ.initRequest(paths, ignoreProperties, propertiesNames, propertiesValue);
-        Object retVal = joinPoint.proceed();
-        logOBJ.initResponse(retVal);
-        logOBJ.setEndTs(System.currentTimeMillis());
-        String logStringVal = logger.getJsonHelper().format(logOBJ);
-        switch (logOBJ.httpStatus) {
-            case 200:
-                logger.always(logStringVal);
-                break;
-            case 400:
-            case 403:
-            case 404:
-            case 409:
-                logger.warn(logStringVal);
-                break;
-            default:
-                logger.error(logStringVal);
+        Object retVal = null;
+        try {
+            retVal = joinPoint.proceed();
+        } finally {
+            logOBJ.initResponse(retVal);
+            logOBJ.setEndTs(System.currentTimeMillis());
+            String logStringVal = logger.getJsonHelper().format(logOBJ);
+            switch (logOBJ.httpStatus) {
+                case 200:
+                    logger.always(logStringVal);
+                    break;
+                case 400:
+                case 403:
+                case 404:
+                case 409:
+                    logger.warn(logStringVal);
+                    break;
+                default:
+                    logger.error(logStringVal);
+            }
         }
         // stop stopwatch
         return retVal;
