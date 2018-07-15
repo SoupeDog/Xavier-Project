@@ -53,7 +53,7 @@ public class ControllerLogAspect {
 
             }
         };
-        this.logger = new XavierLoggerImpl(LogManager.getLogger("XavierLogger"), jsonHelper_Log);
+        this.logger = new XavierLoggerImpl(LogManager.getLogger("ControllerLog"), jsonHelper_Log);
     }
 
     @Pointcut("@annotation(org.xavier.web.annotation.EnableControllerLog) && @annotation(org.springframework.web.bind.annotation.GetMapping)")
