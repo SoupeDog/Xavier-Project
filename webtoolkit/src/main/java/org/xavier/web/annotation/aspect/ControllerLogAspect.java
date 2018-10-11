@@ -39,6 +39,10 @@ import java.lang.reflect.Method;
 @Component
 public class ControllerLogAspect {
     private XavierLoggerImpl logger;
+    private static Boolean enableControllerLog = true;
+    private static Boolean enablealwayslog = true;
+    private static Boolean enableRequestLog = true;
+    private static Boolean enableResponselog = true;
 
     public ControllerLogAspect() {
         ObjectMapper mapper = new ObjectMapper();
@@ -72,39 +76,42 @@ public class ControllerLogAspect {
 
     @Around("pointcutGet() || pointcutPost() || pointcutPut() || pointcutDelete()")
     public Object saveLog(ProceedingJoinPoint joinPoint) throws Throwable {
-        // start stopwatch
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Method currentMethod = signature.getMethod();
-        ControllerLog logOBJ = new DefaultControllerLog();
-        String[] paths = new String[0];
-        if (currentMethod.isAnnotationPresent(GetMapping.class)) {
-            paths = currentMethod.getAnnotation(GetMapping.class).value();
-            logOBJ.setHttpMethod(HttpMethod.GET);
-        } else if (currentMethod.isAnnotationPresent(PostMapping.class)) {
-            paths = currentMethod.getAnnotation(PostMapping.class).value();
-            logOBJ.setHttpMethod(HttpMethod.POST);
-        } else if (currentMethod.isAnnotationPresent(PutMapping.class)) {
-            paths = currentMethod.getAnnotation(PutMapping.class).value();
-            logOBJ.setHttpMethod(HttpMethod.PUT);
-        } else if (currentMethod.isAnnotationPresent(DeleteMapping.class)) {
-            paths = currentMethod.getAnnotation(DeleteMapping.class).value();
-            logOBJ.setHttpMethod(HttpMethod.DELETE);
-        }
-        String[] ignoreProperties = currentMethod.getAnnotation(EnableControllerLog.class).ignoreProperties();
-        String[] propertiesNames = signature.getParameterNames();
-        Object[] propertiesValue = joinPoint.getArgs();
-        logOBJ.setStartTs(System.currentTimeMillis());
-        logOBJ.initRequest(paths, ignoreProperties, propertiesNames, propertiesValue);
-        Object retVal = null;
-        try {
-            retVal = joinPoint.proceed();
-        } finally {
-            logOBJ.initResponse(retVal);
+        Object returnVal = joinPoint.proceed();
+        if (enableControllerLog) {
+            MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+            Method currentMethod = signature.getMethod();
+            ControllerLog logOBJ = new DefaultControllerLog();
+            String[] paths = new String[0];
+            if (currentMethod.isAnnotationPresent(GetMapping.class)) {
+                paths = currentMethod.getAnnotation(GetMapping.class).value();
+                logOBJ.setHttpMethod(HttpMethod.GET);
+            } else if (currentMethod.isAnnotationPresent(PostMapping.class)) {
+                paths = currentMethod.getAnnotation(PostMapping.class).value();
+                logOBJ.setHttpMethod(HttpMethod.POST);
+            } else if (currentMethod.isAnnotationPresent(PutMapping.class)) {
+                paths = currentMethod.getAnnotation(PutMapping.class).value();
+                logOBJ.setHttpMethod(HttpMethod.PUT);
+            } else if (currentMethod.isAnnotationPresent(DeleteMapping.class)) {
+                paths = currentMethod.getAnnotation(DeleteMapping.class).value();
+                logOBJ.setHttpMethod(HttpMethod.DELETE);
+            }
+            String[] ignoreProperties = currentMethod.getAnnotation(EnableControllerLog.class).ignoreProperties();
+            String[] propertiesNames = signature.getParameterNames();
+            Object[] propertiesValue = joinPoint.getArgs();
+            logOBJ.setStartTs(System.currentTimeMillis());
+            if (enableRequestLog) {
+                logOBJ.initRequest(paths, ignoreProperties, propertiesNames, propertiesValue);
+            }
+            if (enableResponselog) {
+                logOBJ.initResponse(returnVal);
+            }
             logOBJ.setEndTs(System.currentTimeMillis());
             String logStringVal = logger.getJsonHelper().format(logOBJ);
             switch (logOBJ.httpStatus) {
                 case 200:
-                    logger.always(logStringVal);
+                    if (enablealwayslog) {
+                        logger.always(logStringVal);
+                    }
                     break;
                 case 400:
                 case 403:
@@ -116,8 +123,38 @@ public class ControllerLogAspect {
                     logger.error(logStringVal);
             }
         }
-        // stop stopwatch
-        return retVal;
+        return returnVal;
     }
 
+    public static Boolean getEnableControllerLog() {
+        return enableControllerLog;
+    }
+
+    public static void setEnableControllerLog(Boolean enableControllerLog) {
+        ControllerLogAspect.enableControllerLog = enableControllerLog;
+    }
+
+    public static Boolean getEnablealwayslog() {
+        return enablealwayslog;
+    }
+
+    public static void setEnablealwayslog(Boolean enablealwayslog) {
+        ControllerLogAspect.enablealwayslog = enablealwayslog;
+    }
+
+    public static Boolean getEnableRequestLog() {
+        return enableRequestLog;
+    }
+
+    public static void setEnableRequestLog(Boolean enableRequestLog) {
+        ControllerLogAspect.enableRequestLog = enableRequestLog;
+    }
+
+    public static Boolean getEnableResponselog() {
+        return enableResponselog;
+    }
+
+    public static void setEnableResponselog(Boolean enableResponselog) {
+        ControllerLogAspect.enableResponselog = enableResponselog;
+    }
 }
