@@ -19,10 +19,9 @@ public class DefaultControllerLog extends ControllerLog {
         LinkedHashMap<String, Object> requestPropertiesTemp = new LinkedHashMap();
         for (int i = 0; i < propertiesValue.length; i++) {
             String key = propertiesNames[i];
-            if (isExists(key, ignoreProperties)) {
-                continue;
+            if (!isExists(key, ignoreProperties)) {
+                requestPropertiesTemp.put(key, propertiesValue[i]);
             }
-            requestPropertiesTemp.put(key, propertiesValue[i]);
         }
         if (requestPropertiesTemp.size() > 0) {
             this.requestProperties = requestPropertiesTemp;
@@ -30,12 +29,14 @@ public class DefaultControllerLog extends ControllerLog {
     }
 
     public Boolean isExists(String key, String[] target) {
+        Boolean result = false;
         for (String temp : target) {
             if (key.equals(temp)) {
-                return true;
+                result = true;
+                break;
             }
         }
-        return false;
+        return result;
     }
 
     @Override
