@@ -30,6 +30,7 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                     <groupId>org.springframework.boot</groupId>
                 </exclusion>
+
                 <exclusion>
                     <artifactId>hibernate-validator</artifactId>
                     <groupId>org.hibernate.validator</groupId>
