@@ -54,9 +54,12 @@ public abstract class BaseJsonHelper implements JsonHelper {
 
     protected void initDefaultObjectMapper() {
         mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);//反序列化出现多余属性时,选择忽略不抛出异常
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);// 开启缩进
-        mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);// 开启允许数字以 0 开头
+        //反序列化出现多余属性时,选择忽略不抛出异常
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // 开启缩进
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        // 开启允许数字以 0 开头
+        mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
     }
 
     protected abstract void hookGetValueByKey(ColumnType resultType, Object target);
@@ -101,7 +104,8 @@ public abstract class BaseJsonHelper implements JsonHelper {
                 case LIST:
                 case MAP:
                 case OBJECT:
-                    root = mapper.readTree(mapper.writeValueAsString(targetObj));//TODO 可优化为遍历
+                    //TODO 可优化为遍历
+                    root = mapper.readTree(mapper.writeValueAsString(targetObj));
                     break;
                 default:
                     new Universal_500_X_Exception_Runtime(555F, "[jsonType] should be String,List,Map or Object.(1)");
@@ -150,7 +154,8 @@ public abstract class BaseJsonHelper implements JsonHelper {
                 case LIST:
                 case MAP:
                 case OBJECT:
-                    root = mapper.readTree(mapper.writeValueAsString(targetObj));//TODO 可优化为遍历
+                    //TODO 可优化为遍历
+                    root = mapper.readTree(mapper.writeValueAsString(targetObj));
                     break;
                 default:
                     new Universal_500_X_Exception_Runtime(555F, "[jsonType] should be String,List,Map or Object.(2)");

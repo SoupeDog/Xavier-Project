@@ -20,6 +20,7 @@ public class BaseEncryptHelper implements EncryptHelper {
     /**
      * 获取 Base 64 Encoder
      */
+    @Override
     public Base64.Encoder getBase64Encoder(Base64Mode type) {
         Base64.Encoder encoder = null;
         switch (type) {
@@ -35,6 +36,7 @@ public class BaseEncryptHelper implements EncryptHelper {
     /**
      * 获取 Base 64 Decoder
      */
+    @Override
     public Base64.Decoder getBase64Decoder(Base64Mode type) {
         Base64.Decoder decoder = null;
         switch (type) {
