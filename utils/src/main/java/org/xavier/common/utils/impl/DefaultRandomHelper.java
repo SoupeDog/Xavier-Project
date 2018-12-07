@@ -15,13 +15,16 @@ public class DefaultRandomHelper extends BaseRandomHelper {
     @Override
     protected char hook_singleChar(char singleChar) {
         switch (singleChar) {
-            case '0':// 数字0被替换成2
+            // 数字0被替换成2
+            case '0':
                 singleChar = '2';
                 break;
-            case 'O':// 大写字母 O 被替换成 X
+            // 大写字母 O 被替换成 X
+            case 'O':
                 singleChar = 'X';
                 break;
-            case 'o':// 小写字母 o 被替换成 x
+            // 小写字母 o 被替换成 x
+            case 'o':
                 singleChar = 'x';
                 break;
             default:

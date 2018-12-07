@@ -21,6 +21,7 @@ public class UtilsCreator {
     private static volatile PropertiesHelper propertiesHelper = null;
     private static volatile SQLHelper sqlHelper = null;
     private static volatile ListHelper listHelper = null;
+    private static volatile SortHelper sortHelper = null;
     private static volatile JsonHelper jsonHelper = null;
     private static volatile RandomHelper randomHelper = null;
     private static volatile MapHelper mapHelper = null;
@@ -189,6 +190,19 @@ public class UtilsCreator {
             }
         }
         return listHelper;
+    }
+    /**
+     * 返回一个 DefaultSortHelper 实例(单例)
+     */
+    public static SortHelper getInstance_DefaultSortHelper() {
+        if (sortHelper == null) {
+            synchronized (DefaultListHelper.class) {
+                if (sortHelper == null) {
+                    sortHelper = new DefaultSortHelper();
+                }
+            }
+        }
+        return sortHelper;
     }
 
     /**
