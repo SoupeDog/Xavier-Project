@@ -22,7 +22,7 @@ import org.xavier.common.utils.base.BaseJsonHelper;
 import org.xavier.web.annotation.ControllerLog;
 import org.xavier.web.annotation.DefaultControllerLog;
 import org.xavier.web.annotation.EnableControllerLog;
-import org.xavier.web.logger.XavierLoggerImpl;
+import org.xavier.web.logger.HyggeLoggerImpl_Log4j2;
 
 import java.lang.reflect.Method;
 
@@ -38,7 +38,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class ControllerLogAspect {
-    private XavierLoggerImpl logger;
+    private HyggeLoggerImpl_Log4j2 logger;
     private static Boolean enableControllerLog = true;
     private static Boolean enablealwayslog = true;
     private static Boolean enableRequestLog = true;
@@ -55,7 +55,7 @@ public class ControllerLogAspect {
 
             }
         };
-        this.logger = new XavierLoggerImpl(LogManager.getLogger("ControllerLog"), jsonHelper_Log);
+        this.logger = new HyggeLoggerImpl_Log4j2(LogManager.getLogger("ControllerLog"), jsonHelper_Log);
     }
 
     @Pointcut("@annotation(org.xavier.web.annotation.EnableControllerLog) && @annotation(org.springframework.web.bind.annotation.GetMapping)")

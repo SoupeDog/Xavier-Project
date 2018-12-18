@@ -12,15 +12,15 @@ import org.xavier.common.utils.JsonHelper;
  * @date 2018.02.01
  * @since Jdk 1.8
  */
-public class XavierLoggerImpl implements XavierLogger {
+public class HyggeLoggerImpl_Log4j2 implements HyggeLogger {
     private Logger logger;
 
     private JsonHelper jsonHelper;
 
-    public XavierLoggerImpl() {
+    public HyggeLoggerImpl_Log4j2() {
     }
 
-    public XavierLoggerImpl(Logger log4j, JsonHelper jsonHelper) {
+    public HyggeLoggerImpl_Log4j2(Logger log4j, JsonHelper jsonHelper) {
         this.logger = log4j;
         this.jsonHelper = jsonHelper;
     }

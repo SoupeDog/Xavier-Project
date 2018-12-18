@@ -3,14 +3,14 @@ package org.xavier.web.logger;
 
 /**
  * 描述信息：<br/>
- * XavierLogger 接口
+ * HyggeLogger 接口
  *
  * @author Xavier
  * @version 1.0
  * @date 2018.02.01
  * @since Jdk 1.8
  */
-public interface XavierLogger {
+public interface HyggeLogger {
     void always(String message);
 
     void always(String message, Throwable e);

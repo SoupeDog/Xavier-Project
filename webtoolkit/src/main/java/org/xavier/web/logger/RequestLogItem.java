@@ -27,7 +27,7 @@ public class RequestLogItem {
     public PropertiesHelper propertiesHelper;
 
     public RequestLogItem() {
-        jsonHelper = UtilsCreator.getInstance_DefaultJsonHelper();
+        jsonHelper = UtilsCreator.getInstance_DefaultJsonHelper(false);
         propertiesHelper = UtilsCreator.getInstance_DefaultPropertiesHelper();
     }
 

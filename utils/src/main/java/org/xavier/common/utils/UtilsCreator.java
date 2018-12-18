@@ -1,11 +1,17 @@
 package org.xavier.common.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
 import org.xavier.common.utils.base.*;
 import org.xavier.common.utils.bo.encrypt.WorkMode_AES;
 import org.xavier.common.utils.impl.*;
 
 import java.security.Security;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -23,6 +29,7 @@ public class UtilsCreator {
     private static volatile ListHelper listHelper = null;
     private static volatile SortHelper sortHelper = null;
     private static volatile JsonHelper jsonHelper = null;
+    private static volatile JsonHelper jsonHelper_Indent = null;
     private static volatile RandomHelper randomHelper = null;
     private static volatile MapHelper mapHelper = null;
     private static volatile TimeHelper timeHelper = null;
@@ -191,6 +198,7 @@ public class UtilsCreator {
         }
         return listHelper;
     }
+
     /**
      * 返回一个 DefaultSortHelper 实例(单例)
      */
@@ -208,15 +216,33 @@ public class UtilsCreator {
     /**
      * 返回一个 DefaultJsonHelper 实例(单例)
      */
-    public static JsonHelper getInstance_DefaultJsonHelper() {
-        if (jsonHelper == null) {
-            synchronized (DefaultJsonHelper.class) {
-                if (jsonHelper == null) {
-                    jsonHelper = new DefaultJsonHelper();
+    public static JsonHelper getInstance_DefaultJsonHelper(Boolean isIndentOpen) {
+        if (isIndentOpen == null || isIndentOpen == false) {
+            if (jsonHelper == null) {
+                synchronized (DefaultJsonHelper.class) {
+                    if (jsonHelper == null) {
+                        jsonHelper = new DefaultJsonHelper(new ObjectMapper() {{
+                            // 关闭缩进
+                            configure(SerializationFeature.INDENT_OUTPUT, false);
+                            // 开启允许数字以 0 开头
+                            configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+                            // 反序列化出现多余属性时,选择忽略不抛出异常
+                            configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                        }});
+                    }
                 }
             }
+            return jsonHelper;
+        } else {
+            if (jsonHelper_Indent == null) {
+                synchronized (DefaultJsonHelper.class) {
+                    if (jsonHelper_Indent == null) {
+                        jsonHelper_Indent = new DefaultJsonHelper();
+                    }
+                }
+            }
+            return jsonHelper_Indent;
         }
-        return jsonHelper;
     }
 
     /**
@@ -261,6 +287,7 @@ public class UtilsCreator {
         }
         return timeHelper;
     }
+
     /**
      * 返回一个 EncryptHelper_AES 实例(单例)<br/>
      */
