@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationListener=org.xavier.common.logging.HyggeLoggerListener
