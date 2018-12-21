@@ -21,15 +21,16 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent applicationEnvironmentPreparedEvent) {
         ConfigurableEnvironment environment = applicationEnvironmentPreparedEvent.getEnvironment();
         logSystemCheck(applicationEnvironmentPreparedEvent.getSpringApplication().getClassLoader());
-        HyggeCacheLogSetting setting=new HyggeCacheLogSetting();
+        HyggeCacheLogSetting setting = new HyggeCacheLogSetting();
         setting.setProjectName("Hygge");
         setting.setAppName("test");
-        setting.setMode(HyggeLoggerOutputMode.DEFAULT);
+        setting.setMode(HyggeLoggerOutputMode.FILE);
         setting.setTemplate(HyggeLoggerOutputTemplate.DEFAULT);
         setting.setVersion("1.1");
         setting.setSubVersion("1");
         HyggeLoggerBuilder hyggeLoggerBuilder = new HyggeLoggerBuilder(setting, getLoggerContext());
         hyggeLoggerBuilder.buildFrameworkLogger();
+        hyggeLoggerBuilder.buildAppLogger();
         System.out.println("覆盖完成");
     }
 
@@ -43,5 +44,4 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
     private LoggerContext getLoggerContext() {
         return (LoggerContext) LogManager.getContext(false);
     }
-
 }

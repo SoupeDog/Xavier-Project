@@ -6,8 +6,7 @@ import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import org.apache.logging.log4j.core.appender.FileAppender;
-import org.apache.logging.log4j.core.appender.AbstractAppender.Builder;
-import org.apache.logging.log4j.core.appender.AbstractAppender.Builder;
+import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
@@ -49,33 +48,79 @@ public class HyggeLoggerBuilder {
         this.logContext.updateLoggers();
     }
 
+    public void buildAppLogger() {
+        if (setting == null) {
+            throw new Universal_500_X_Exception_Runtime(555F, "[HyggeCacheLogSetting] can't be null.");
+        }
+        setting.propertiesCheck();
+        Appender appender = getAppender(true, setting.getMode());
+        AppenderRef ref = AppenderRef.createAppenderRef(HyggeLogger.DEFAULT_LOGGER_NAME, null, null);
+        AppenderRef[] refs = new AppenderRef[]{ref};
+        appender.start();
+        LoggerConfig loggerConfig = LoggerConfig.createLogger(
+                false, Level.INFO, HyggeLogger.DEFAULT_LOGGER_NAME, "true", refs, null, logConfiguration, null);
+        appender.start();
+        loggerConfig.addAppender(appender, null, null);
+        logConfiguration.addLogger(HyggeLogger.DEFAULT_LOGGER_NAME, loggerConfig);
+        this.logContext.updateLoggers();
+    }
+
     private Appender getAppender(Boolean isApp, HyggeLoggerOutputMode mode) {
         Appender result;
-        switch (mode) {
-            case FILE:
-                FileAppender.Builder appenderbuilder = FileAppender.newBuilder();
-                appenderbuilder.withFileName(setting.getAppName() + "_frwk.log").
-                        withLocking(false).
-                        withName("frwkFileJsonAppender").
-                        withLayout(getLayout(
-                                getPatten(isApp, setting.getProjectName(),
-                                        setting.getVersion(),
-                                        setting.getSubVersion(),
-                                        setting.getAppName()),
-                                logConfiguration));
-                result = appenderbuilder.build();
-                break;
-            default:
-                ConsoleAppender.Builder cons = ConsoleAppender.newBuilder();
-                cons.withLayout(getLayout(
-                        getPatten(isApp, setting.getProjectName(),
-                                setting.getVersion(),
-                                setting.getSubVersion(),
-                                setting.getAppName()),
-                        logConfiguration)).
-                        withName("frwkConsoleJsonAppender");
-                result = cons.build();
+        if (isApp) {
+            switch (mode) {
+                case FILE:
+                    FileAppender.Builder appenderbuilder = FileAppender.newBuilder();
+                    appenderbuilder.withFileName(setting.getAppName() + "_app.log").
+                            withLocking(false).
+                            withName("frwkFileJsonAppender").
+                            withLayout(getLayout(
+                                    getPatten(isApp, setting.getProjectName(),
+                                            setting.getVersion(),
+                                            setting.getSubVersion(),
+                                            setting.getAppName()),
+                                    logConfiguration));
+                    result = appenderbuilder.build();
+                    break;
+                default:
+                    ConsoleAppender.Builder cons = ConsoleAppender.newBuilder();
+                    cons.withLayout(getLayout(
+                            getPatten(isApp, setting.getProjectName(),
+                                    setting.getVersion(),
+                                    setting.getSubVersion(),
+                                    setting.getAppName()),
+                            logConfiguration)).
+                            withName("frwkConsoleJsonAppender");
+                    result = cons.build();
+            }
+        } else {
+            switch (mode) {
+                case FILE:
+                    FileAppender.Builder appenderbuilder = FileAppender.newBuilder();
+                    appenderbuilder.withFileName(setting.getAppName() + "_frwk.log").
+                            withLocking(false).
+                            withName("frwkFileJsonAppender").
+                            withLayout(getLayout(
+                                    getPatten(isApp, setting.getProjectName(),
+                                            setting.getVersion(),
+                                            setting.getSubVersion(),
+                                            setting.getAppName()),
+                                    logConfiguration));
+                    result = appenderbuilder.build();
+                    break;
+                default:
+                    ConsoleAppender.Builder cons = ConsoleAppender.newBuilder();
+                    cons.withLayout(getLayout(
+                            getPatten(isApp, setting.getProjectName(),
+                                    setting.getVersion(),
+                                    setting.getSubVersion(),
+                                    setting.getAppName()),
+                            logConfiguration)).
+                            withName("frwkConsoleJsonAppender");
+                    result = cons.build();
+            }
         }
+
         return result;
     }
 
