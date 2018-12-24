@@ -7,6 +7,7 @@ import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
+import org.xavier.spring.common.HyggeContext;
 
 /**
  * 描述信息：<br/>
@@ -23,8 +24,19 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
         logSystemCheck(applicationEnvironmentPreparedEvent.getSpringApplication().getClassLoader());
         HyggeCacheLogSetting setting = new HyggeCacheLogSetting();
         setting.setProjectName("Hygge");
-        setting.setAppName("test");
-        setting.setMode(HyggeLoggerOutputMode.FILE);
+        setting.setAppName(HyggeContext.APP_NAME);
+        setting.setCurrentEnvironment(HyggeContext.CURRENT_ENVIRONMENT);
+        switch (HyggeContext.CURRENT_ENVIRONMENT) {
+            case DEV:
+            case INT:
+            case VIP:
+            case PROD:
+                setting.setMode(HyggeLoggerOutputMode.FILE);
+                break;
+            default:
+                setting.setMode(HyggeLoggerOutputMode.DEFAULT);
+        }
+
         setting.setTemplate(HyggeLoggerOutputTemplate.DEFAULT);
         setting.setVersion("1.1");
         setting.setSubVersion("1");

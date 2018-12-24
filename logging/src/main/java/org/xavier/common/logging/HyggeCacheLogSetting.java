@@ -2,6 +2,7 @@ package org.xavier.common.logging;
 
 import org.xavier.common.utils.PropertiesHelper;
 import org.xavier.common.utils.UtilsCreator;
+import org.xavier.spring.common.EnvironmentEnums;
 
 /**
  * 描述信息：<br/>
@@ -17,6 +18,10 @@ public class HyggeCacheLogSetting {
      * 项目名称
      */
     private String projectName;
+    /**
+     * 当前运行环境
+     */
+    private EnvironmentEnums currentEnvironment;
     /**
      * 应用名称
      */
@@ -54,6 +59,14 @@ public class HyggeCacheLogSetting {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public EnvironmentEnums getCurrentEnvironment() {
+        return currentEnvironment;
+    }
+
+    public void setCurrentEnvironment(EnvironmentEnums currentEnvironment) {
+        this.currentEnvironment = currentEnvironment;
     }
 
     public String getAppName() {
