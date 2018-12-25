@@ -11,6 +11,8 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
+import org.xavier.spring.common.EnvironmentEnums;
+import org.xavier.spring.common.HyggeContext;
 
 /**
  * 描述信息：<br/>
@@ -33,12 +35,12 @@ public class HyggeLoggerBuilder {
         this.logConfiguration = this.logContext.getConfiguration();
     }
 
-    public void buildFrameworkLogger() {
+    public void buildFrameworkLogger(EnvironmentEnums environment) {
         if (setting == null) {
             throw new Universal_500_X_Exception_Runtime(555F, "[HyggeCacheLogSetting] can't be null.");
         }
         setting.propertiesCheck();
-        Appender appender = getAppender(false, setting.getMode());
+        Appender appender = getAppender(false, environment, setting.getMode());
         appender.start();
         LoggerConfig rootConfig = logConfiguration.getRootLogger();
         appender.start();
@@ -48,34 +50,34 @@ public class HyggeLoggerBuilder {
         this.logContext.updateLoggers();
     }
 
-    public void buildAppLogger() {
+    public void buildAppLogger(EnvironmentEnums environment) {
         if (setting == null) {
             throw new Universal_500_X_Exception_Runtime(555F, "[HyggeCacheLogSetting] can't be null.");
         }
         setting.propertiesCheck();
-        Appender appender = getAppender(true, setting.getMode());
+        Appender appender = getAppender(true, environment, setting.getMode());
         AppenderRef ref = AppenderRef.createAppenderRef(HyggeLogger.DEFAULT_LOGGER_NAME, null, null);
         AppenderRef[] refs = new AppenderRef[]{ref};
         appender.start();
         LoggerConfig loggerConfig = LoggerConfig.createLogger(
-                false, Level.INFO, HyggeLogger.DEFAULT_LOGGER_NAME, "true", refs, null, logConfiguration, null);
+                false, stringToLevel(HyggeContext.HYGGELOGGER_LEVEL), HyggeLogger.DEFAULT_LOGGER_NAME, "true", refs, null, logConfiguration, null);
         appender.start();
         loggerConfig.addAppender(appender, null, null);
         logConfiguration.addLogger(HyggeLogger.DEFAULT_LOGGER_NAME, loggerConfig);
         this.logContext.updateLoggers();
     }
 
-    private Appender getAppender(Boolean isApp, HyggeLoggerOutputMode mode) {
+    private Appender getAppender(Boolean isApp, EnvironmentEnums environment, HyggeLoggerOutputMode mode) {
         Appender result;
         if (isApp) {
             switch (mode) {
                 case FILE:
                     FileAppender.Builder appenderbuilder = FileAppender.newBuilder();
-                    appenderbuilder.withFileName(setting.getAppName() + "_app.log").
+                    appenderbuilder.withFileName(HyggeContext.HYGGELOGGER_FILE_PATH + setting.getAppName() + "_app.log").
                             withLocking(false).
                             withName("frwkFileJsonAppender").
                             withLayout(getLayout(
-                                    getPatten(isApp, setting.getProjectName(),
+                                    getPatten(isApp, environment, setting.getProjectName(),
                                             setting.getVersion(),
                                             setting.getSubVersion(),
                                             setting.getAppName()),
@@ -85,7 +87,7 @@ public class HyggeLoggerBuilder {
                 default:
                     ConsoleAppender.Builder cons = ConsoleAppender.newBuilder();
                     cons.withLayout(getLayout(
-                            getPatten(isApp, setting.getProjectName(),
+                            getPatten(isApp, environment, setting.getProjectName(),
                                     setting.getVersion(),
                                     setting.getSubVersion(),
                                     setting.getAppName()),
@@ -97,11 +99,11 @@ public class HyggeLoggerBuilder {
             switch (mode) {
                 case FILE:
                     FileAppender.Builder appenderbuilder = FileAppender.newBuilder();
-                    appenderbuilder.withFileName(setting.getAppName() + "_frwk.log").
+                    appenderbuilder.withFileName(HyggeContext.HYGGELOGGER_FILE_PATH + setting.getAppName() + "_frwk.log").
                             withLocking(false).
                             withName("frwkFileJsonAppender").
                             withLayout(getLayout(
-                                    getPatten(isApp, setting.getProjectName(),
+                                    getPatten(isApp, environment, setting.getProjectName(),
                                             setting.getVersion(),
                                             setting.getSubVersion(),
                                             setting.getAppName()),
@@ -111,7 +113,7 @@ public class HyggeLoggerBuilder {
                 default:
                     ConsoleAppender.Builder cons = ConsoleAppender.newBuilder();
                     cons.withLayout(getLayout(
-                            getPatten(isApp, setting.getProjectName(),
+                            getPatten(isApp, environment, setting.getProjectName(),
                                     setting.getVersion(),
                                     setting.getSubVersion(),
                                     setting.getAppName()),
@@ -120,7 +122,6 @@ public class HyggeLoggerBuilder {
                     result = cons.build();
             }
         }
-
         return result;
     }
 
@@ -140,33 +141,75 @@ public class HyggeLoggerBuilder {
         return result;
     }
 
-    private String getPatten(Boolean isApp, String projectName, String version, String subVersion, String appName) {
+    private String getPatten(Boolean isApp, EnvironmentEnums environment, String projectName, String version, String subVersion, String appName) {
         StringBuilder stringBuilder = new StringBuilder();
         if (isApp) {
             switch (setting.getTemplate()) {
                 default:
-                    stringBuilder.append("{\"type\":\"" + projectName + "\",").append("\"version\":").append(version).append(",")
-                            .append("\"subversion\":").append(subVersion).append(",")
-                            .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
-                            .append("\"source\":\"%c{1.}\",").append("\"level\":")
-                            .append("\"%level\"").append(",").append("\"hostname\":\"${hostName}\"").append(",")
-                            .append("\"appname\":\"").append(appName).append("\",").append("\"pid\":${sys:PID},")
-                            .append("\"msg\":\"%escapeJMsg{%msg}\",")
-                            .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
+                    switch (environment) {
+                        case DEV:
+                        case INT:
+                        case VIP:
+                        case PROD:
+                            stringBuilder.append("{\"type\":\"" + projectName + "\",").append("\"version\":").append(version).append(",")
+                                    .append("\"subversion\":").append(subVersion).append(",")
+                                    .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
+                                    .append("\"source\":\"%c{1.}\",").append("\"level\":")
+                                    .append("\"%level\"").append(",").append("\"hostname\":\"${hostName}\"").append(",")
+                                    .append("\"appname\":\"").append(appName).append("\",").append("\"pid\":${sys:PID},")
+                                    .append("\"msg\":\"%escapeJMsg{%msg}\",")
+                                    .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
+                            break;
+                        default:
+                            stringBuilder.append(projectName).append('\t')
+                                    .append(version).append('\t')
+                                    .append(subVersion).append('\t')
+                                    .append("%d{UNIX_MILLIS}{UTC}").append('\t')
+                                    .append("%level").append('\t')
+                                    .append("${sys:PID}").append('\t')
+                                    .append("${hostName}").append('\t')
+                                    .append(appName).append('\t').append("%msg%n");
+                    }
             }
         } else {
             switch (setting.getTemplate()) {
                 default:
-                    stringBuilder.append("{\"type\":\"framework\",").append("\"source\":\"%c{1.}\",")
-                            .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
-                            .append("\"level\":").append("\"%level\"").append(",")
-                            .append("\"hostname\":\"${hostName}\"").append(",")
-                            .append("\"appname\":\"").append(appName).append("\",")
-                            .append("\"pid\":${sys:PID},").append("\"msg\":\"%escapeJMsg{%msg}\",")
-                            .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
+                    switch (environment) {
+                        case DEV:
+                        case INT:
+                        case VIP:
+                        case PROD:
+                            stringBuilder.append("{\"type\":\"framework\",").append("\"source\":\"%c{1.}\",")
+                                    .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
+                                    .append("\"level\":").append("\"%level\"").append(",")
+                                    .append("\"hostname\":\"${hostName}\"").append(",")
+                                    .append("\"appname\":\"").append(appName).append("\",")
+                                    .append("\"pid\":${sys:PID},").append("\"msg\":\"%escapeJMsg{%msg}\",")
+                                    .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
+                            break;
+                        default:
+                    }
             }
         }
         return stringBuilder.toString();
     }
 
+    private Level stringToLevel(String levelStringVal) {
+        switch (levelStringVal.toUpperCase()) {
+            case "OFF":
+                return Level.OFF;
+            case "TRACE":
+                return Level.TRACE;
+            case "DEBUG":
+                return Level.DEBUG;
+            case "INFO":
+                return Level.INFO;
+            case "WARNING":
+                return Level.WARN;
+            case "ERROR":
+                return Level.ERROR;
+            default:
+                return Level.WARN;
+        }
+    }
 }

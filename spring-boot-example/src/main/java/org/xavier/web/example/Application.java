@@ -21,11 +21,18 @@ import org.xavier.common.logging.HyggeLogger;
 public class Application {
     @Autowired
     HyggeLogger logger;
+
     @GetMapping("/")
-    public String abc(){
+    public String abc() {
         logger.info("asd搞事情");
         logger.warn("asd搞事情2");
         logger.error("asd搞事情3");
+        try {
+            int a = 1 / 0;
+        } catch (Exception e) {
+            logger.error("搞出事情了", e);
+        }
+
         return "abc";
     }
 

@@ -7,6 +7,7 @@ import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
+import org.xavier.spring.common.EnvironmentEnums;
 import org.xavier.spring.common.HyggeContext;
 
 /**
@@ -23,7 +24,7 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
         ConfigurableEnvironment environment = applicationEnvironmentPreparedEvent.getEnvironment();
         logSystemCheck(applicationEnvironmentPreparedEvent.getSpringApplication().getClassLoader());
         HyggeCacheLogSetting setting = new HyggeCacheLogSetting();
-        setting.setProjectName("Hygge");
+        setting.setProjectName(environment.getProperty("hygge.logger.name", "Hygge"));
         setting.setAppName(HyggeContext.APP_NAME);
         setting.setCurrentEnvironment(HyggeContext.CURRENT_ENVIRONMENT);
         switch (HyggeContext.CURRENT_ENVIRONMENT) {
@@ -41,8 +42,10 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
         setting.setVersion("1.1");
         setting.setSubVersion("1");
         HyggeLoggerBuilder hyggeLoggerBuilder = new HyggeLoggerBuilder(setting, getLoggerContext());
-        hyggeLoggerBuilder.buildFrameworkLogger();
-        hyggeLoggerBuilder.buildAppLogger();
+        if (HyggeContext.CURRENT_ENVIRONMENT != EnvironmentEnums.PREDEV) {
+            hyggeLoggerBuilder.buildFrameworkLogger(HyggeContext.CURRENT_ENVIRONMENT);
+        }
+        hyggeLoggerBuilder.buildAppLogger(HyggeContext.CURRENT_ENVIRONMENT);
         System.out.println("覆盖完成");
     }
 
