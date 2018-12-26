@@ -19,19 +19,8 @@ public class HyggeLoggerImpl_Log4j2 implements HyggeLogger {
 
     private static final JsonHelper jsonHelper = UtilsCreator.getInstance_DefaultJsonHelper(false);
 
-    public HyggeLoggerImpl_Log4j2() {
-    }
-
     public HyggeLoggerImpl_Log4j2(Logger log4j) {
         this.logger = log4j;
-    }
-
-    public Logger getLogger() {
-        return logger;
-    }
-
-    public JsonHelper getJsonHelper() {
-        return jsonHelper;
     }
 
     @Override

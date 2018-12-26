@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.xavier.common.logging.HyggeLogger;
 import org.xavier.common.utils.*;
-import org.xavier.web.logger.HyggeLoggerImpl_Log4j2;
 
 /**
  * 描述信息：<br/>
@@ -19,12 +19,10 @@ import org.xavier.web.logger.HyggeLoggerImpl_Log4j2;
 @Component
 public class DefaultUtils {
     @Autowired
+    protected HyggeLogger logger;
+    @Autowired
     protected ObjectMapper mapper;
     @Autowired
-    @Qualifier("jsonHelper_Log")
-    protected JsonHelper jsonHelper_Log;
-    @Autowired
-    @Qualifier("jsonHelper")
     protected JsonHelper jsonHelper;
     @Autowired
     protected SQLHelper sqlHelper;
@@ -34,7 +32,4 @@ public class DefaultUtils {
     protected ListHelper listHelper;
     @Autowired
     protected MapHelper mapHelper;
-    @Autowired
-    protected HyggeLoggerImpl_Log4j2 logger;
-
 }

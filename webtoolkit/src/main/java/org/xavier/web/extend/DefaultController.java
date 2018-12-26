@@ -4,6 +4,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.xavier.common.exception.base.RequestException_Runtime;
@@ -23,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
  * @since Jdk 1.8
  */
 @RestController
+@Controller
 public class DefaultController extends DefaultUtils {
 
     @ExceptionHandler(Exception.class)
@@ -42,7 +44,6 @@ public class DefaultController extends DefaultUtils {
         logger.warn(e.getMessage());
         return builder.body(new ErrorResult(e.getStateCode(), e.getMessage()));
     }
-
 
     public ResponseEntity<?> success() {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
@@ -66,13 +67,13 @@ public class DefaultController extends DefaultUtils {
     }
 
     private void warn_RequestLog(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg) {
-        RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper_Log, propertiesHelper);
+        RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper, propertiesHelper);
         logger.warn(requestLogItem.createLogString(LogTypeEnums.WARN_UNEXPECTED_REQUEST));
     }
 
     private void warn_RequestLog_Async(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg) {
         CompletableFuture.runAsync(() -> {
-            RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper_Log, propertiesHelper);
+            RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper, propertiesHelper);
             logger.warn(requestLogItem.createLogString(LogTypeEnums.WARN_UNEXPECTED_REQUEST));
         });
     }
@@ -81,17 +82,16 @@ public class DefaultController extends DefaultUtils {
         if (requestObject == null) {
             logger.always(httpMethod.name() + " | Path: " + path);
         } else {
-            logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
+            logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper.format(requestObject));
         }
     }
-
 
     public void alway_RequestsLog_Async(HttpMethod httpMethod, String path, Object requestObject) {
         CompletableFuture.runAsync(() -> {
             if (requestObject == null) {
                 logger.always(httpMethod.name() + " | Path: " + path);
             } else {
-                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper_Log.format(requestObject));
+                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper.format(requestObject));
             }
         });
     }

@@ -212,8 +212,8 @@ public class UtilsCreator {
     /**
      * 返回一个 DefaultJsonHelper 实例(单例)
      */
-    public static JsonHelper getInstance_DefaultJsonHelper(Boolean isIndentOpen) {
-        if (isIndentOpen == null || isIndentOpen == false) {
+    public static JsonHelper getInstance_DefaultJsonHelper(Boolean openIndent) {
+        if (openIndent == null || openIndent == false) {
             if (jsonHelper == null) {
                 synchronized (DefaultJsonHelper.class) {
                     if (jsonHelper == null) {
