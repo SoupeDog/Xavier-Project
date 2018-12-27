@@ -1,6 +1,5 @@
 package org.xavier.web.extend;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.xavier.common.exception.base.RequestException_Runtime;
-import org.xavier.web.logger.LogTypeEnums;
-import org.xavier.web.logger.RequestLogItem;
 
 import java.nio.charset.Charset;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * 描述信息：<br/>
@@ -64,35 +60,5 @@ public class DefaultController extends DefaultUtils {
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(status);
         builder.contentType(mediaType);
         return builder.body(new ErrorResult(errorCode, msg));
-    }
-
-    private void warn_RequestLog(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg) {
-        RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper, propertiesHelper);
-        logger.warn(requestLogItem.createLogString(LogTypeEnums.WARN_UNEXPECTED_REQUEST));
-    }
-
-    private void warn_RequestLog_Async(HttpMethod httpMethod, String path, Object requestObject, Float errorCode, String msg) {
-        CompletableFuture.runAsync(() -> {
-            RequestLogItem requestLogItem = new RequestLogItem(httpMethod, path, requestObject, errorCode, msg, jsonHelper, propertiesHelper);
-            logger.warn(requestLogItem.createLogString(LogTypeEnums.WARN_UNEXPECTED_REQUEST));
-        });
-    }
-
-    public void alway_RequestsLog(HttpMethod httpMethod, String path, Object requestObject) {
-        if (requestObject == null) {
-            logger.always(httpMethod.name() + " | Path: " + path);
-        } else {
-            logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper.format(requestObject));
-        }
-    }
-
-    public void alway_RequestsLog_Async(HttpMethod httpMethod, String path, Object requestObject) {
-        CompletableFuture.runAsync(() -> {
-            if (requestObject == null) {
-                logger.always(httpMethod.name() + " | Path: " + path);
-            } else {
-                logger.always(httpMethod.name() + " | Path: " + path + " | RequestOBJ: " + jsonHelper.format(requestObject));
-            }
-        });
     }
 }
