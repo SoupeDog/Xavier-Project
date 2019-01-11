@@ -25,6 +25,33 @@ public class DefaultSortHelper implements SortHelper {
         return result;
     }
 
+    @Override
+    public void quickSort(List<BaseSortItem> target, Boolean isDESC) {
+        if (isDESC) {
+            quickSortLeftBigger(target, 0, target.size() - 1);
+        } else {
+            quickSortRightBigger(target, 0, target.size() - 1);
+        }
+    }
+
+    private void quickSortLeftBigger(List<BaseSortItem> target, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+        int middleIndex = partitionForQuickSortLeftBigger(target, low, high);
+        quickSortLeftBigger(target, low, middleIndex - 1);
+        quickSortLeftBigger(target, middleIndex + 1, high);
+    }
+
+    private void quickSortRightBigger(List<BaseSortItem> target, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+        int middleIndex = partitionForQuickSortRightBigger(target, low, high);
+        quickSortRightBigger(target, low, middleIndex - 1);
+        quickSortRightBigger(target, middleIndex + 1, high);
+    }
+
     private int getIndexOfTopK(List<BaseSortItem> target, int low, int high, Integer k) {
         if (low == high) {
             return low;
@@ -65,14 +92,14 @@ public class DefaultSortHelper implements SortHelper {
             while (target.get(high).getCount() <= partitionCount && high > low) {
                 high--;
             }
+            // 索引值不同则进行交换
+            SortItemSwap(target, low, high);
             // 从左往右寻找一个比隔断值小的元素的索引
             while (target.get(low).getCount() >= partitionCount && high > low) {
                 low++;
             }
             // 索引值不同则进行交换
-            if (low != high) {
-                Collections.swap(target, low, high);
-            }
+            SortItemSwap(target, low, high);
         }
         // 将分隔基准元素插入某位置以满足 左边元素均不小于隔断值 右边元素均不大于隔断值
         target.remove(rowPartitionCountIndex);
@@ -83,5 +110,47 @@ public class DefaultSortHelper implements SortHelper {
             target.add(low, partitionTarget);
         }
         return low;
+    }
+
+    private int partitionForQuickSortLeftBigger(List<BaseSortItem> target, int low, int high) {
+        // 起始的游标值
+        BaseSortItem partitionTarget = target.get(low);
+        while (high > low) {
+            // 从右往左寻找一个比隔断值大的元素的索引
+            while (high > low && target.get(high).getCount() <= partitionTarget.getCount()) {
+                high--;
+            }
+            SortItemSwap(target, low, high);
+            // 从左往右寻找一个比隔断值小的元素的索引
+            while (high > low && target.get(low).getCount() >= partitionTarget.getCount()) {
+                low++;
+            }
+            SortItemSwap(target, low, high);
+        }
+        return low;
+    }
+
+    private int partitionForQuickSortRightBigger(List<BaseSortItem> target, int low, int high) {
+        // 起始的游标值
+        BaseSortItem partitionTarget = target.get(low);
+        while (high > low) {
+            // 从右往左寻找一个比隔断值小的元素的索引
+            while (high > low && target.get(high).getCount() >= partitionTarget.getCount()) {
+                high--;
+            }
+            SortItemSwap(target, low, high);
+            // 从左往右寻找一个比隔断值大的元素的索引
+            while (high > low && target.get(low).getCount() <= partitionTarget.getCount()) {
+                low++;
+            }
+            SortItemSwap(target, low, high);
+        }
+        return low;
+    }
+
+    private void SortItemSwap(List<BaseSortItem> target, int low, int high) {
+        if (low != high) {
+            Collections.swap(target, low, high);
+        }
     }
 }

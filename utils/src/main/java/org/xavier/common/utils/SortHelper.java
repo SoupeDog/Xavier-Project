@@ -26,4 +26,12 @@ public interface SortHelper {
      * @return 第 k 大的索引值
      */
     int getIndexOfTopK(List<BaseSortItem> target, Integer k);
+
+    /**
+     * 快速排序
+     *
+     * @param target 待排序的目标对象
+     * @param isDESC 是否倒序(从大到小)
+     */
+    void quickSort(List<BaseSortItem> target, Boolean isDESC);
 }
