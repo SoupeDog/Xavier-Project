@@ -269,4 +269,27 @@ public abstract class BaseListHelper implements ListHelper {
         }
         return result;
     }
+
+    @Override
+    public ArrayList<String> filterStringListNotEmpty(List<String> targetList, String name, Integer minLength, Integer maxLength) {
+        if (targetList == null) {
+            throw new PropertiesException_Runtime("[" + name + "] can't be null.");
+        }
+        ArrayList<String> result = new ArrayList(targetList.size());
+        for (String temp : targetList) {
+            if (!"".equals(temp.trim())) {
+                if (temp.length() < minLength) {
+                    throw new PropertiesException_Runtime("Length of [" + temp + "] shouldn't less than " + minLength + ".");
+                }
+                if (temp.length() > maxLength) {
+                    throw new PropertiesException_Runtime("Length of [" + temp + "] shouldn't more than " + maxLength + ".");
+                }
+                result.add(temp);
+            }
+        }
+        if (result.size() < 1) {
+            throw new PropertiesException_Runtime("Effective item of [" + name + "] was not found.");
+        }
+        return result;
+    }
 }

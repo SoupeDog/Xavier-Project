@@ -20,9 +20,10 @@ public interface ListHelper {
     /**
      * 校验 目标 list 不可为空 且 size 不小于 1
      *
-     * @param list 待校验 List
+     * @param list              待校验 List
      * @param targetDescription 待校验描述信息
      */
+    @Deprecated
     void listNotEmpty(List list, String targetDescription);
 
     /**
@@ -65,4 +66,13 @@ public interface ListHelper {
      * @return 分组拆分结果
      */
     <T> ArrayList<List<T>> groupListByGroupIndex(List<Integer> indexInfo, ArrayList<T> targetList);
+
+    /**
+     * 过滤传入数组数据，要求传入数组不为空，item 不为空串 ，过滤完成后返回的 List size>0
+     *
+     * @param targetList 需要过滤的 List 目标
+     * @param name       需要过滤的 List 目标的对外称呼，抛出异常时用 (传入样例 deviceIdList)
+     * @return 过滤后的 List
+     */
+    ArrayList<String> filterStringListNotEmpty(List<String> targetList, String name, Integer minLength, Integer maxLength);
 }
