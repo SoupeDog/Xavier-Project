@@ -84,5 +84,5 @@ public interface ListHelper {
      * @param targetList 检查目标(请提前自行非空等校验，且要求至少 2 个元素)
      * @return 排序类型枚举
      */
-    SortedTypeEnum checkSorttedType(List<BaseSortItem> targetList);
+    SortedTypeEnum checkSorttedType(List<? extends BaseSortItem> targetList);
 }

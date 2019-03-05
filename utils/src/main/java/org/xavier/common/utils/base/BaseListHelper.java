@@ -297,7 +297,7 @@ public abstract class BaseListHelper implements ListHelper {
     }
 
     @Override
-    public SortedTypeEnum checkSorttedType(List<BaseSortItem> targetList) {
+    public SortedTypeEnum checkSorttedType(List<? extends BaseSortItem> targetList) {
         SortedTypeEnum result = null;
         BaseSortItem currentItem, nextItem;
         currentItem = targetList.get(0);
@@ -319,6 +319,8 @@ public abstract class BaseListHelper implements ListHelper {
                     }
                 }
             }
+            // 一轮校验完毕，当前的下一个元素替换为当前元素，并开始下一轮
+            currentItem = nextItem;
         }
         return result;
     }
