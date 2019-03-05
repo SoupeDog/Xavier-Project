@@ -70,10 +70,21 @@ public class SortHelperTest {
             }});
         }
         System.out.println(list);
+        UtilsCreator.getInstance_DefaultSortHelper().selectSort(list,0,list.size(),null);
+        System.out.println(list);
+        Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
+        UtilsCreator.getInstance_DefaultSortHelper().selectSort(list,0,list.size(),true);
+        System.out.println(list);
+        Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
 
         Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list2));
         Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list3));
         Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list4));
         Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list5));
+
+
+
     }
+
+
 }

@@ -19,8 +19,8 @@ public interface SortHelper {
      *
      * @param target     待排序的目标对象
      * @param startPoint 起始点序号(包括)
-     * @param endPoint   结束点序号(包括)
+     * @param endPoint   结束点序号(不包括)
      * @param isDESC     是否倒序(从大到小)
      */
-    void selectSort(List<BaseSortItem> target, int startPoint, int endPoint, Boolean isDESC);
+    void selectSort(List<? extends BaseSortItem> target, int startPoint, int endPoint, Boolean isDESC);
 }

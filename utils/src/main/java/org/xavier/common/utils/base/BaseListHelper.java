@@ -313,7 +313,7 @@ public abstract class BaseListHelper implements ListHelper {
                     compareRelativeResult = compareRelativeResultTemp;
                     result = resetSortedTypeResult(compareRelativeResult);
                 } else {
-                    if (!compareRelativeResult.equals(compareRelativeResultTemp)) {
+                    if (!CompareRelativeResultEnum.EQUAL.equals(compareRelativeResultTemp) && !compareRelativeResult.equals(compareRelativeResultTemp)) {
                         result = SortedTypeEnum.DEFAULT;
                         break;
                     }
