@@ -2,6 +2,8 @@ package org.xavier.common.utils;
 
 
 import org.xavier.common.enums.ColumnType;
+import org.xavier.common.utils.bo.BaseSortItem;
+import org.xavier.common.utils.bo.SortedTypeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,4 +77,12 @@ public interface ListHelper {
      * @return 过滤后的 List
      */
     ArrayList<String> filterStringListNotEmpty(List<String> targetList, String name, Integer minLength, Integer maxLength);
+
+    /**
+     * 检查当前数组排序类型
+     *
+     * @param targetList 检查目标(请提前自行非空等校验，且要求至少 2 个元素)
+     * @return 排序类型枚举
+     */
+    SortedTypeEnum checkSorttedType(List<BaseSortItem> targetList);
 }

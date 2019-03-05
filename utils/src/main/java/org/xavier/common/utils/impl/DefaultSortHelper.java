@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DefaultSortHelper implements SortHelper {
     @Override
-    public void selectSort(List<BaseSortItem> target, Boolean isDESC) {
+    public void selectSort(List<BaseSortItem> target, int startPoint, int endPoint, Boolean isDESC) {
 
     }
 }

@@ -2,21 +2,20 @@ package org.xavier.common.utils.bo;
 
 /**
  * 描述信息：<br/>
- * 自定排序工具，元素比较结果枚举
+ * 排序类型枚举
  *
  * @author Xavier
  * @version 1.0
  * @date 2019/3/5
  * @since Jdk 1.8
  */
-public enum CompareRelativeResultEnum {
-
-    SMALLER(-1, "当前的对象更小"),
-    EQUAL(0, "相等"),
-    BIGGER(1, "当前的对象更大");
+public enum SortedTypeEnum {
+    DEFAULT(0, "无序"),
+    DESC(1, "降序"),
+    ASC(2, "升序");
 
     /**
-     * 相对大小标识符
+     * 排序类型标识符
      */
     private byte val;
     /**
@@ -24,7 +23,7 @@ public enum CompareRelativeResultEnum {
      */
     private String description;
 
-    CompareRelativeResultEnum(Number val, String description) {
+    SortedTypeEnum(Number val, String description) {
         this.val = val.byteValue();
         this.description = description;
     }

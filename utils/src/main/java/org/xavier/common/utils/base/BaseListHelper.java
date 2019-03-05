@@ -6,6 +6,9 @@ import org.xavier.common.exception.Universal_500_X_Exception_Runtime;
 import org.xavier.common.utils.ListHelper;
 import org.xavier.common.utils.PropertiesHelper;
 import org.xavier.common.utils.UtilsCreator;
+import org.xavier.common.utils.bo.BaseSortItem;
+import org.xavier.common.utils.bo.CompareRelativeResultEnum;
+import org.xavier.common.utils.bo.SortedTypeEnum;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -289,6 +292,48 @@ public abstract class BaseListHelper implements ListHelper {
         }
         if (result.size() < 1) {
             throw new PropertiesException_Runtime("Effective item of [" + name + "] was not found.");
+        }
+        return result;
+    }
+
+    @Override
+    public SortedTypeEnum checkSorttedType(List<BaseSortItem> targetList) {
+        SortedTypeEnum result = null;
+        BaseSortItem currentItem, nextItem;
+        currentItem = targetList.get(0);
+        CompareRelativeResultEnum compareRelativeResult = null, compareRelativeResultTemp;
+        for (int i = 1; i < targetList.size(); i++) {
+            nextItem = targetList.get(i);
+            compareRelativeResultTemp = currentItem.toCompareAnother(currentItem, nextItem);
+            if (compareRelativeResult == null) {
+                compareRelativeResult = compareRelativeResultTemp;
+                result = resetSortedTypeResult(compareRelativeResult);
+            } else {
+                if (CompareRelativeResultEnum.EQUAL.equals(compareRelativeResult)) {
+                    compareRelativeResult = compareRelativeResultTemp;
+                    result = resetSortedTypeResult(compareRelativeResult);
+                } else {
+                    if (!compareRelativeResult.equals(compareRelativeResultTemp)) {
+                        result = SortedTypeEnum.DEFAULT;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private SortedTypeEnum resetSortedTypeResult(CompareRelativeResultEnum currentCompareRelativeResult) {
+        SortedTypeEnum result;
+        switch (currentCompareRelativeResult) {
+            case BIGGER:
+                result = SortedTypeEnum.DESC;
+                break;
+            case SMALLER:
+                result = SortedTypeEnum.ASC;
+                break;
+            default:
+                result = SortedTypeEnum.DEFAULT;
         }
         return result;
     }
