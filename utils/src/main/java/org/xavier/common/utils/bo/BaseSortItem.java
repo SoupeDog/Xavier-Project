@@ -2,31 +2,19 @@ package org.xavier.common.utils.bo;
 
 /**
  * 描述信息：<br/>
- * 排序时的单个元素 基类
+ * 排序比较接口
  *
  * @author Xavier
  * @version 1.0
  * @date 2018.11.30
  * @since Jdk 1.8
  */
-public abstract class BaseSortItem<T> {
+public interface BaseSortItem {
     /**
-     * 存储的实际对象
-     */
-    private T targetObj;
-
-    /**
-     * 返回当前实际对象的排序依据值
+     * 用自身去和另一个同类对象比较，返回当前元素的相对大小描述
      *
-     * @return 排序依据值
+     * @param another 参照物
+     * @return 自身与参照物的关系
      */
-    public abstract int getCount();
-
-    public T getTargetObj() {
-        return targetObj;
-    }
-
-    public void setTargetObj(T targetObj) {
-        this.targetObj = targetObj;
-    }
+    CompareRelativeResultEnum toCompareAnother(BaseSortItem another);
 }

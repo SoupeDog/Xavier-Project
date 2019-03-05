@@ -31,7 +31,22 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>7.0</version>
+        </dependency>
     </dependencies>
+
+    <!--设置编码格式-->
+    <properties>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.test.skip>true</maven.test.skip>
+    </properties>
 
     <!--打包插件-->
     <build>
