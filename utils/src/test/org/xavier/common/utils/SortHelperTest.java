@@ -70,19 +70,23 @@ public class SortHelperTest {
             }});
         }
         System.out.println(list);
-        UtilsCreator.getInstance_DefaultSortHelper().insertionSort(list,0,list.size(),false);
+        UtilsCreator.getInstance_DefaultSortHelper().mergeSort(list,0,list.size()-1,false);
         System.out.println(list);
         Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
-        UtilsCreator.getInstance_DefaultSortHelper().insertionSort(list,0,list.size(),true);
+        UtilsCreator.getInstance_DefaultSortHelper().mergeSort(list,0,list.size()-1,true);
         System.out.println(list);
         Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
+//
+//        Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list2));
+//        Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list3));
+//        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list4));
+//        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list5));
 
-        Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list2));
-        Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list3));
-        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list4));
-        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list5));
 
 
+
+        String c="a";
+        String d="a";
 
     }
 
