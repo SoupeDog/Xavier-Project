@@ -1,7 +1,9 @@
 package org.xavier.common.utils;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.xavier.common.UserForSort;
 import org.xavier.common.utils.bo.SortedTypeEnum;
 
@@ -16,10 +18,14 @@ import java.util.concurrent.ThreadLocalRandom;
  * @date 2019/3/5
  * @since Jdk 1.8
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SortHelperTest {
+    private Integer 目标数量 = 10000;
+    private Integer 随机取值范围上边界 = 10000;
+    private Integer 随机取值范围下边界 = 0;
+
     @Test
-    public void 排序校验工具是否有效() {
-        ArrayList<UserForSort> list = new ArrayList();
+    public void A_排序校验工具是否有效() {
         ArrayList<UserForSort> list2 = new ArrayList() {{
             add(new UserForSort() {{
                 setAge(0);
@@ -64,30 +70,107 @@ public class SortHelperTest {
                 setAge(1);
             }});
         }};
-        for (int i = 0; i < 100; i++) {
+        Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list2));
+        Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list3));
+        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list4));
+        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list5));
+    }
+
+
+    @Test
+    public void B_选择排序测试升序() {
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
             list.add(new UserForSort() {{
-                setAge(ThreadLocalRandom.current().nextInt(0, 100));
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
             }});
         }
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().selectSort(list, 0, list.size(), false);
+        Long endTs = System.currentTimeMillis();
+        System.out.println("选择排序（升序） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        Assert.assertEquals("选择排序测试升序", SortedTypeEnum.ASC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
         System.out.println(list);
-        UtilsCreator.getInstance_DefaultSortHelper().mergeSort(list,0,list.size()-1,false);
+    }
+
+    @Test
+    public void B_选择排序测试绛序() {
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
+            list.add(new UserForSort() {{
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
+            }});
+        }
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().selectSort(list, 0, list.size(), true);
+        Long endTs = System.currentTimeMillis();
+        System.out.println("选择排序（绛序） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        Assert.assertEquals("选择排序测试绛序", SortedTypeEnum.DESC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
         System.out.println(list);
-        Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
-        UtilsCreator.getInstance_DefaultSortHelper().mergeSort(list,0,list.size()-1,true);
+    }
+
+    @Test
+    public void C_插入测试升序() {
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
+            list.add(new UserForSort() {{
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
+            }});
+        }
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().insertionSort(list, 0, list.size(), false);
+        Long endTs = System.currentTimeMillis();
+        System.out.println("插入排序（升序） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        Assert.assertEquals("选择排序测试升序", SortedTypeEnum.ASC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
         System.out.println(list);
-        Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
-//
-//        Assert.assertEquals("校验工具检测", SortedTypeEnum.ASC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list2));
-//        Assert.assertEquals("校验工具检测", SortedTypeEnum.DESC,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list3));
-//        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list4));
-//        Assert.assertEquals("校验工具检测", SortedTypeEnum.DEFAULT,UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list5));
+    }
 
+    @Test
+    public void C_插入排序测试绛序() {
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
+            list.add(new UserForSort() {{
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
+            }});
+        }
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().insertionSort(list, 0, list.size(), true);
+        Long endTs = System.currentTimeMillis();
+        System.out.println("插入排序（绛序） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        Assert.assertEquals("选择排序测试绛序", SortedTypeEnum.DESC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
+        System.out.println(list);
+    }
 
+    @Test
+    public void D_快速测试升序() {
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
+            list.add(new UserForSort() {{
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
+            }});
+        }
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().quickSort_3Ways(list, 0, list.size(), false);
+        Long endTs = System.currentTimeMillis();
+        System.out.println("快速排序（升序） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        Assert.assertEquals("选择排序测试升序", SortedTypeEnum.ASC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
+        System.out.println(list);
+    }
 
-
-        String c="a";
-        String d="a";
-
+    @Test
+    public void D_快速排序测试绛序() {
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
+            list.add(new UserForSort() {{
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
+            }});
+        }
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().quickSort_3Ways(list, 0, list.size(), true);
+        Long endTs = System.currentTimeMillis();
+        System.out.println("快速排序（绛序） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        Assert.assertEquals("选择排序测试绛序", SortedTypeEnum.DESC, UtilsCreator.getInstance_DefaultListHelper().checkSorttedType(list));
+        System.out.println(list);
     }
 
 

@@ -40,8 +40,19 @@ public interface SortHelper {
      *
      * @param target     待排序的目标对象
      * @param startPoint 起始点序号(包括)
-     * @param endPoint   结束点序号(包括)
+     * @param endPoint   结束点序号(不包括)
      * @param isDESC     是否倒序(从大到小)
      */
     <T extends BaseSortItem> void mergeSort(List<T> target, int startPoint, int endPoint, Boolean isDESC);
+
+
+    /**
+     * 快速排序
+     *
+     * @param target     待排序的目标对象
+     * @param startPoint 起始点序号(包括)
+     * @param endPoint   结束点序号(不包括)
+     * @param isDESC     是否倒序(从大到小)
+     */
+    <T extends BaseSortItem> void quickSort_3Ways(List<T> target, int startPoint, int endPoint, Boolean isDESC);
 }

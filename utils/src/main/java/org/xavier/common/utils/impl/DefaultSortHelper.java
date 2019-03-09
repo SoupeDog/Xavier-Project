@@ -8,6 +8,8 @@ import org.xavier.common.utils.bo.CompareRelativeResultEnum;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 描述信息：<br/>
@@ -178,5 +180,57 @@ public class DefaultSortHelper implements SortHelper {
                 }
             }
         }
+    }
+
+    public <T extends BaseSortItem> void quickSort_3Ways(List<T> target, int startPoint, int endPoint, Boolean isDESC) {
+        if (startPoint >= endPoint) {
+            return;
+        }
+        // 产生随机扰动，减少近乎有序的目标使算法退化成 n^2 算法
+        Collections.swap(target, startPoint, ThreadLocalRandom.current().nextInt(startPoint, endPoint));
+        // 基准值
+        T temp = target.get(startPoint);
+        int leftCursor = startPoint;
+        int midCursor = startPoint + 1;
+        int rightCursor = endPoint;
+
+        if (isDESC) {
+            while (midCursor < rightCursor) {
+                switch (temp.toCompareAnother(temp, target.get(midCursor))) {
+                    case SMALLER:
+                        Collections.swap(target, leftCursor + 1, midCursor);
+                        leftCursor++;
+                        midCursor++;
+                        break;
+                    case BIGGER:
+                        Collections.swap(target, midCursor, rightCursor - 1);
+                        rightCursor--;
+                        break;
+                    case EQUAL:
+                        midCursor++;
+                        break;
+                }
+            }
+        } else {
+            while (midCursor < rightCursor) {
+                switch (temp.toCompareAnother(temp, target.get(midCursor))) {
+                    case SMALLER:
+                        Collections.swap(target, midCursor, rightCursor - 1);
+                        rightCursor--;
+                        break;
+                    case BIGGER:
+                        Collections.swap(target, leftCursor + 1, midCursor);
+                        leftCursor++;
+                        midCursor++;
+                        break;
+                    case EQUAL:
+                        midCursor++;
+                        break;
+                }
+            }
+        }
+        Collections.swap(target, startPoint, leftCursor);
+        quickSort_3Ways(target, startPoint, leftCursor, isDESC);
+        quickSort_3Ways(target, rightCursor, endPoint, isDESC);
     }
 }
