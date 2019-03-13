@@ -5,6 +5,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.xavier.common.UserForSort;
+import org.xavier.common.utils.bo.CompareRelativeResultEnum;
 import org.xavier.common.utils.bo.SortedTypeEnum;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SortHelperTest {
     private Integer 目标数量 = 10000;
-    private Integer 随机取值范围上边界 = 10000;
+    private Integer 随机取值范围上边界 = 1000;
     private Integer 随机取值范围下边界 = 0;
 
     @Test
@@ -173,5 +174,53 @@ public class SortHelperTest {
         System.out.println(list);
     }
 
+    @Test
+    public void E_TopK绛序() {
+        int 前K大 = 1000;
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
+            list.add(new UserForSort() {{
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
+            }});
+        }
+        System.out.println(list);
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().topK(list, 0, list.size(), 前K大, true);
+        Long endTs = System.currentTimeMillis();
+        for (int i = 0; i < 前K大; i++) {
+            UserForSort temp = list.get(i);
+            for (int j = 前K大; j < list.size(); j++) {
+                if (temp.toCompareAnother(temp, list.get(j)) == CompareRelativeResultEnum.SMALLER) {
+                    throw new RuntimeException("top k 有误");
+                }
+            }
+        }
+        System.out.println(list);
+        System.out.println("TopK（绛序,前" + 前K大 + "大） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+    }
 
+    @Test
+    public void E_TopK升序() {
+        int 前K小 = 1000;
+        ArrayList<UserForSort> list = new ArrayList(目标数量);
+        for (int i = 0; i < 目标数量; i++) {
+            list.add(new UserForSort() {{
+                setAge(ThreadLocalRandom.current().nextInt(随机取值范围下边界, 随机取值范围上边界));
+            }});
+        }
+        System.out.println(list);
+        Long startTs = System.currentTimeMillis();
+        UtilsCreator.getInstance_DefaultSortHelper().topK(list, 0, list.size(), 前K小, false);
+        Long endTs = System.currentTimeMillis();
+        for (int i = 0; i < 前K小; i++) {
+            UserForSort temp = list.get(i);
+            for (int j = 前K小; j < list.size(); j++) {
+                if (temp.toCompareAnother(temp, list.get(j)) == CompareRelativeResultEnum.BIGGER) {
+                    throw new RuntimeException("top k 有误");
+                }
+            }
+        }
+        System.out.println(list);
+        System.out.println("TopK（升序,前" + 前K小 + "小） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+    }
 }

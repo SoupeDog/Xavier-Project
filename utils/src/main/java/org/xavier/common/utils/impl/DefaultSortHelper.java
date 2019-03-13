@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.BaseStream;
 
 /**
  * 描述信息：<br/>
@@ -186,7 +187,7 @@ public class DefaultSortHelper implements SortHelper {
         if (startPoint >= endPoint) {
             return;
         }
-        // 产生随机扰动，减少近乎有序的目标使算法退化成 n^2 算法
+        // 产生随机扰动，减少近乎有序的目标使算法性能下降
         Collections.swap(target, startPoint, ThreadLocalRandom.current().nextInt(startPoint, endPoint));
         // 基准值
         T temp = target.get(startPoint);
@@ -232,5 +233,64 @@ public class DefaultSortHelper implements SortHelper {
         Collections.swap(target, startPoint, leftCursor);
         quickSort_3Ways(target, startPoint, leftCursor, isDESC);
         quickSort_3Ways(target, rightCursor, endPoint, isDESC);
+    }
+
+    @Override
+    public <T extends BaseSortItem> void topK(List<T> target, int startPoint, int endPoint, int k, Boolean isDESC) {
+        if (startPoint == endPoint) {
+            return;
+        }
+        int index = partitionOfTopK(target, startPoint, endPoint, isDESC);
+        if (index - k - startPoint >= 0) {
+            topK(target, startPoint, index, k, isDESC); //求前半部分第k大
+        } else {
+            topK(target, index + 1, endPoint, k - (index - startPoint) - 1, isDESC); //求前半部分第k-(index - startPoint)大
+        }
+    }
+
+    private <T extends BaseSortItem> int partitionOfTopK(List<T> target, int startPoint, int endPoint, Boolean isDESC) {
+        // 产生随机扰动，减少近乎有序的目标使算法性能下降
+        Collections.swap(target, startPoint, ThreadLocalRandom.current().nextInt(startPoint, endPoint));
+        // 基准值
+        T temp = target.get(startPoint);
+        int rightCursor = endPoint;
+        int leftCursor = startPoint;
+        int midCursor = startPoint + 1;
+
+        if (isDESC) {
+            while (midCursor < rightCursor) {
+                switch (temp.toCompareAnother(temp, target.get(midCursor))) {
+                    case SMALLER:
+                        Collections.swap(target, leftCursor + 1, midCursor);
+                        leftCursor++;
+                        midCursor++;
+                        break;
+                    case BIGGER:
+                        Collections.swap(target, midCursor, rightCursor - 1);
+                        rightCursor--;
+                        break;
+                    case EQUAL:
+                        midCursor++;
+                }
+            }
+        } else {
+            while (midCursor < rightCursor) {
+                switch (temp.toCompareAnother(temp, target.get(midCursor))) {
+                    case SMALLER:
+                        Collections.swap(target, midCursor, rightCursor - 1);
+                        rightCursor--;
+                        break;
+                    case BIGGER:
+                        Collections.swap(target, leftCursor + 1, midCursor);
+                        leftCursor++;
+                        midCursor++;
+                        break;
+                    case EQUAL:
+                        midCursor++;
+                }
+            }
+        }
+        Collections.swap(target, startPoint, leftCursor);
+        return rightCursor - 1;
     }
 }
