@@ -106,8 +106,7 @@ public class DefaultSortHelper implements SortHelper {
         if (startPoint >= endPoint) {
             return;
         }
-        // TODO 溢出风险
-        int midPoint = (startPoint + endPoint) / 2;
+        int midPoint = startPoint - (endPoint - startPoint) / 2;
         mergeSort(target, startPoint, midPoint, isDESC);
         mergeSort(target, midPoint + 1, endPoint, isDESC);
         doMerge(target, startPoint, midPoint, endPoint, isDESC);

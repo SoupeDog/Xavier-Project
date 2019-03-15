@@ -195,8 +195,8 @@ public class SortHelperTest {
                 }
             }
         }
-        System.out.println(list);
         System.out.println("TopK（绛序,前" + 前K大 + "大） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        System.out.println(list);
     }
 
     @Test
@@ -220,7 +220,7 @@ public class SortHelperTest {
                 }
             }
         }
-        System.out.println(list);
         System.out.println("TopK（升序,前" + 前K小 + "小） 数量级：" + 目标数量 + " 取值范围 ：[" + 随机取值范围下边界 + "," + 随机取值范围上边界 + ") 耗时" + (endTs - startTs) + " ms");
+        System.out.println(list);
     }
 }
