@@ -1,13 +1,10 @@
 package org.xavier.web.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xavier.common.logging.HyggeLogger;
-import org.xavier.common.logging.HyggeLoggerMsgBuilder;
 
 /**
  * 描述信息：<br/>
@@ -38,6 +35,13 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = SpringApplication.run(Application.class, args);
+
+        String a="nh";
+        String b="n"+"h";
+
+
+        System.out.println(a==b);
+
+//        ApplicationContext applicationContext = SpringApplication.run(Application.class, args);
     }
 }
