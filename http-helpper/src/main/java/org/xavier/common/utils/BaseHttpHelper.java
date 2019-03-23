@@ -48,7 +48,7 @@ public abstract class BaseHttpHelper implements HttpHelpper {
         return result;
     }
 
-    private <T> HttpHelperResponse<T> createHttpHelperResponse(ResponseEntity<String> responseEntity, Class<T> tClass) {
+    private <T> HttpHelperResponse<T> createHttpHelperResponse(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, MediaType mediaType, ResponseEntity<String> responseEntity, Class<T> tClass) {
         HttpHelperResponse<T> result = new HttpHelperResponse();
         String responseBody = responseEntity.getBody();
         try {
@@ -56,12 +56,12 @@ public abstract class BaseHttpHelper implements HttpHelpper {
             result.setData(Optional.of(dataTemp));
             result.setHttpStatus(responseEntity.getStatusCode());
         } catch (IOException e) {
-            ExceptionCallBack(responseBody, e);
+            SerializeExceptionCallBack(url, httpMethod, httpHeaders, mediaType, responseEntity, e);
         }
         return result;
     }
 
-    private <T> HttpHelperResponse<T> createHttpHelperResponse(ResponseEntity<String> responseEntity, TypeReference<T> typeReference) {
+    private <T> HttpHelperResponse<T> createHttpHelperResponse(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, MediaType mediaType, ResponseEntity<String> responseEntity, TypeReference<T> typeReference) {
         String responseBody = responseEntity.getBody();
         HttpHelperResponse<T> result = new HttpHelperResponse();
         try {
@@ -69,14 +69,16 @@ public abstract class BaseHttpHelper implements HttpHelpper {
             result.setHttpStatus(responseEntity.getStatusCode());
             result.setData(Optional.of(dataTemp));
         } catch (IOException e) {
-            return ExceptionCallBack(responseBody, e);
+            return SerializeExceptionCallBack(url, httpMethod, httpHeaders, mediaType, null, e);
         }
         return result;
     }
 
-    private <T> HttpHelperResponse<T> ExceptionCallBack(String responseBody, IOException e) {
+    private <T> HttpHelperResponse<T> SerializeExceptionCallBack(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, MediaType mediaType, ResponseEntity<String> responseEntity, IOException e) {
+        String responseBody = responseEntity.getBody();
+        RequestLogEntity requestLogEntity = new RequestLogEntity(url, httpMethod, httpHeaders, mediaType, responseEntity.getStatusCode(), "Serialize Exception", System.currentTimeMillis());
         if (responseBody.length() > 200) {
-            throw new SerializeRuntimeException("HttpHelper fail to deserialization :[" + responseBody.substring(0, 200) + " …… " + (responseBody.length() - 200) + "]", e);
+            throw new SerializeRuntimeException("HttpHelper fail to deserialization :[" + responseBody.substring(0, 200) + " …… " + (responseBody.length() - 200) + "]" + requestLogEntity.toString(), e);
         } else {
             throw new SerializeRuntimeException("HttpHelper fail to deserialization :[" + responseBody + "]", e);
         }
@@ -108,7 +110,7 @@ public abstract class BaseHttpHelper implements HttpHelpper {
             result = createStringHttpHelperResponse(responseEntity);
         } else {
             ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-            result = createHttpHelperResponse(responseEntity, tClass);
+            result = createHttpHelperResponse(url, HttpMethod.GET, httpHeaders, mediaType, responseEntity, tClass);
         }
         return result;
     }
@@ -135,7 +137,7 @@ public abstract class BaseHttpHelper implements HttpHelpper {
         HttpEntity<String> entity = new HttpEntity(null, headers);
         HttpHelperResponse<T> result;
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        result = createHttpHelperResponse(responseEntity, typeReference);
+        result = createHttpHelperResponse(url, HttpMethod.GET, httpHeaders, mediaType, responseEntity, typeReference);
         return result;
     }
 }

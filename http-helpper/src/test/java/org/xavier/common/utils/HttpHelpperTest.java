@@ -3,8 +3,10 @@ package org.xavier.common.utils;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -62,7 +64,9 @@ public class HttpHelpperTest {
 
     @Test
     public void get() {
-        HttpHelperResponse<String> response = httpHelpper.get("http://t.weather.sojson.com/api/weather/city/101030100", String.class);
+        HttpHelperResponse<Integer> response = httpHelpper.get("http://t.weather.sojson.com/api/weather/city/101030100",new HttpHeaders(){{
+            add("搞事情","123");
+        }}, Integer.class);
         System.out.println(response.getData());
     }
 }
