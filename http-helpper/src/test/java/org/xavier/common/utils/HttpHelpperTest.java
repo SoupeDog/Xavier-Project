@@ -7,14 +7,23 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.JsonbHttpMessageConverter;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 描述信息：<br/>
@@ -32,7 +41,7 @@ public class HttpHelpperTest {
     public void init() {
         httpHelpper = new BaseHttpHelper() {
             @Override
-            void initObjectMapper() {
+           public void initObjectMapper() {
                 mapper = new ObjectMapper();
                 //反序列化出现多余属性时,选择忽略不抛出异常
                 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -41,7 +50,7 @@ public class HttpHelpperTest {
             }
 
             @Override
-            void initRestTemplate() {
+            public void initRestTemplate() {
                 restTemplate = new RestTemplate();
                 ResponseErrorHandler responseErrorHandler = new ResponseErrorHandler() {
                     @Override
@@ -55,18 +64,45 @@ public class HttpHelpperTest {
                     }
                 };
                 restTemplate.setErrorHandler(responseErrorHandler);
-                restTemplate.setMessageConverters(new ArrayList() {{
-                    add(new StringHttpMessageConverter(Charset.forName("utf-8")));
-                }});
+                List<HttpMessageConverter<?>> converters = restTemplate.getMessageConverters();
+                int needReplaceIndex;
+                boolean needRemove = false;
+                for (needReplaceIndex = 0; needReplaceIndex < converters.size(); needReplaceIndex++) {
+                    if (converters.get(needReplaceIndex) instanceof StringHttpMessageConverter) {
+                        needRemove = true;
+                        break;
+                    }
+                }
+                if (needRemove) {
+                    converters.remove(needReplaceIndex);
+                    if (needReplaceIndex < converters.size()) {
+                        converters.add(needReplaceIndex, new StringHttpMessageConverter(Charset.forName("utf-8")));
+                    } else if (needReplaceIndex > -1) {
+                        converters.add(needReplaceIndex - 1, new StringHttpMessageConverter(Charset.forName("utf-8")));
+                    } else {
+                        converters.add(new StringHttpMessageConverter(Charset.forName("utf-8")));
+                    }
+                    restTemplate.setMessageConverters(converters);
+                }
             }
         };
     }
 
     @Test
     public void get() {
-        HttpHelperResponse<Integer> response = httpHelpper.get("http://t.weather.sojson.com/api/weather/city/101030100",new HttpHeaders(){{
-            add("搞事情","123");
+        HttpHelperResponse<Integer> response = httpHelpper.get("http://t.weather.sojson.com/api/weather/city/101030100", new HttpHeaders() {{
+            add("搞事情", "123");
         }}, Integer.class);
         System.out.println(response.getData());
+    }
+
+    @Test
+    public void post() {
+        HttpHelperResponse<String> response = httpHelpper.post("http://127.0.0.1:8080/extra/token/validate", new HashMap() {{
+            put("uId", "U00000001");
+            put("token", "0000");
+            put("scopeByte", 0);
+        }}, String.class);
+        System.out.println(UtilsCreator.getInstance_DefaultJsonHelper(true).format(response.getData()));
     }
 }

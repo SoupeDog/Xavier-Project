@@ -23,12 +23,12 @@ public abstract class BaseHttpHelper implements HttpHelpper {
     /**
      * 初始化 ObjectMapper
      */
-    abstract void initObjectMapper();
+   public abstract void initObjectMapper();
 
     /**
      * 初始化 RestTemplate
      */
-    abstract void initRestTemplate();
+    public abstract void initRestTemplate();
 
     public BaseHttpHelper() {
         initObjectMapper();
@@ -138,6 +138,63 @@ public abstract class BaseHttpHelper implements HttpHelpper {
         HttpHelperResponse<T> result;
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         result = createHttpHelperResponse(url, HttpMethod.GET, httpHeaders, mediaType, responseEntity, typeReference);
+        return result;
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, Class<T> tClass) {
+        return post(url, body, null, MediaType.APPLICATION_JSON_UTF8, tClass);
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, HttpHeaders httpHeaders, Class<T> tClass) {
+        return post(url, body, httpHeaders, MediaType.APPLICATION_JSON_UTF8, tClass);
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, MediaType mediaType, Class<T> tClass) {
+        return post(url, body, null, mediaType, tClass);
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, HttpHeaders httpHeaders, MediaType mediaType, Class<T> tClass) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(mediaType);
+        HttpEntity<String> entity = new HttpEntity(body, headers);
+        HttpHelperResponse<T> result;
+        if (String.class.equals(tClass)) {
+            ResponseEntity<T> responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, tClass);
+            result = createStringHttpHelperResponse(responseEntity);
+        } else {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+            result = createHttpHelperResponse(url, HttpMethod.POST, httpHeaders, mediaType, responseEntity, tClass);
+        }
+        return result;
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, TypeReference<T> typeReference) {
+        return post(url, body, null, MediaType.APPLICATION_JSON_UTF8, typeReference);
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, HttpHeaders httpHeaders, TypeReference<T> typeReference) {
+        return post(url, body, httpHeaders, MediaType.APPLICATION_JSON_UTF8, typeReference);
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, MediaType mediaType, TypeReference<T> typeReference) {
+        return post(url, body, null, mediaType, typeReference);
+    }
+
+    @Override
+    public <T> HttpHelperResponse<T> post(String url, Object body, HttpHeaders httpHeaders, MediaType mediaType, TypeReference<T> typeReference) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(mediaType);
+        HttpEntity<String> entity = new HttpEntity(body, headers);
+        HttpHelperResponse<T> result;
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+        result = createHttpHelperResponse(url, HttpMethod.POST, httpHeaders, mediaType, responseEntity, typeReference);
         return result;
     }
 }
