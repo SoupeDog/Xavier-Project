@@ -62,6 +62,10 @@ public abstract class BaseJsonHelper implements JsonHelper {
         mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
     }
 
+    public ObjectMapper getMapper() {
+        return mapper;
+    }
+
     protected abstract void hookGetValueByKey(ColumnType resultType, Object target);
 
 
