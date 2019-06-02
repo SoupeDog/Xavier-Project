@@ -1,6 +1,7 @@
 package org.xavier.common.utils;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.xavier.common.enums.ColumnType;
 
 /**
@@ -43,4 +44,9 @@ public interface JsonHelper {
      * @param tClass     返回结果类
      */
     <T> T getValueByKey_Index(ColumnType jsonType, Object targetObj, String key, Integer index, ColumnType resultType, Class<T> tClass);
+
+    /**
+     * 返回当前 ObjectMapper
+     */
+     ObjectMapper getMapper();
 }
