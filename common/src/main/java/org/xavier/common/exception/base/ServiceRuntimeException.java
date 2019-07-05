@@ -11,7 +11,7 @@ package org.xavier.common.exception.base;
  */
 public class ServiceRuntimeException extends RuntimeException {
     /**
-     * 自定义状态码 默认500F
+     * 自定义状态码 默认500
      */
     private Number stateCode = 500;
     /**
