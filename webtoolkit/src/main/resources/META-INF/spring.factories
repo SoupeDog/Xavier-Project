@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.xavier.web.config.XavierProjectDefaultBean
-#org.springframework.context.ApplicationListener=org.xavier.web.config.RegisterBeanisterBean

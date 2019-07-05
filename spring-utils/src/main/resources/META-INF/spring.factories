@@ -1,1 +1,0 @@
-org.springframework.context.ApplicationListener=org.xavier.spring.common.HyggeSpringBeanRegister_ApplicationEnvironmentPreparedEvent
