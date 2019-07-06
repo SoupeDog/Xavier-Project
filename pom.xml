@@ -50,8 +50,22 @@
         <springboot.version>2.1.6.RELEASE</springboot.version>
     </properties>
 
+    <!--打包插件-->
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -63,5 +77,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

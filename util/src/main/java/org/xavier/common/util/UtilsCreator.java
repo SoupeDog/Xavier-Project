@@ -69,13 +69,13 @@ public class UtilsCreator {
      *
      * @param tClass JsonHelper 的一个实现类
      */
-    public static JsonHelper createJsonHelper(Class tClass) {
+    public static <T> T createJsonHelper(Class<T> tClass) {
         try {
-            Object result = tClass.newInstance();
+            T result = tClass.newInstance();
             if (!(result instanceof JsonHelper)) {
                 throw new UtilRuntimeException(550, "[tClass] should implement JsonHelper.");
             }
-            return (JsonHelper) result;
+            return result;
         } catch (InstantiationException e) {
             throw new UtilRuntimeException(550, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
@@ -86,7 +86,7 @@ public class UtilsCreator {
     /**
      * 返回一个 DefaultJacksonJsonHelper 实例(单例)
      */
-    public static JsonHelper getDefaultJsonHelperInstance(Boolean openIndent) {
+    public static DefaultJacksonJsonHelper getDefaultJsonHelperInstance(Boolean openIndent) {
         if (openIndent == null || openIndent == false) {
             if (jsonHelper == null) {
                 synchronized (DefaultJacksonJsonHelper.class) {
@@ -120,13 +120,13 @@ public class UtilsCreator {
      *
      * @param tClass RandomHelper 的一个实现类
      */
-    public static RandomHelper createRandomHelper(Class tClass) {
+    public static <T> T createRandomHelper(Class<T> tClass) {
         try {
-            Object result = tClass.newInstance();
+            T result = tClass.newInstance();
             if (!(result instanceof BaseRandomHelper)) {
                 throw new UtilRuntimeException(550, "[tClass] should implement RandomHelper.");
             }
-            return (RandomHelper) result;
+            return result;
         } catch (InstantiationException e) {
             throw new UtilRuntimeException(550, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
