@@ -1,4 +1,4 @@
-package org.xavier.common.util;
+package org.xavier.common.util.exception;
 
 import org.xavier.common.exception.base.ServiceRuntimeException;
 

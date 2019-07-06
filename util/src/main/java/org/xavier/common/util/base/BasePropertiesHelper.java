@@ -4,7 +4,7 @@ import org.xavier.common.enums.ColumnType;
 import org.xavier.common.enums.StringFormatMode;
 import org.xavier.common.exception.PropertiesRuntimeException;
 import org.xavier.common.util.PropertiesHelper;
-import org.xavier.common.util.UtilRuntimeException;
+import org.xavier.common.util.exception.UtilRuntimeException;
 
 /**
  * 描述信息：<br/>

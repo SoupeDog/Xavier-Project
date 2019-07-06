@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.xavier.common.util.base.BasePropertiesHelper;
+import org.xavier.common.util.exception.UtilRuntimeException;
 import org.xavier.common.util.impl.DefaultJacksonJsonHelper;
 import org.xavier.common.util.impl.DefaultPropertiesHelper;
 
@@ -117,7 +118,7 @@ public class UtilsCreator {
      *
      * @param tClass RandomHelper 的一个实现类
      */
-    public static RandomHelper createRandomHelper(Class tClass) {
+    public static RandomHelper        (Class tClass) {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BaseRandomHelper)) {

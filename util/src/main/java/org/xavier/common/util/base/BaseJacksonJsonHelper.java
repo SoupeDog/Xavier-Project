@@ -7,11 +7,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.xavier.common.enums.ColumnType;
-import org.xavier.common.exception.PropertiesException;
 import org.xavier.common.exception.PropertiesRuntimeException;
 import org.xavier.common.util.JsonHelper;
 import org.xavier.common.util.PropertiesHelper;
-import org.xavier.common.util.UtilRuntimeException;
+import org.xavier.common.util.exception.UtilRuntimeException;
 import org.xavier.common.util.UtilsCreator;
 
 import java.io.IOException;
