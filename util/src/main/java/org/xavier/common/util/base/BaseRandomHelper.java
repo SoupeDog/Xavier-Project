@@ -29,7 +29,8 @@ public abstract class BaseRandomHelper implements RandomHelper {
 
     @Override
     public int getRandomInteger(Number minValue, Number maxValue) {
-        return ThreadLocalRandom.current().nextInt(minValue.intValue(), maxValue.intValue());
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        return random.nextInt(minValue.intValue(), maxValue.intValue() + 1);
     }
 
     @Override
