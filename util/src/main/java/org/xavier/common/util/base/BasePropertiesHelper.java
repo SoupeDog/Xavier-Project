@@ -107,42 +107,31 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public String string(Object target) {
-        String result;
         if (target == null) {
-            result = hookString(null);
-        } else {
-            result = target.toString();
-            result = hookString(result);
+            return hookString(null);
         }
-        return result;
-    }
-
-    @Override
-    public String stringNotNull(Object target, String msg) {
-        String result;
-        if (target == null || "".equals(target.toString().trim())) {
-            throw new PropertiesRuntimeException(msg);
-        } else {
-            result = target.toString();
-            result = hookString(result);
-        }
-        return result;
+        return hookString(target.toString());
     }
 
     @Override
     public String string(Object target, Integer minLength, Integer maxLength, String msg) {
-        String result;
-        if (target != null) {
-            result = target.toString();
-            int length = result.length();
-            if (length < minLength || length > maxLength) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = hookString(result);
-        } else {
-            result = hookString(null);
+        if (target == null) {
+            return hookString(null);
         }
-        return result;
+        String result = target.toString();
+        int length = result.length();
+        if (length < minLength || length > maxLength) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return hookString(result);
+    }
+
+    @Override
+    public String stringNotNull(Object target, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return string(target);
     }
 
     @Override
@@ -155,60 +144,50 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public String stringOfNullable(Object target, String defaultValue) {
-        String result;
         if (target == null || "".equals(target.toString().trim())) {
-            result = defaultValue;
-        } else {
-            result = target.toString();
+            return defaultValue;
         }
-        return string(result);
+        return string(target);
     }
 
     @Override
     public String stringOfNullable(Object target, String defaultValue, Integer minLength, Integer maxLength, String msg) {
-        String result;
         if (target == null || "".equals(target.toString().trim())) {
-            result = defaultValue;
-        } else {
-            result = target.toString();
+            return defaultValue;
         }
-        return string(result, minLength, maxLength, msg);
+        return string(target, minLength, maxLength, msg);
     }
-
-    //TODO 续续续
 
     @Override
     public Number numberFormat(Object target, ColumnType targetType, String msg) {
-        Number result;
+        if (target == null) {
+            return hookNumber(null);
+        }
         try {
-            if (target != null) {
-                switch (targetType) {
-                    case BYTE:
-                        result = Byte.valueOf(target.toString());
-                        break;
-                    case SHORT:
-                        result = Short.valueOf(target.toString());
-                        break;
-                    case INTEGER:
-                        result = Integer.valueOf(target.toString());
-                        break;
-                    case LONG:
-                        result = Long.valueOf(target.toString());
-                        break;
-                    case FLOAT:
-                        result = Float.valueOf(target.toString());
-                        break;
-                    case DOUBLE:
-                        result = Double.valueOf(target.toString());
-                        break;
-                    default:
-                        throw new PropertiesRuntimeException("ColumnType can't be null,and it should be Number-Type.");
-                }
-                result = hookNumber(result);
-            } else {
-                result = null;
+            Number result;
+            switch (targetType) {
+                case BYTE:
+                    result = Byte.valueOf(target.toString());
+                    break;
+                case SHORT:
+                    result = Short.valueOf(target.toString());
+                    break;
+                case INTEGER:
+                    result = Integer.valueOf(target.toString());
+                    break;
+                case LONG:
+                    result = Long.valueOf(target.toString());
+                    break;
+                case FLOAT:
+                    result = Float.valueOf(target.toString());
+                    break;
+                case DOUBLE:
+                    result = Double.valueOf(target.toString());
+                    break;
+                default:
+                    throw new PropertiesRuntimeException("ColumnType can't be null,and it should be [BYTE、SHORT、INTEGER、LONG、FLOAT、DOUBLE].");
             }
-            return result;
+            return hookNumber(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
@@ -216,54 +195,52 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Number numberFormat(Object target, ColumnType targetType, Number minLength, Number maxLength, String msg) {
-        Number result;
+        if (target == null) {
+            return hookNumber(null);
+        }
         try {
-            if (target != null) {
-                switch (targetType) {
-                    case FLOAT:
-                        result = Float.valueOf(target.toString());
-                        if (result.floatValue() < minLength.floatValue() || result.floatValue() > maxLength.floatValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case DOUBLE:
-                        result = Double.valueOf(target.toString());
-                        if (result.doubleValue() < minLength.doubleValue() || result.doubleValue() > maxLength.doubleValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case BYTE:
-                        result = Byte.valueOf(target.toString());
-                        if (result.byteValue() < minLength.byteValue() || result.byteValue() > maxLength.byteValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case SHORT:
-                        result = Short.valueOf(target.toString());
-                        if (result.shortValue() < minLength.shortValue() || result.shortValue() > maxLength.shortValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case INTEGER:
-                        result = Integer.valueOf(target.toString());
-                        if (result.intValue() < minLength.intValue() || result.intValue() > maxLength.intValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case LONG:
-                        result = Long.valueOf(target.toString());
-                        if (result.longValue() < minLength.longValue() || result.longValue() > maxLength.longValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    default:
-                        throw new PropertiesRuntimeException("ColumnType can't be null,and it should be Number-Type.");
-                }
-                hookNumber(result);
-            } else {
-                result = null;
+            Number result;
+            switch (targetType) {
+                case BYTE:
+                    result = Byte.valueOf(target.toString());
+                    if (result.byteValue() < minLength.byteValue() || result.byteValue() > maxLength.byteValue()) {
+                        throw new PropertiesRuntimeException(msg);
+                    }
+                    break;
+                case SHORT:
+                    result = Short.valueOf(target.toString());
+                    if (result.shortValue() < minLength.shortValue() || result.shortValue() > maxLength.shortValue()) {
+                        throw new PropertiesRuntimeException(msg);
+                    }
+                    break;
+                case INTEGER:
+                    result = Integer.valueOf(target.toString());
+                    if (result.intValue() < minLength.intValue() || result.intValue() > maxLength.intValue()) {
+                        throw new PropertiesRuntimeException(msg);
+                    }
+                    break;
+                case LONG:
+                    result = Long.valueOf(target.toString());
+                    if (result.longValue() < minLength.longValue() || result.longValue() > maxLength.longValue()) {
+                        throw new PropertiesRuntimeException(msg);
+                    }
+                    break;
+                case FLOAT:
+                    result = Float.valueOf(target.toString());
+                    if (result.floatValue() < minLength.floatValue() || result.floatValue() > maxLength.floatValue()) {
+                        throw new PropertiesRuntimeException(msg);
+                    }
+                    break;
+                case DOUBLE:
+                    result = Double.valueOf(target.toString());
+                    if (result.doubleValue() < minLength.doubleValue() || result.doubleValue() > maxLength.doubleValue()) {
+                        throw new PropertiesRuntimeException(msg);
+                    }
+                    break;
+                default:
+                    throw new PropertiesRuntimeException("ColumnType can't be null,and it should be [BYTE、SHORT、INTEGER、LONG、FLOAT、DOUBLE].");
             }
-            return result;
+            return hookNumber(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
@@ -271,116 +248,44 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Number numberFormatNotNull(Object target, ColumnType targetType, String msg) {
-        Number result;
-        try {
-            if (target != null) {
-                switch (targetType) {
-                    case FLOAT:
-                        result = Float.valueOf(target.toString());
-                        break;
-                    case DOUBLE:
-                        result = Double.valueOf(target.toString());
-                        break;
-                    case BYTE:
-                        result = Byte.valueOf(target.toString());
-                        break;
-                    case SHORT:
-                        result = Short.valueOf(target.toString());
-                        break;
-                    case INTEGER:
-                        result = Integer.valueOf(target.toString());
-                        break;
-                    case LONG:
-                        result = Long.valueOf(target.toString());
-                        break;
-                    default:
-                        throw new PropertiesRuntimeException("ColumnType can't be null,and it should be Number-Type.");
-                }
-                hookNumber(result);
-            } else {
-                throw new PropertiesRuntimeException(msg);
-            }
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
         }
+        return numberFormat(target, targetType, msg);
     }
 
     @Override
     public Number numberFormatNotNull(Object target, ColumnType targetType, Number minLength, Number maxLength, String msg) {
-        Number result;
-        try {
-            if (target != null) {
-                switch (targetType) {
-                    case BYTE:
-                        result = Byte.valueOf(target.toString());
-                        if (result.byteValue() < minLength.byteValue() || result.byteValue() > maxLength.byteValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case INTEGER:
-                        result = Integer.valueOf(target.toString());
-                        if (result.intValue() < minLength.intValue() || result.intValue() > maxLength.intValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case LONG:
-                        result = Long.valueOf(target.toString());
-                        if (result.longValue() < minLength.longValue() || result.longValue() > maxLength.longValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case FLOAT:
-                        result = Float.valueOf(target.toString());
-                        if (result.floatValue() < minLength.floatValue() || result.floatValue() > maxLength.floatValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    case DOUBLE:
-                        result = Double.valueOf(target.toString());
-                        if (result.doubleValue() < minLength.doubleValue() || result.doubleValue() > maxLength.doubleValue()) {
-                            throw new PropertiesRuntimeException(msg);
-                        }
-                        break;
-                    default:
-                        throw new PropertiesRuntimeException("ColumnType can't be null,and it should be Number-Type.");
-                }
-                hookNumber(result);
-            } else {
-                throw new PropertiesRuntimeException(msg);
-            }
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
         }
+        return numberFormat(target, targetType, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Number numberFormatOfNullable(Object target, Number defaultValue, ColumnType targetType, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue;
+        }
+        return numberFormat(target, targetType, msg);
+    }
+
+    @Override
+    public Number numberFormatOfNullable(Object target, Number defaultValue, ColumnType targetType, Number minLength, Number maxLength, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue;
+        }
+        return numberFormat(target, targetType, minLength, maxLength, msg);
     }
 
     @Override
     public Byte byteRange(Object target, String msg) {
-        Byte result;
-        try {
-            if (target != null) {
-                result = Byte.valueOf(target.toString());
-                result = hookByte(result);
-            } else {
-                result = null;
-            }
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            return hookByte(null);
         }
-    }
-
-    @Override
-    public Byte byteRangeNotNull(Object target, String msg) {
-        Byte result;
         try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Byte.valueOf(target.toString());
-            result = hookByte(result);
-            return result;
+            Byte result = Byte.valueOf(target.toString());
+            return hookByte(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
@@ -388,46 +293,138 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Byte byteRange(Object target, Number minLength, Number maxLength, String msg) {
-        Byte result;
+        if (target == null) {
+            return hookByte(null);
+        }
         try {
-            if (target != null) {
-                result = Byte.valueOf(target.toString());
-                if (result < minLength.byteValue() || result > maxLength.byteValue()) {
-                    throw new PropertiesRuntimeException(msg);
-                }
-                result = hookByte(result);
-            } else {
-                result = null;
+            Byte result = Byte.valueOf(target.toString());
+            if (result < minLength.byteValue() || result > maxLength.byteValue()) {
+                throw new PropertiesRuntimeException(msg);
             }
-            return result;
+            return hookByte(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
+    }
+
+    @Override
+    public Byte byteRangeNotNull(Object target, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return byteRange(target, msg);
     }
 
     @Override
     public Byte byteRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return byteRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Byte byteRangeOfNullable(Object target, Number defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.byteValue();
+        }
+        return byteRange(target, msg);
+    }
+
+    @Override
+    public Byte byteRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.byteValue();
+        }
+        return byteRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Short shortRange(Object target, String msg) {
+        if (target == null) {
+            return hookShort(null);
+        }
         try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            return byteRange(target, minLength, maxLength, msg);
+            Short result = Short.valueOf(target.toString());
+            return hookShort(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
     }
 
     @Override
-    public Integer intRange(Object target, String msg) {
-        Integer result;
+    public Short shortRange(Object target, Number minLength, Number maxLength, String msg) {
+        if (target == null) {
+            return hookShort(null);
+        }
         try {
-            if (target != null) {
-                result = Integer.valueOf(target.toString());
-                result = hookInteger(result);
-            } else {
-                result = null;
+            Short result = Short.valueOf(target.toString());
+            if (result < minLength.shortValue() || result > maxLength.shortValue()) {
+                throw new PropertiesRuntimeException(msg);
             }
-            return result;
+            return hookShort(result);
+        } catch (NumberFormatException e) {
+            throw new PropertiesRuntimeException(msg, e);
+        }
+    }
+
+    @Override
+    public Short shortRangeNotNull(Object target, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return shortRange(target, msg);
+    }
+
+
+    @Override
+    public Short shortRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return shortRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Short shortRangeOfNullable(Object target, Number defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.shortValue();
+        }
+        return shortRange(target, msg);
+    }
+
+    @Override
+    public Short shortRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.shortValue();
+        }
+        return shortRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Integer intRange(Object target, String msg) {
+        if (target == null) {
+            return hookInteger(null);
+        }
+        try {
+            Integer result = Integer.valueOf(target.toString());
+            return hookInteger(result);
+        } catch (NumberFormatException e) {
+            throw new PropertiesRuntimeException(msg, e);
+        }
+    }
+
+    @Override
+    public Integer intRange(Object target, Number minLength, Number maxLength, String msg) {
+        if (target == null) {
+            return hookInteger(null);
+        }
+        try {
+            Integer result = Integer.valueOf(target.toString());
+            if (result < minLength.intValue() || result > maxLength.intValue()) {
+                throw new PropertiesRuntimeException(msg);
+            }
+            return hookInteger(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
@@ -435,82 +432,44 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Integer intRangeNotNull(Object target, String msg) {
-        Integer result;
-        try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Integer.valueOf(target.toString());
-            result = hookInteger(result);
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
         }
-    }
-
-    @Override
-    public Integer intRange(Object target, Integer minLength, Integer maxLength, String msg) {
-        Integer result;
-        try {
-            if (target != null) {
-                result = Integer.valueOf(target.toString());
-                if (result < minLength || result > maxLength) {
-                    throw new PropertiesRuntimeException(msg);
-                }
-                result = hookInteger(result);
-            } else {
-                result = null;
-            }
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
-        }
+        return intRange(target, msg);
     }
 
     @Override
     public Integer intRangeNotNull(Object target, Integer minLength, Integer maxLength, String msg) {
-        Integer result;
-        try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Integer.valueOf(target.toString());
-            if (result < minLength || result > maxLength) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = hookInteger(result);
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
         }
+        return intRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Integer intRangeOfNullable(Object target, Number defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.intValue();
+        }
+        return intRange(target, msg);
+    }
+
+    @Override
+    public Integer intRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.intValue();
+        }
+        return intRange(target, minLength, maxLength, msg);
     }
 
     @Override
     public Long longRange(Object target, String msg) {
-        Long result;
-        try {
-            if (target != null) {
-                result = Long.valueOf(target.toString());
-                result = hookLong(result);
-            } else {
-                result = null;
-            }
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            return hookLong(null);
         }
-    }
-
-    @Override
-    public Long longRangeNotNull(Object target, String msg) {
-        Long result;
         try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Long.valueOf(target.toString());
-            result = hookLong(result);
-            return result;
+            Long result = Long.valueOf(target.toString());
+            return hookLong(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
@@ -518,39 +477,50 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Long longRange(Object target, Number minLength, Number maxLength, String msg) {
-        Long result;
+        if (target == null) {
+            return hookLong(null);
+        }
         try {
-            if (target != null) {
-                result = Long.valueOf(target.toString());
-                if (result < minLength.longValue() || result > maxLength.longValue()) {
-                    throw new PropertiesRuntimeException(msg);
-                }
-                result = hookLong(result);
-            } else {
-                result = null;
+            Long result = Long.valueOf(target.toString());
+            if (result < minLength.longValue() || result > maxLength.longValue()) {
+                throw new PropertiesRuntimeException(msg);
             }
-            return result;
+            return hookLong(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
     }
 
     @Override
-    public Long longRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
-        Long result;
-        try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Long.valueOf(target.toString());
-            if (result < minLength.longValue() || result > maxLength.longValue()) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = hookLong(result);
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+    public Long longRangeNotNull(Object target, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
         }
+        return longRange(target, msg);
+    }
+
+    @Override
+    public Long longRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return longRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Long longRangeOfNullable(Object target, Number defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.longValue();
+        }
+        return longRange(target, msg);
+    }
+
+    @Override
+    public Long longRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.longValue();
+        }
+        return longRange(target, minLength, maxLength, msg);
     }
 
     @Override
