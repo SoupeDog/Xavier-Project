@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.xavier.common.util.base.BasePropertiesHelper;
+import org.xavier.common.util.base.BaseRandomHelper;
 import org.xavier.common.util.exception.UtilRuntimeException;
 import org.xavier.common.util.impl.DefaultJacksonJsonHelper;
 import org.xavier.common.util.impl.DefaultPropertiesHelper;
+import org.xavier.common.util.impl.DefaultRandomHelper;
 
 /**
  * 描述信息：<br/>
@@ -37,7 +39,7 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BasePropertiesHelper)) {
-                throw new UtilRuntimeException("[tClass] should extend BasePropertiesHelper.");
+                throw new UtilRuntimeException("[tClass] should implement PropertiesHelper.");
             }
             return (PropertiesHelper) result;
         } catch (InstantiationException e) {
@@ -71,13 +73,13 @@ public class UtilsCreator {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof JsonHelper)) {
-                throw new UtilRuntimeException(550, "[tClass] should extend JsonHelper.");
+                throw new UtilRuntimeException(550, "[tClass] should implement JsonHelper.");
             }
             return (JsonHelper) result;
         } catch (InstantiationException e) {
             throw new UtilRuntimeException(550, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new UtilRuntimeException(550, "[tClass] should extend JsonHelper.", e);
+            throw new UtilRuntimeException(550, "[tClass] should implement JsonHelper.", e);
         }
     }
 
@@ -118,17 +120,17 @@ public class UtilsCreator {
      *
      * @param tClass RandomHelper 的一个实现类
      */
-    public static RandomHelper        (Class tClass) {
+    public static RandomHelper createRandomHelper(Class tClass) {
         try {
             Object result = tClass.newInstance();
             if (!(result instanceof BaseRandomHelper)) {
-                throw new Universal_500_X_Exception_Runtime(550, "[tClass] should extend BaseRandomHelper.");
+                throw new UtilRuntimeException(550, "[tClass] should implement RandomHelper.");
             }
             return (RandomHelper) result;
         } catch (InstantiationException e) {
-            throw new Universal_500_X_Exception_Runtime(550, "Fail to get BaseListHelper.", e);
+            throw new UtilRuntimeException(550, "Fail to get BaseListHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new Universal_500_X_Exception_Runtime(550, "[tClass] should extend BaseRandomHelper.", e);
+            throw new UtilRuntimeException(550, "[tClass] should implement RandomHelper.", e);
         }
     }
 

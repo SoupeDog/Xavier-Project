@@ -13,6 +13,14 @@ import org.xavier.common.enums.StringCategory;
  * @since Jdk 1.8
  */
 public interface RandomHelper {
+
+    /** 生成随机数字
+     * @param minValue 随机值最小值
+     * @param maxValue 随机值最大值
+     * @return
+     */
+    int getRandomInteger(Number minValue, Number maxValue);
+
     /**
      * 可重复地生成随机字符串
      *
