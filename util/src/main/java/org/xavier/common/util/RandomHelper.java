@@ -23,8 +23,10 @@ public interface RandomHelper {
     String getRandomString(Integer size, StringCategory... stringCategory);
 
     /**
-     * 返回 32位无空格 UUID
+     * 生成无 "-" 符号的 UUID
+     *
+     * @return 无 "-" 符号的 UUID
      */
-    String getUUID();
+    String getUniversallyUniqueIdentifier();
 
 }

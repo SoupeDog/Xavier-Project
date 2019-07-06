@@ -3,8 +3,8 @@ package org.xavier.common.util.base;
 import org.xavier.common.enums.ColumnType;
 import org.xavier.common.enums.StringFormatMode;
 import org.xavier.common.exception.PropertiesRuntimeException;
-import org.xavier.common.exception.Universal500RuntimeException;
 import org.xavier.common.util.PropertiesHelper;
+import org.xavier.common.util.UtilRuntimeException;
 
 /**
  * 描述信息：<br/>
@@ -16,13 +16,6 @@ import org.xavier.common.util.PropertiesHelper;
  * @since Jdk 1.8
  */
 public abstract class BasePropertiesHelper implements PropertiesHelper {
-    /**
-     * 参数非空且符合预期时触发
-     *
-     * @param target 被转化的对象
-     * @param tClass 转化目标类型
-     */
-    protected abstract <T> T hookObject(T target, Class<T> tClass);
 
     /**
      * 参数非空且符合预期时触发
@@ -104,6 +97,14 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
      * @return 转化后的参数
      */
     protected abstract String hookFilling(String target);
+
+    @Override
+    public boolean stringIsNullOrEmpty(String target) {
+        if (target == null) {
+            return true;
+        }
+        return "".equals(target.trim());
+    }
 
     @Override
     public String string(Object target) {
@@ -525,30 +526,12 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Float floatRange(Object target, String msg) {
-        Float result;
-        try {
-            if (target != null) {
-                result = Float.valueOf(target.toString());
-                result = hookFloat(result);
-            } else {
-                result = null;
-            }
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            return hookFloat(null);
         }
-    }
-
-    @Override
-    public Float floatRangeNotNull(Object target, String msg) {
-        Float result;
         try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Float.valueOf(target.toString());
-            result = hookFloat(result);
-            return result;
+            Float result = Float.valueOf(target.toString());
+            return hookFloat(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
@@ -556,67 +539,60 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Float floatRange(Object target, Number minLength, Number maxLength, String msg) {
-        Float result;
+        if (target == null) {
+            return hookFloat(null);
+        }
         try {
-            if (target != null) {
-                result = Float.valueOf(target.toString());
-                if (result < minLength.floatValue() || result > maxLength.floatValue()) {
-                    throw new PropertiesRuntimeException(msg);
-                }
-                result = hookFloat(result);
-            } else {
-                result = null;
+            Float result = Float.valueOf(target.toString());
+            if (result < minLength.floatValue() || result > maxLength.floatValue()) {
+                throw new PropertiesRuntimeException(msg);
             }
-            return result;
+            return hookFloat(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
+    }
+
+    @Override
+    public Float floatRangeNotNull(Object target, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return floatRange(target, msg);
     }
 
     @Override
     public Float floatRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
-        Float result;
-        try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Float.valueOf(target.toString());
-            if (result < minLength.floatValue() || result > maxLength.floatValue()) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = hookFloat(result);
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
         }
+        return floatRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Float floatRangeOfNullable(Object target, Number defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.floatValue();
+        }
+        return floatRange(target, msg);
+    }
+
+    @Override
+    public Float floatRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.floatValue();
+        }
+        return floatRange(target, minLength, maxLength, msg);
     }
 
     @Override
     public Double doubleRange(Object target, String msg) {
-        Double result;
-        try {
-            if (target != null) {
-                result = Double.valueOf(target.toString());
-                result = hookDouble(result);
-            } else {
-                result = null;
-            }
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+        if (target == null) {
+            return hookDouble(null);
         }
-    }
-
-    @Override
-    public Double doubleRangeNotNull(Object target, String msg) {
-        Double result;
         try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Double.valueOf(target.toString());
-            result = hookDouble(result);
-            return result;
+            Double result = Double.valueOf(target.toString());
+            return hookDouble(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
@@ -624,45 +600,56 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
 
     @Override
     public Double doubleRange(Object target, Number minLength, Number maxLength, String msg) {
-        Double result;
+        if (target == null) {
+            return hookDouble(null);
+        }
         try {
-            if (target != null) {
-                result = Double.valueOf(target.toString());
-                if (result < minLength.doubleValue() || result > maxLength.doubleValue()) {
-                    throw new PropertiesRuntimeException(msg);
-                }
-                result = hookDouble(result);
-            } else {
-                result = null;
+            Double result = Double.valueOf(target.toString());
+            if (result < minLength.doubleValue() || result > maxLength.doubleValue()) {
+                throw new PropertiesRuntimeException(msg);
             }
-            return result;
+            return hookDouble(result);
         } catch (NumberFormatException e) {
             throw new PropertiesRuntimeException(msg, e);
         }
     }
 
     @Override
-    public Double doubleRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
-        Double result;
-        try {
-            if (target == null) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = Double.valueOf(target.toString());
-            if (result < minLength.doubleValue() || result > maxLength.doubleValue()) {
-                throw new PropertiesRuntimeException(msg);
-            }
-            result = hookDouble(result);
-            return result;
-        } catch (NumberFormatException e) {
-            throw new PropertiesRuntimeException(msg, e);
+    public Double doubleRangeNotNull(Object target, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
         }
+        return doubleRange(target, msg);
+    }
+
+    @Override
+    public Double doubleRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return doubleRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public Double doubleRangeOfNullable(Object target, Number defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.doubleValue();
+        }
+        return doubleRange(target, msg);
+    }
+
+    @Override
+    public Double doubleRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue.doubleValue();
+        }
+        return doubleRange(target, minLength, maxLength, msg);
     }
 
     @Override
     public Boolean booleanFormat(Object target, String msg) {
         if (target == null) {
-            return null;
+            return hookBoolean(true);
         }
         switch (target.toString().toLowerCase()) {
             case "true":
@@ -687,28 +674,20 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
         if (target == null) {
             throw new PropertiesRuntimeException(msg);
         }
-        switch (target.toString().toLowerCase()) {
-            case "1":
-                hookBoolean(true);
-                return true;
-            case "0":
-                hookBoolean(false);
-                return false;
-            case "true":
-                hookBoolean(true);
-                return true;
-            case "false":
-                hookBoolean(false);
-                return false;
-            default:
-                throw new PropertiesRuntimeException(msg);
+        return booleanFormat(target, msg);
+    }
+
+    @Override
+    public Boolean booleanFormatOfNullable(Object target, Boolean defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue;
         }
+        return booleanFormat(target, msg);
     }
 
     @Override
     public String fillingTarget(Object target, Integer totalSize, char fillingChar, StringFormatMode stringFormatMode) {
-        String result;
-        String rowString = string(target, 0, totalSize, "Length of " + target + " should within " + totalSize + " .");
+        String rowString = string(target, 0, totalSize, "Length of " + target + " should be fewer than " + totalSize + " .");
         StringBuilder fillPart = new StringBuilder();
         int needFillCount = totalSize;
         if (target != null) {
@@ -717,6 +696,7 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
         for (int i = 0; i < needFillCount; i++) {
             fillPart.append(fillingChar);
         }
+        String result;
         if (rowString != null) {
             result = fillPart.toString() + rowString;
         } else {
@@ -733,9 +713,8 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
                 result = result.toLowerCase();
                 break;
             default:
-                throw new Universal500RuntimeException("Unexpected [StringFormatMode]:" + stringFormatMode.getDescription() + " .");
+                throw new UtilRuntimeException("Unexpected [StringFormatMode]:" + stringFormatMode.getDescription() + " .");
         }
         return result;
     }
-
 }

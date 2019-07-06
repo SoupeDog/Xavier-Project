@@ -14,11 +14,6 @@ import org.xavier.common.util.base.BasePropertiesHelper;
 public class DefaultPropertiesHelper extends BasePropertiesHelper {
 
     @Override
-    protected <T> T hookObject(T target, Class<T> tClass) {
-        return target;
-    }
-
-    @Override
     protected String hookString(String target) {
         return target;
     }

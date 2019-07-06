@@ -1,19 +1,17 @@
 package org.xavier.common.util;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.xavier.common.enums.ColumnType;
 
 /**
  * 描述信息：<br/>
- * 基于 Jackson 的 Json 工具类接口
+ * Json 工具类接口
  *
  * @author Xavier
  * @version 1.0
  * @date 2017.11.23
  * @since Jdk 1.8
  */
-public interface JsonHelper {
+public interface JsonHelper<S> {
     /**
      * 格式化对象或者字符串
      *
@@ -26,27 +24,27 @@ public interface JsonHelper {
      * 将目标当做 json 解析，并获取特定 key 对应的 value(遇到收个符合条件的 key 即会返回)
      *
      * @param jsonType   对象类型
-     * @param targetObj  待解析对象
+     * @param target  待解析对象
      * @param key        key
      * @param resultType 返回结果类型
      * @param tClass     返回结果类
      */
-    <T> T getFirstValueByKey(ColumnType jsonType, Object targetObj, String key, ColumnType resultType, Class<T> tClass);
+    <T> T getFirstValueByKey(ColumnType jsonType, Object target, String key, ColumnType resultType, Class<T> tClass);
 
     /**
      * 将目标当做 json 解析，并获取特定 key 对应的 value(根据序号从所有 key 条件的集合中返回最终结果)
      *
      * @param jsonType   对象类型
-     * @param targetObj  待解析对象
+     * @param target  待解析对象
      * @param key        key
      * @param index      序号(从最外层向里匹配，首个匹配结果序号为 1 )
      * @param resultType 返回结果类型
      * @param tClass     返回结果类
      */
-    <T> T getValueByKey_Index(ColumnType jsonType, Object targetObj, String key, Integer index, ColumnType resultType, Class<T> tClass);
+    <T> T getValueByKeyIndex(ColumnType jsonType, Object target, String key, Integer index, ColumnType resultType, Class<T> tClass);
 
     /**
-     * 返回当前 ObjectMapper
+     * 返回当前 序列化工具依赖
      */
-     ObjectMapper getMapper();
+    S getDependence();
 }

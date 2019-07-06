@@ -16,23 +16,12 @@ import org.xavier.common.enums.StringFormatMode;
 public interface PropertiesHelper {
 
     /**
-     * 将目标转化为 tclass 类型，且要求不为空
-     *
-     * @param target 目标对象
-     * @param tClass 目标类型
-     * @return
-     */
-    <T> T objNotNull(Object target, Class<T> tClass, String msg);
-
-
-    /**
      * 判断字符串是否为 空(去格式后空字符串) 或 null
      *
      * @param target 目标对象
      * @return true 为 null 或空串  false 为有效值
      */
-    Boolean is_Null_Or_Empty(Object target);
-
+    boolean stringIsNullOrEmpty(String target);
 
     /**
      * 将目标对象转化为字符串，可为 null  非空时调用其 toString() 方法
@@ -403,15 +392,6 @@ public interface PropertiesHelper {
     Float floatRange(Object target, String msg);
 
     /**
-     * 将目标对象转化为 Float ，不可为 null,要求其取值上下限约为 ± 3.4028235E38
-     *
-     * @param target 目标对象
-     * @param msg    错误提示信息
-     * @return 转化后的单精度浮点型
-     */
-    Float floatRangeNotNull(Object target, String msg);
-
-    /**
      * 将目标对象转化为 Float ，可为 null,若不为 null 时，要求其取值在 minLength~maxLength 之间(闭区间)
      *
      * @param target    目标对象
@@ -421,6 +401,15 @@ public interface PropertiesHelper {
      * @return 转化后的单精度浮点型
      */
     Float floatRange(Object target, Number minLength, Number maxLength, String msg);
+
+    /**
+     * 将目标对象转化为 Float ，不可为 null,要求其取值上下限约为 ± 3.4028235E38
+     *
+     * @param target 目标对象
+     * @param msg    错误提示信息
+     * @return 转化后的单精度浮点型
+     */
+    Float floatRangeNotNull(Object target, String msg);
 
     /**
      * 将目标对象转化为 Float ，不可为 null,要求其取值在 minLength~maxLength 之间(闭区间)
@@ -434,6 +423,26 @@ public interface PropertiesHelper {
     Float floatRangeNotNull(Object target, Number minLength, Number maxLength, String msg);
 
     /**
+     * 将目标对象转化为 Long，若对象为 null 或 空字符串时,将被赋为默认值
+     *
+     * @param target 目标对象
+     * @param msg    错误提示信息
+     * @return 转化后的 Byte
+     */
+    Float floatRangeOfNullable(Object target, Number defaultValue, String msg);
+
+    /**
+     * 将目标对象转化为 Long，若对象为 null 或 空字符串时,将被赋为默认值,且要求其取值在 minLength~maxLength 之间(闭区间)
+     *
+     * @param target    目标对象
+     * @param minLength 最小值
+     * @param maxLength 最大值
+     * @param msg       错误提示信息
+     * @return 转化后的 Byte
+     */
+    Float floatRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
+
+    /**
      * 将目标对象转化为 Double ，可为 null，若不为 null 时，要求其取值上下限约为 ± 1.7976931348623157E308
      *
      * @param target 目标对象
@@ -441,15 +450,6 @@ public interface PropertiesHelper {
      * @return 转化后的双精度浮点型
      */
     Double doubleRange(Object target, String msg);
-
-    /**
-     * 将目标对象转化为 Double ，不可为 null,要求其取值上下限约为 ± 1.7976931348623157E308
-     *
-     * @param target 目标对象
-     * @param msg    错误提示信息
-     * @return 转化后的双精度浮点型
-     */
-    Double doubleRangeNotNull(Object target, String msg);
 
     /**
      * 将目标对象转化为 Double ，可为 null，若不为 null 时，要求其取值在 minLength~maxLength 之间(闭区间)
@@ -463,6 +463,15 @@ public interface PropertiesHelper {
     Double doubleRange(Object target, Number minLength, Number maxLength, String msg);
 
     /**
+     * 将目标对象转化为 Double ，不可为 null,要求其取值上下限约为 ± 1.7976931348623157E308
+     *
+     * @param target 目标对象
+     * @param msg    错误提示信息
+     * @return 转化后的双精度浮点型
+     */
+    Double doubleRangeNotNull(Object target, String msg);
+
+    /**
      * 将目标对象转化为 Double ，不可为 null,要求其取值在 minLength~maxLength 之间(闭区间)
      *
      * @param target    目标对象
@@ -472,6 +481,26 @@ public interface PropertiesHelper {
      * @return 转化后的双精度浮点型
      */
     Double doubleRangeNotNull(Object target, Number minLength, Number maxLength, String msg);
+
+    /**
+     * 将目标对象转化为 Double，若对象为 null 或 空字符串时,将被赋为默认值
+     *
+     * @param target 目标对象
+     * @param msg    错误提示信息
+     * @return 转化后的 Byte
+     */
+    Double doubleRangeOfNullable(Object target, Number defaultValue, String msg);
+
+    /**
+     * 将目标对象转化为 Double，若对象为 null 或 空字符串时,将被赋为默认值,且要求其取值在 minLength~maxLength 之间(闭区间)
+     *
+     * @param target    目标对象
+     * @param minLength 最小值
+     * @param maxLength 最大值
+     * @param msg       错误提示信息
+     * @return 转化后的 Byte
+     */
+    Double doubleRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
 
     /**
      * 将目标对象转化为 Boolean ,可为 null {有效参数：true、false（不区分大小写）；数字 1、0）}
@@ -490,6 +519,15 @@ public interface PropertiesHelper {
      * @return 转化后的布尔型
      */
     Boolean booleanFormatNotNull(Object target, String msg);
+
+    /**
+     * 将目标对象转化为 Boolean，若对象为 null 或 空字符串时,将被赋为默认值 {有效参数：true、false（不区分大小写）；数字 1、0）}
+     *
+     * @param target 目标对象
+     * @param msg    错误提示信息
+     * @return 转化后的 Byte
+     */
+    Boolean booleanFormatOfNullable(Object target, Boolean defaultValue, String msg);
 
     /**
      * 以 fillingChar 将target 从高位补齐到 totalSize <br/>
