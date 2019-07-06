@@ -83,8 +83,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为数字类型，可为 null
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target     目标对象
+     * @param targetType 目标对象类型
+     * @param msg        错误提示信息
      * @return 转化后的 Number 对象
      */
     Number numberFormat(Object target, ColumnType targetType, String msg);
@@ -92,10 +93,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为数字类型，可为 null
      *
-     * @param target    目标对象
-     * @param msg       错误提示信息
-     * @param minLength 最小长度
-     * @param maxLength 最大长度
+     * @param target     目标对象
+     * @param targetType 目标对象类型
+     * @param msg        错误提示信息
+     * @param minLength  最小长度
+     * @param maxLength  最大长度
      * @return 转化后的 Number 对象
      */
     Number numberFormat(Object target, ColumnType targetType, Number minLength, Number maxLength, String msg);
@@ -103,8 +105,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为数字类型，不可为 null
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target     目标对象
+     * @param targetType 目标对象类型
+     * @param msg        错误提示信息
      * @return 转化后的 Number 对象
      */
     Number numberFormatNotNull(Object target, ColumnType targetType, String msg);
@@ -112,10 +115,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为数字类型，不可为 null
      *
-     * @param target    目标对象
-     * @param minLength 最小长度
-     * @param maxLength 最大长度
-     * @param msg       错误提示信息
+     * @param target     目标对象
+     * @param targetType 目标对象类型
+     * @param minLength  最小长度
+     * @param maxLength  最大长度
+     * @param msg        错误提示信息
      * @return 转化后的 Number 对象
      */
     Number numberFormatNotNull(Object target, ColumnType targetType, Number minLength, Number maxLength, String msg);
@@ -124,6 +128,7 @@ public interface PropertiesHelper {
      * 将目标对象转化为数字类型，若对象为 null 或 空字符串时,将被赋为默认值
      *
      * @param target       目标对象
+     * @param targetType   目标对象类型
      * @param defaultValue 默认值
      * @param msg          错误提示信息
      * @return 转化后的 Number 对象
@@ -134,6 +139,7 @@ public interface PropertiesHelper {
      * 将目标对象转化为数字类型，若对象为 null 或 空字符串时,将被赋为默认值,且要求字符串长度在 minLength~maxLength 之间(闭区间)
      *
      * @param target       目标对象
+     * @param targetType   目标对象类型
      * @param defaultValue 默认值
      * @param minLength    最小长度
      * @param maxLength    最大长度
@@ -185,8 +191,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Byte，若对象为 null 或 空字符串时,将被赋为默认值
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Byte byteRangeOfNullable(Object target, Number defaultValue, String msg);
@@ -194,10 +201,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Byte，若对象为 null 或 空字符串时,将被赋为默认值,且要求字符串长度在 minLength~maxLength 之间(闭区间)
      *
-     * @param target    目标对象
-     * @param minLength 最小值
-     * @param maxLength 最大值
-     * @param msg       错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param minLength    最小值
+     * @param maxLength    最大值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Byte byteRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
@@ -245,8 +253,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Short，若对象为 null 或 空字符串时,将被赋为默认值
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Short shortRangeOfNullable(Object target, Number defaultValue, String msg);
@@ -254,10 +263,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Short，若对象为 null 或 空字符串时,将被赋为默认值,且要求其取值在 minLength~maxLength 之间(闭区间)
      *
-     * @param target    目标对象
-     * @param minLength 最小值
-     * @param maxLength 最大值
-     * @param msg       错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param minLength    最小值
+     * @param maxLength    最大值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Short shortRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
@@ -305,8 +315,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Integer，若对象为 null 或 空字符串时,将被赋为默认值
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Integer intRangeOfNullable(Object target, Number defaultValue, String msg);
@@ -314,10 +325,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Integer，若对象为 null 或 空字符串时,将被赋为默认值,且要求其取值在 minLength~maxLength 之间(闭区间)
      *
-     * @param target    目标对象
-     * @param minLength 最小值
-     * @param maxLength 最大值
-     * @param msg       错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param minLength    最小值
+     * @param maxLength    最大值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Integer intRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
@@ -365,8 +377,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Long，若对象为 null 或 空字符串时,将被赋为默认值
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Long longRangeOfNullable(Object target, Number defaultValue, String msg);
@@ -374,10 +387,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Long，若对象为 null 或 空字符串时,将被赋为默认值,且要求其取值在 minLength~maxLength 之间(闭区间)
      *
-     * @param target    目标对象
-     * @param minLength 最小值
-     * @param maxLength 最大值
-     * @param msg       错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param minLength    最小值
+     * @param maxLength    最大值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Long longRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
@@ -425,8 +439,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Long，若对象为 null 或 空字符串时,将被赋为默认值
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Float floatRangeOfNullable(Object target, Number defaultValue, String msg);
@@ -434,10 +449,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Long，若对象为 null 或 空字符串时,将被赋为默认值,且要求其取值在 minLength~maxLength 之间(闭区间)
      *
-     * @param target    目标对象
-     * @param minLength 最小值
-     * @param maxLength 最大值
-     * @param msg       错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param minLength    最小值
+     * @param maxLength    最大值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Float floatRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
@@ -485,8 +501,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Double，若对象为 null 或 空字符串时,将被赋为默认值
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Double doubleRangeOfNullable(Object target, Number defaultValue, String msg);
@@ -494,10 +511,11 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Double，若对象为 null 或 空字符串时,将被赋为默认值,且要求其取值在 minLength~maxLength 之间(闭区间)
      *
-     * @param target    目标对象
-     * @param minLength 最小值
-     * @param maxLength 最大值
-     * @param msg       错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param minLength    最小值
+     * @param maxLength    最大值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Double doubleRangeOfNullable(Object target, Number defaultValue, Number minLength, Number maxLength, String msg);
@@ -523,8 +541,9 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为 Boolean，若对象为 null 或 空字符串时,将被赋为默认值 {有效参数：true、false（不区分大小写）；数字 1、0）}
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param defaultValue 为 null 或 空字符串时的默认值
+     * @param msg          错误提示信息
      * @return 转化后的 Byte
      */
     Boolean booleanFormatOfNullable(Object target, Boolean defaultValue, String msg);
@@ -535,9 +554,10 @@ public interface PropertiesHelper {
      * 结果 "0A4Q"<br/>
      * PS: 此方法会抛出 PropertiesException_Runtime (如长度为10的字符串要求补齐成长度为5)
      *
-     * @param target      目标字符
-     * @param totalSize   补位后预期字符串总长度
-     * @param fillingChar 补位字符
+     * @param target           目标字符
+     * @param totalSize        补位后预期字符串总长度
+     * @param fillingChar      补位字符
+     * @param stringFormatMode 返回值字符串大小写类型
      * @return 以 fillingChar 将target 从高位补齐到 totalSize 的字符串
      */
     String fillingTarget(Object target, Integer totalSize, char fillingChar, StringFormatMode stringFormatMode);
