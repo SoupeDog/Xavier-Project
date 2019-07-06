@@ -25,9 +25,4 @@ public class DefaultJacksonJsonHelper extends BaseJacksonJsonHelper {
     protected <T> T hookGetValueByKey(ColumnType resultType, T target, Class<T> tClass) {
         return target;
     }
-
-    @Override
-    public ObjectMapper getDependence() {
-        return mapper;
-    }
 }

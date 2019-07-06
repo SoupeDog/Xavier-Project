@@ -194,4 +194,9 @@ public abstract class BaseJacksonJsonHelper implements JsonHelper<ObjectMapper> 
             throw new PropertiesRuntimeException("[" + target + "] can't format to Json.");
         }
     }
+
+    @Override
+    public ObjectMapper getDependence() {
+        return mapper;
+    }
 }
