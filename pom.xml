@@ -35,6 +35,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.xavier</groupId>
+                <artifactId>logging-log4j2</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${springboot.version}</version>
