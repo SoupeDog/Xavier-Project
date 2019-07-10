@@ -1,5 +1,6 @@
 package org.xavier.spring.common.config;
 
+import org.xavier.spring.common.enums.EnvironmentEnum;
 import org.xavier.spring.common.enums.LoggerLevelEnum;
 
 /**
@@ -13,13 +14,25 @@ import org.xavier.spring.common.enums.LoggerLevelEnum;
  */
 public class LoggerConfig {
     /**
+     * 当前运行环境
+     */
+    private EnvironmentEnum currentEnvironment;
+    /**
      * 自定义日志工具最低输出级别 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
-    private LoggerLevelEnum logLevel = LoggerLevelEnum.WARNING;
+    protected LoggerLevelEnum logLevel = LoggerLevelEnum.WARNING;
     /**
      * 自定义日志工具文件输出路径 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
-    private String filePath = null;
+    protected String filePath = null;
+
+    public EnvironmentEnum getCurrentEnvironment() {
+        return currentEnvironment;
+    }
+
+    public void setCurrentEnvironment(EnvironmentEnum currentEnvironment) {
+        this.currentEnvironment = currentEnvironment;
+    }
 
     public LoggerLevelEnum getLogLevel() {
         return logLevel;

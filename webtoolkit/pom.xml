@@ -6,35 +6,32 @@
         <artifactId>Xavier-Project</artifactId>
         <groupId>org.xavier</groupId>
         <version>2.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>util</artifactId>
+    <artifactId>webtoolkit</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.xavier</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>util</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
                 <exclusion>
-                    <artifactId>spring-web</artifactId>
-                    <groupId>org.springframework</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                    <groupId>org.hibernate.validator</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>spring-boot-starter</artifactId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
                     <groupId>org.springframework.boot</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
+
 
 </project>

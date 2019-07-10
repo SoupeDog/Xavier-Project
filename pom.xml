@@ -12,6 +12,9 @@
     <modules>
         <module>common</module>
         <module>util</module>
+        <module>spring-boot-util</module>
+        <module>logging-log4j2</module>
+        <module>webtoolkit</module>
     </modules>
 
     <dependencyManagement>
@@ -22,8 +25,23 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.xavier</groupId>
+                <artifactId>util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xavier</groupId>
+                <artifactId>spring-boot-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
             <dependency>
@@ -34,6 +52,17 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <!-- 引入log4j2依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
         </dependencies>
