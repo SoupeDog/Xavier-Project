@@ -18,11 +18,11 @@ import org.xavier.spring.common.store.EnvironmentValueStore;
  * @since Jdk 1.8
  */
 
-public class HyggeSpringBeanRegister_ApplicationEnvironmentPreparedEvent implements Ordered, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+public class ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister implements Ordered, ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent applicationEnvironmentPreparedEvent) {
-        System.out.println("HyggeSpringBeanRegister_ApplicationEnvironmentPreparedEvent");
+        System.out.println("ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister");
         String[] profiles = applicationEnvironmentPreparedEvent.getEnvironment().getActiveProfiles();
         HyggeContext.currentEnvironment = analyzeEnvironment(profiles);
         HyggeContext.appName = applicationEnvironmentPreparedEvent.getEnvironment().getProperty("spring.application.name", "Unknown");

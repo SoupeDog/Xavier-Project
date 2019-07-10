@@ -13,7 +13,7 @@ import org.springframework.core.ResolvableType;
  * @date 2018.12.18
  * @since Jdk 1.8
  */
-public class HyggeSpringBeanRegister_GenericApplication implements GenericApplicationListener {
+public class GenericApplicationHyggeSpringBeanRegister implements GenericApplicationListener {
 
     @Override
     public boolean supportsEventType(ResolvableType resolvableType) {

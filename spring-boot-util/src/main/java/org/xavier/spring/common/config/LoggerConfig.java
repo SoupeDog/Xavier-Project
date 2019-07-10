@@ -13,11 +13,11 @@ import org.xavier.spring.common.enums.LoggerLevelEnum;
  */
 public class LoggerConfig {
     /**
-     * 自定义日志工具最低输出级别 HyggeSpringBeanRegister_ApplicationEnvironmentPreparedEvent 中会尝试重新赋值
+     * 自定义日志工具最低输出级别 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
     private LoggerLevelEnum logLevel = LoggerLevelEnum.WARNING;
     /**
-     * 自定义日志工具文件输出路径 HyggeSpringBeanRegister_ApplicationEnvironmentPreparedEvent 中会尝试重新赋值
+     * 自定义日志工具文件输出路径 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
     private String filePath = null;
 

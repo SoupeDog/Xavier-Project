@@ -14,10 +14,10 @@ import org.springframework.context.ApplicationListener;
  * @since Jdk 1.8
  */
 
-public class HyggeSpringBeanRegister_ApplicationReadyEvent implements ApplicationListener<ApplicationReadyEvent> {
+public class ApplicationReadyEventHyggeSpringBeanRegister implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        System.out.println("HyggeSpringBeanRegister_ApplicationReadyEvent");
+        System.out.println("ApplicationReadyEventHyggeSpringBeanRegister");
         ConfigurableListableBeanFactory beanFactory = applicationReadyEvent.getApplicationContext().getBeanFactory();
     }
 }

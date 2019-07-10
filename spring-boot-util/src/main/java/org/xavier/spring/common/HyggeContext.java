@@ -13,12 +13,12 @@ import org.xavier.spring.common.enums.EnvironmentEnum;
  */
 public class HyggeContext {
     /**
-     * 当前运行环境 HyggeSpringBeanRegister_ApplicationEnvironmentPreparedEvent 中会尝试重新赋值
+     * 当前运行环境 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
     public volatile static EnvironmentEnum currentEnvironment = EnvironmentEnum.PREDEV;
 
     /**
-     * 应用名称 HyggeSpringBeanRegister_ApplicationEnvironmentPreparedEvent 中会尝试重新赋值
+     * 应用名称 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
     public volatile static String appName = null;
 
