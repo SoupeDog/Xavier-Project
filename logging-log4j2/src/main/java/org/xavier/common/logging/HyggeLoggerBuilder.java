@@ -154,8 +154,8 @@ public class HyggeLoggerBuilder {
                                     .append("\"subversion\":").append(subVersion).append(",")
                                     .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
                                     .append("\"source\":\"%c{1.}\",").append("\"level\":")
-                                    .append("\"%level\"").append(",").append("\"hostname\":\"${hostName}\"").append(",")
-                                    .append("\"appname\":\"").append(appName).append("\",").append("\"pid\":${sys:PID},")
+                                    .append("\"%level\"").append(",").append("\"hostName\":\"${hostName}\"").append(",")
+                                    .append("\"appName\":\"").append(appName).append("\",").append("\"pid\":${sys:PID},")
                                     .append("\"msg\":\"%escapeJMsg{%msg}\",")
                                     .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
                             break;
@@ -181,8 +181,8 @@ public class HyggeLoggerBuilder {
                             stringBuilder.append("{\"type\":\"framework\",").append("\"source\":\"%c{1.}\",")
                                     .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
                                     .append("\"level\":").append("\"%level\"").append(",")
-                                    .append("\"hostname\":\"${hostName}\"").append(",")
-                                    .append("\"appname\":\"").append(appName).append("\",")
+                                    .append("\"hostName\":\"${hostName}\"").append(",")
+                                    .append("\"appName\":\"").append(appName).append("\",")
                                     .append("\"pid\":${sys:PID},").append("\"msg\":\"%escapeJMsg{%msg}\",")
                                     .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
                             break;
