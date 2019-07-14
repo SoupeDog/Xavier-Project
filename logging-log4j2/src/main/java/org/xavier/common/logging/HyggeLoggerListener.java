@@ -28,6 +28,7 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
         setting.setProjectName(environment.getProperty("hygge.logger.name", "Hygge"));
         setting.setAppName(HyggeContext.appName);
         setting.setCurrentEnvironment(HyggeContext.currentEnvironment);
+        setting.setFilePath(environment.getProperty("hygge.logger.filePath", "/"));
         setting.setLogLevel(environment.getProperty("hygge.logger.level", LoggerValueStore.WARNING_STRING));
         HyggeLoggerOutputMode outputMode;
         switch (HyggeContext.currentEnvironment) {
