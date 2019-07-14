@@ -71,8 +71,8 @@ public class HyggeLoggerBuilder {
         if (isApp) {
             switch (mode) {
                 case FILE:
-                    FileAppender.Builder appenderbuilder = FileAppender.newBuilder();
-                    appenderbuilder.withFileName(setting.getFilePath() + setting.getAppName() + "_app.log").
+                    FileAppender.Builder appenderBuilder = FileAppender.newBuilder();
+                    appenderBuilder.withFileName(setting.getFilePath() + setting.getAppName() + "_app.log").
                             withLocking(false).
                             setName("frwkFileJsonAppender").
                             setLayout(getLayout(
@@ -81,7 +81,7 @@ public class HyggeLoggerBuilder {
                                             setting.getSubVersion(),
                                             setting.getAppName()),
                                     logConfiguration));
-                    result = appenderbuilder.build();
+                    result = appenderBuilder.build();
                     break;
                 default:
                     ConsoleAppender.Builder cons = ConsoleAppender.newBuilder();
@@ -97,8 +97,8 @@ public class HyggeLoggerBuilder {
         } else {
             switch (mode) {
                 case FILE:
-                    FileAppender.Builder appenderbuilder = FileAppender.newBuilder();
-                    appenderbuilder.withFileName(setting.getFilePath() + setting.getAppName() + "_frwk.log").
+                    FileAppender.Builder appenderBuilder = FileAppender.newBuilder();
+                    appenderBuilder.withFileName(setting.getFilePath() + setting.getAppName() + "_frwk.log").
                             withLocking(false).
                             setName("frwkFileJsonAppender").
                             setLayout(getLayout(
@@ -107,7 +107,7 @@ public class HyggeLoggerBuilder {
                                             setting.getSubVersion(),
                                             setting.getAppName()),
                                     logConfiguration));
-                    result = appenderbuilder.build();
+                    result = appenderBuilder.build();
                     break;
                 default:
                     ConsoleAppender.Builder cons = ConsoleAppender.newBuilder();
