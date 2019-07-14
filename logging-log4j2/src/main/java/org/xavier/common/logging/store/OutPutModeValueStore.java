@@ -1,4 +1,4 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.store;
 
 /**
  * 描述信息：<br/>

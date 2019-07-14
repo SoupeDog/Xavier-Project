@@ -6,6 +6,7 @@ import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEven
 import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.xavier.common.logging.store.OutPutModeValueStore;
 import org.xavier.spring.common.HyggeContext;
 import org.xavier.spring.common.enums.EnvironmentEnum;
 import org.xavier.spring.common.exception.SpringBootUtilRuntimeException;
