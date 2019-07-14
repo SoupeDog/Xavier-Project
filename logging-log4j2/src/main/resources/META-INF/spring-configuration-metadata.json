@@ -1,0 +1,49 @@
+{
+  "hints": [
+    {
+      "name": "hygge.logger.name",
+      "values": [
+        {
+          "value": "hygge"
+        }
+      ]
+    },
+    {
+      "name": "hygge.logger.output.type",
+      "values": [
+        {
+          "value": "console"
+        },
+        {
+          "value": "file"
+        }
+      ]
+    },
+    {
+      "name": "hygge.logger.level",
+      "values": [
+        {
+          "value": "off"
+        },
+        {
+          "value": "error"
+        },
+        {
+          "value": "warning"
+        },
+        {
+          "value": "info"
+        },
+        {
+          "value": "debug"
+        },
+        {
+          "value": "trace"
+        },
+        {
+          "value": "always"
+        }
+      ]
+    }
+  ]
+}

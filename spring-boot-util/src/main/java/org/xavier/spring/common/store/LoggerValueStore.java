@@ -15,6 +15,10 @@ public class LoggerValueStore {
      */
     public static final String ALWAYS_STRING = "ALWAYS";
     /**
+     * 跟踪级别 字符串
+     */
+    public static final String TRACE_STRING = "TRACE";
+    /**
      * 调试级别 字符串
      */
     public static final String DEBUG_STRING = "DEBUG";
@@ -30,4 +34,8 @@ public class LoggerValueStore {
      * 错误级别 字符串
      */
     public static final String ERROR_STRING = "ERROR";
+    /**
+     * 关闭级别 字符串
+     */
+    public static final String OFF_STRING = "OFF";
 }

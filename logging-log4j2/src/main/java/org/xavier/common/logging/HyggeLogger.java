@@ -29,6 +29,21 @@ public interface HyggeLogger {
     void always(String message, Throwable e);
 
     /**
+     * trace 及以下输出
+     *
+     * @param message 日志字符串
+     */
+    void trace(String message);
+
+    /**
+     * trace 及以下输出
+     *
+     * @param message 日志字符串
+     * @param e       异常信息
+     */
+    void trace(String message, Throwable e);
+
+    /**
      * debug 及以下输出
      *
      * @param message 日志字符串

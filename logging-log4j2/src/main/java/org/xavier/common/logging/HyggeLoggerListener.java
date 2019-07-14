@@ -9,6 +9,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.xavier.spring.common.HyggeContext;
 import org.xavier.spring.common.enums.EnvironmentEnum;
 import org.xavier.spring.common.exception.SpringBootUtilRuntimeException;
+import org.xavier.spring.common.store.LoggerValueStore;
 
 /**
  * 描述信息：<br/>
@@ -27,17 +28,20 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
         setting.setProjectName(environment.getProperty("hygge.logger.name", "Hygge"));
         setting.setAppName(HyggeContext.appName);
         setting.setCurrentEnvironment(HyggeContext.currentEnvironment);
+        setting.setLogLevel(environment.getProperty("hygge.logger.level", LoggerValueStore.WARNING_STRING));
+        HyggeLoggerOutputMode outputMode;
         switch (HyggeContext.currentEnvironment) {
             case DEV:
             case INT:
             case VIP:
             case PROD:
-                setting.setMode(HyggeLoggerOutputMode.FILE);
+                outputMode = HyggeLoggerOutputMode.formatByString(environment.getProperty("hygge.logger.output.type", OutPutModeValueStore.FILE));
                 break;
             default:
-                setting.setMode(HyggeLoggerOutputMode.DEFAULT);
+                outputMode = HyggeLoggerOutputMode.formatByString(environment.getProperty("hygge.logger.output.type", OutPutModeValueStore.CONSOLE));
         }
-
+        // 设置日志输出类型
+        setting.setMode(outputMode);
         setting.setTemplate(HyggeLoggerOutputTemplate.DEFAULT);
         setting.setVersion("1.1");
         setting.setSubVersion("1");

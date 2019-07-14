@@ -32,6 +32,16 @@ public class HyggeLoggerLog4j2Impl implements HyggeLogger {
     }
 
     @Override
+    public void trace(String message) {
+        logger.trace(message);
+    }
+
+    @Override
+    public void trace(String message, Throwable e) {
+        logger.trace(message, e);
+    }
+
+    @Override
     public void debug(String message) {
         logger.debug(message);
     }

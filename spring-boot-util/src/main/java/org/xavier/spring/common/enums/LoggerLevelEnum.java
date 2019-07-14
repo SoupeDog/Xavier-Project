@@ -18,21 +18,30 @@ public enum LoggerLevelEnum {
      */
     ALWAYS(0, LoggerValueStore.ALWAYS_STRING),
     /**
+     * 追踪级别
+     */
+    TRACE(1, LoggerValueStore.TRACE_STRING),
+    /**
      * 调试级别
      */
-    DEBUG(0, LoggerValueStore.DEBUG_STRING),
+    DEBUG(2, LoggerValueStore.DEBUG_STRING),
+
     /**
      * 内部信息级别
      */
-    INFO(1, LoggerValueStore.INFO_STRING),
+    INFO(3, LoggerValueStore.INFO_STRING),
     /**
      * 警告级别
      */
-    WARNING(2, LoggerValueStore.WARNING_STRING),
+    WARNING(4, LoggerValueStore.WARNING_STRING),
     /**
      * 错误级别
      */
-    ERROR(3, LoggerValueStore.ERROR_STRING);
+    ERROR(5, LoggerValueStore.ERROR_STRING),
+    /**
+     * 关闭级别
+     */
+    OFF(6, LoggerValueStore.OFF_STRING);
 
     private Byte index;
     private String description;
