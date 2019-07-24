@@ -59,6 +59,8 @@ public enum LoggerLevelEnum {
         switch (temp) {
             case LoggerValueStore.ALWAYS_STRING:
                 return ALWAYS;
+            case LoggerValueStore.TRACE_STRING:
+                return TRACE;
             case LoggerValueStore.DEBUG_STRING:
                 return DEBUG;
             case LoggerValueStore.INFO_STRING:
@@ -67,6 +69,8 @@ public enum LoggerLevelEnum {
                 return WARNING;
             case LoggerValueStore.ERROR_STRING:
                 return ERROR;
+            case LoggerValueStore.OFF_STRING:
+                return OFF;
             default:
                 throw new SpringBootUtilRuntimeException("[" + temp + "] can't format to [LoggerLevelEnum].");
         }

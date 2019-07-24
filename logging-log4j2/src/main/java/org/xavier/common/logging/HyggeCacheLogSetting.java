@@ -1,9 +1,13 @@
 package org.xavier.common.logging;
 
 
+import org.xavier.common.exception.PropertiesRuntimeException;
 import org.xavier.common.util.PropertiesHelper;
 import org.xavier.common.util.UtilsCreator;
 import org.xavier.spring.common.config.LoggerConfig;
+import org.xavier.spring.common.enums.EnvironmentEnum;
+
+import java.util.Objects;
 
 /**
  * 描述信息：<br/>
@@ -16,23 +20,6 @@ import org.xavier.spring.common.config.LoggerConfig;
  */
 public class HyggeCacheLogSetting extends LoggerConfig {
     /**
-     * 项目名称
-     */
-    private String projectName;
-
-    /**
-     * 应用名称
-     */
-    private String appName;
-    /**
-     * 应用版本号
-     */
-    private String version;
-    /**
-     * 应用子版本号
-     */
-    private String subVersion;
-    /**
      * 日志输入模板
      */
     private HyggeLoggerOutputTemplate template;
@@ -41,47 +28,18 @@ public class HyggeCacheLogSetting extends LoggerConfig {
      */
     private HyggeLoggerOutputMode mode;
 
+    @Override
     public void propertiesCheck() {
         PropertiesHelper propertiesHelper = UtilsCreator.getDefaultPropertiesHelperInstance();
         propertiesHelper.stringNotNull(projectName, "[projectName] can't be empty.");
         propertiesHelper.stringNotNull(appName, "[appName] can't be empty.");
         propertiesHelper.stringNotNull(version, "[version] can't be empty.");
-        propertiesHelper.stringNotNull(subVersion, "[subVersion] can't be empty.");
-//        propertiesHelper.objNotNull(template, HyggeLoggerOutputTemplate.class, "[HyggeLoggerOutputTemplate] can't be empty.");
-//        propertiesHelper.objNotNull(mode, HyggeLoggerOutputMode.class, "[HyggeLoggerOutputMode] can't be empty.");
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-
-    public String getAppName() {
-        return appName;
-    }
-
-    public void setAppName(String appName) {
-        this.appName = appName;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getSubVersion() {
-        return subVersion;
-    }
-
-    public void setSubVersion(String subVersion) {
-        this.subVersion = subVersion;
+        try {
+            Objects.requireNonNull(template, "[HyggeLoggerOutputTemplate] can't be empty.");
+            Objects.requireNonNull(template, "[HyggeLoggerOutputMode] can't be empty.");
+        } catch (NullPointerException e) {
+            throw new PropertiesRuntimeException(e.getMessage());
+        }
     }
 
     public HyggeLoggerOutputTemplate getTemplate() {

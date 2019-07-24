@@ -26,10 +26,6 @@ public class ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister implemen
         String[] profiles = applicationEnvironmentPreparedEvent.getEnvironment().getActiveProfiles();
         HyggeContext.currentEnvironment = analyzeEnvironment(profiles);
         HyggeContext.appName = applicationEnvironmentPreparedEvent.getEnvironment().getProperty("spring.application.name", "Unknown");
-        LoggerConfig loggerConfig = new LoggerConfig();
-        loggerConfig.setLogLevel(applicationEnvironmentPreparedEvent.getEnvironment().getProperty("hygge.logger.level", "warning"));
-        loggerConfig.setFilePath(applicationEnvironmentPreparedEvent.getEnvironment().getProperty("hygge.logger.filePath", ""));
-        HyggeContext.loggerConfig = loggerConfig;
     }
 
     private EnvironmentEnum analyzeEnvironment(String[] profiles) {

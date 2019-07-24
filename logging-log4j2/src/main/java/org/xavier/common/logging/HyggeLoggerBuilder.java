@@ -27,7 +27,6 @@ public class HyggeLoggerBuilder {
     private final LoggerContext logContext;
     private final Configuration logConfiguration;
 
-
     public HyggeLoggerBuilder(HyggeCacheLogSetting setting, LoggerContext logContext) {
         this.setting = setting;
         this.logContext = logContext;
@@ -78,7 +77,6 @@ public class HyggeLoggerBuilder {
                             setLayout(getLayout(
                                     getPatten(isApp, environment, setting.getProjectName(),
                                             setting.getVersion(),
-                                            setting.getSubVersion(),
                                             setting.getAppName()),
                                     logConfiguration));
                     result = appenderBuilder.build();
@@ -88,7 +86,6 @@ public class HyggeLoggerBuilder {
                     cons.setLayout(getLayout(
                             getPatten(isApp, environment, setting.getProjectName(),
                                     setting.getVersion(),
-                                    setting.getSubVersion(),
                                     setting.getAppName()),
                             logConfiguration)).
                             setName("frwkConsoleJsonAppender");
@@ -104,7 +101,6 @@ public class HyggeLoggerBuilder {
                             setLayout(getLayout(
                                     getPatten(isApp, environment, setting.getProjectName(),
                                             setting.getVersion(),
-                                            setting.getSubVersion(),
                                             setting.getAppName()),
                                     logConfiguration));
                     result = appenderBuilder.build();
@@ -114,7 +110,6 @@ public class HyggeLoggerBuilder {
                     cons.setLayout(getLayout(
                             getPatten(isApp, environment, setting.getProjectName(),
                                     setting.getVersion(),
-                                    setting.getSubVersion(),
                                     setting.getAppName()),
                             logConfiguration)).
                             setName("frwkConsoleJsonAppender");
@@ -140,7 +135,7 @@ public class HyggeLoggerBuilder {
         return result;
     }
 
-    private String getPatten(Boolean isApp, EnvironmentEnum environment, String projectName, String version, String subVersion, String appName) {
+    private String getPatten(Boolean isApp, EnvironmentEnum environment, String projectName, String version, String appName) {
         StringBuilder stringBuilder = new StringBuilder();
         if (isApp) {
             switch (setting.getTemplate()) {
@@ -151,7 +146,6 @@ public class HyggeLoggerBuilder {
                         case VIP:
                         case PROD:
                             stringBuilder.append("{\"type\":\"" + projectName + "\",").append("\"version\":").append(version).append(",")
-                                    .append("\"subversion\":").append(subVersion).append(",")
                                     .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
                                     .append("\"source\":\"%c{1.}\",").append("\"level\":")
                                     .append("\"%level\"").append(",").append("\"hostName\":\"${hostName}\"").append(",")
@@ -162,7 +156,6 @@ public class HyggeLoggerBuilder {
                         default:
                             stringBuilder.append(projectName).append('\t')
                                     .append(version).append('\t')
-                                    .append(subVersion).append('\t')
                                     .append("%d{UNIX_MILLIS}{UTC}").append('\t')
                                     .append("%level").append('\t')
                                     .append("${sys:PID}").append('\t')

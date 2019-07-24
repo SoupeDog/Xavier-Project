@@ -1,6 +1,5 @@
 package org.xavier.spring.common;
 
-import org.xavier.spring.common.config.LoggerConfig;
 import org.xavier.spring.common.enums.EnvironmentEnum;
 
 /**
@@ -21,9 +20,4 @@ public class HyggeContext {
      * 应用名称 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
     public volatile static String appName = null;
-
-    /**
-     * 日志配置项
-     */
-    public volatile static LoggerConfig loggerConfig = null;
 }

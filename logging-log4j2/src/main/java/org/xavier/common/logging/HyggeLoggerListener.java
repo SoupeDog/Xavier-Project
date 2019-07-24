@@ -9,6 +9,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.xavier.common.logging.store.OutPutModeValueStore;
 import org.xavier.spring.common.HyggeContext;
 import org.xavier.spring.common.enums.EnvironmentEnum;
+import org.xavier.spring.common.enums.LoggerLevelEnum;
 import org.xavier.spring.common.exception.SpringBootUtilRuntimeException;
 import org.xavier.spring.common.store.LoggerValueStore;
 
@@ -28,9 +29,19 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
         HyggeCacheLogSetting setting = new HyggeCacheLogSetting();
         setting.setProjectName(environment.getProperty("hygge.logger.name", "Hygge"));
         setting.setAppName(HyggeContext.appName);
+        setting.setVersion(environment.getProperty("hygge.logger.version", "1.2"));
         setting.setCurrentEnvironment(HyggeContext.currentEnvironment);
+        setting.setLogLevel(LoggerLevelEnum.formatByString(environment.getProperty("hygge.logger.level", LoggerValueStore.WARNING_STRING)));
         setting.setFilePath(environment.getProperty("hygge.logger.filePath", "/"));
-        setting.setLogLevel(environment.getProperty("hygge.logger.level", LoggerValueStore.WARNING_STRING));
+        // 设置日志模板
+        switch (environment.getProperty("hygge.logger.temple", "default").toLowerCase()) {
+            case "escape":
+                setting.setTemplate(HyggeLoggerOutputTemplate.ESCAPE);
+                break;
+            default:
+                setting.setTemplate(HyggeLoggerOutputTemplate.DEFAULT);
+        }
+        // 设置日志输出类型
         HyggeLoggerOutputMode outputMode;
         switch (HyggeContext.currentEnvironment) {
             case DEV:
@@ -42,11 +53,8 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
             default:
                 outputMode = HyggeLoggerOutputMode.formatByString(environment.getProperty("hygge.logger.output.type", OutPutModeValueStore.CONSOLE));
         }
-        // 设置日志输出类型
         setting.setMode(outputMode);
-        setting.setTemplate(HyggeLoggerOutputTemplate.DEFAULT);
-        setting.setVersion("1.1");
-        setting.setSubVersion("1");
+
         HyggeLoggerBuilder hyggeLoggerBuilder = new HyggeLoggerBuilder(setting, getLoggerContext());
         if (HyggeContext.currentEnvironment != EnvironmentEnum.PREDEV) {
             hyggeLoggerBuilder.buildFrameworkLogger(HyggeContext.currentEnvironment);
@@ -57,8 +65,9 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
 
     private void logSystemCheck(ClassLoader classLoader) {
         String loggingSystem = LoggingSystem.get(classLoader).getClass().getName();
-        if (!"org.springframework.boot.logging.log4j2.Log4J2LoggingSystem".equals(loggingSystem)) {
-            throw new SpringBootUtilRuntimeException("The logging system is not Log4J2LoggingSystem : " + loggingSystem);
+        String expectedLoggingSystem = "org.springframework.boot.logging.log4j2.Log4J2LoggingSystem";
+        if (!expectedLoggingSystem.equals(loggingSystem)) {
+            throw new SpringBootUtilRuntimeException("The logging system is not Log4J2LoggingSystem but " + loggingSystem);
         }
     }
 

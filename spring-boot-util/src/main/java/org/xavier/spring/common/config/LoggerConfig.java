@@ -12,19 +12,60 @@ import org.xavier.spring.common.enums.LoggerLevelEnum;
  * @date 2019/7/10
  * @since Jdk 1.8
  */
-public class LoggerConfig {
+public abstract class LoggerConfig {
+    /**
+     * 项目名称
+     */
+    protected String projectName;
+    /**
+     * 应用名称
+     */
+    protected String appName;
+    /**
+     * 应用版本号
+     */
+    protected String version;
     /**
      * 当前运行环境
      */
-    private EnvironmentEnum currentEnvironment;
+    protected EnvironmentEnum currentEnvironment;
     /**
      * 自定义日志工具最低输出级别 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
-    protected LoggerLevelEnum logLevel = LoggerLevelEnum.WARNING;
+    protected LoggerLevelEnum logLevel;
     /**
      * 自定义日志工具文件输出路径 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
-    protected String filePath = null;
+    protected String filePath;
+
+    /**
+     * 校验日志参数
+     */
+    public abstract void propertiesCheck();
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
     public EnvironmentEnum getCurrentEnvironment() {
         return currentEnvironment;
@@ -40,10 +81,6 @@ public class LoggerConfig {
 
     public void setLogLevel(LoggerLevelEnum logLevel) {
         this.logLevel = logLevel;
-    }
-
-    public void setLogLevel(String logLevel) {
-        this.logLevel = LoggerLevelEnum.formatByString(logLevel);
     }
 
     public String getFilePath() {

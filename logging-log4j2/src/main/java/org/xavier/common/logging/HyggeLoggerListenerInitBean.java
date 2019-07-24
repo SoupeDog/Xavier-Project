@@ -14,11 +14,10 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @date 2018.12.20
  * @since Jdk 1.8
  */
-public class HyggeLoggerListener_InitBean implements ApplicationListener<ApplicationPreparedEvent> {
+public class HyggeLoggerListenerInitBean implements ApplicationListener<ApplicationPreparedEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationPreparedEvent applicationPreparedEvent) {
-        ConfigurableEnvironment environment = applicationPreparedEvent.getApplicationContext().getEnvironment();
         ConfigurableListableBeanFactory beanFactory = applicationPreparedEvent.getApplicationContext().getBeanFactory();
         if (!beanFactory.containsBean(HyggeLogger.DEFAULT_LOGGER_NAME)) {
             HyggeLogger logger = new HyggeLoggerLog4j2Impl(LogManager.getLogger(HyggeLogger.DEFAULT_LOGGER_NAME));
