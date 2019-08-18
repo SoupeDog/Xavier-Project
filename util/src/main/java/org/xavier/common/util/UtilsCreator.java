@@ -10,6 +10,7 @@ import org.xavier.common.util.exception.UtilRuntimeException;
 import org.xavier.common.util.impl.DefaultJacksonJsonHelper;
 import org.xavier.common.util.impl.DefaultPropertiesHelper;
 import org.xavier.common.util.impl.DefaultRandomHelper;
+import org.xavier.common.util.impl.DefaultTimeHelper;
 
 /**
  * 描述信息：<br/>
@@ -25,6 +26,7 @@ public class UtilsCreator {
     private static volatile DefaultJacksonJsonHelper jsonHelper = null;
     private static volatile DefaultJacksonJsonHelper jsonHelper_Indent = null;
     private static volatile RandomHelper randomHelper = null;
+    private static volatile TimeHelper timeHelper = null;
 
 
     private UtilsCreator() {
@@ -147,5 +149,38 @@ public class UtilsCreator {
             }
         }
         return randomHelper;
+    }
+
+    /**
+     * 返回一个 TimeHelper 实例
+     *
+     * @param tClass TimeHelper 的一个实现类
+     */
+    public static <T> T createTimeHelper(Class<T> tClass) {
+        try {
+            T result = tClass.newInstance();
+            if (!(result instanceof TimeHelper)) {
+                throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.");
+            }
+            return result;
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(550, "Fail to get TimeHelper.", e);
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.", e);
+        }
+    }
+
+    /**
+     * 返回一个 TimeHelper 实例(单例)<br/>
+     */
+    public static TimeHelper getDefaultTimeHelperInstance() {
+        if (timeHelper == null) {
+            synchronized (TimeHelper.class) {
+                if (timeHelper == null) {
+                    timeHelper = new DefaultTimeHelper();
+                }
+            }
+        }
+        return timeHelper;
     }
 }

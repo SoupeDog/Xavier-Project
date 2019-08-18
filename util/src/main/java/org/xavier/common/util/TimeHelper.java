@@ -1,5 +1,8 @@
 package org.xavier.common.util;
 
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+
 /**
  * 描述信息：<br/>
  * 默认的时间工具类接口
@@ -20,6 +23,16 @@ public interface TimeHelper {
      */
     long parse(String target, TimeFormatEnum timeFormatEnum);
 
+    /**
+     * 字符串转化为 long 型毫秒级时间戳
+     *
+     * @param target           需要格式化的时间戳字符串
+     * @param timeFormatEnum   格式化目标枚举
+     * @param targetZoneOffset 格式化目标对应时区
+     * @return 秒级时间戳
+     */
+    long parse(String target, TimeFormatEnum timeFormatEnum, ZoneOffset targetZoneOffset);
+
 
     /**
      * long 型毫秒级时间戳 转字符串形式
@@ -29,6 +42,16 @@ public interface TimeHelper {
      * @return 格式化后的字符串
      */
     String format(Long target, TimeFormatEnum timeFormatEnum);
+
+    /**
+     * long 型毫秒级时间戳 转字符串形式
+     *
+     * @param target         需要格式化的时间戳
+     * @param timeFormatEnum 目标字符串格式类型
+     * @param targetZoneId   目标字符串对应时区
+     * @return 格式化后的字符串
+     */
+    String format(Long target, TimeFormatEnum timeFormatEnum, ZoneId targetZoneId);
 
 
     enum TimeFormatEnum {
