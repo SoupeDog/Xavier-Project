@@ -18,17 +18,17 @@ public interface TimeHelper {
      * @param timeFormatEnum 格式化目标枚举
      * @return 秒级时间戳
      */
-    long stringToUTCTimeStamp(String target, TimeFormatEnum timeFormatEnum);
+    long parse(String target, TimeFormatEnum timeFormatEnum);
 
 
     /**
      * long 型毫秒级时间戳 转字符串形式
      *
      * @param target         需要格式化的时间戳
-     * @param timeFormatEnum 格式化目标枚举
+     * @param timeFormatEnum 目标字符串格式类型
      * @return 格式化后的字符串
      */
-    String antiStringToUTCTimeStamp(Long target, TimeFormatEnum timeFormatEnum);
+    String format(Long target, TimeFormatEnum timeFormatEnum);
 
 
     enum TimeFormatEnum {

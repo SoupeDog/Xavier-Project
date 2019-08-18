@@ -12,7 +12,7 @@ import org.xavier.spring.common.enums.LoggerLevelEnum;
  * @date 2019/7/10
  * @since Jdk 1.8
  */
-public abstract class LoggerConfig {
+public abstract class BaseLoggerConfig {
     /**
      * 项目名称
      */

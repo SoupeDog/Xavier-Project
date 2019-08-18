@@ -4,8 +4,7 @@ package org.xavier.common.logging;
 import org.xavier.common.exception.PropertiesRuntimeException;
 import org.xavier.common.util.PropertiesHelper;
 import org.xavier.common.util.UtilsCreator;
-import org.xavier.spring.common.config.LoggerConfig;
-import org.xavier.spring.common.enums.EnvironmentEnum;
+import org.xavier.spring.common.config.BaseLoggerConfig;
 
 import java.util.Objects;
 
@@ -18,7 +17,7 @@ import java.util.Objects;
  * @date 2018.12.20
  * @since Jdk 1.8
  */
-public class HyggeCacheLogSetting extends LoggerConfig {
+public class HyggeCacheLogSetting extends BaseLoggerConfig {
     /**
      * 日志输入模板
      */

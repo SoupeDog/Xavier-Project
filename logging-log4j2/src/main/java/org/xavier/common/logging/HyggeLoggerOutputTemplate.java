@@ -10,7 +10,13 @@ package org.xavier.common.logging;
  * @since Jdk 1.8
  */
 public enum HyggeLoggerOutputTemplate {
+    /**
+     * 无编码
+     */
     DEFAULT(0, "默认值"),
+    /**
+     * escape编码
+     */
     ESCAPE(1, "escape编码");
 
     private Byte index;

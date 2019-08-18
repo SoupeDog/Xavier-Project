@@ -65,7 +65,7 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为字符串，若对象为 null 或 空字符串时,将被赋为默认值
      *
-     * @param target 目标对象
+     * @param target       目标对象
      * @param defaultValue 默认值
      * @return 转化后的字符串
      */
@@ -74,8 +74,10 @@ public interface PropertiesHelper {
     /**
      * 将目标对象转化为字符串,若对象为 null 或 空字符串时,将被赋为默认值,且要求字符串长度在 minLength~maxLength 之间(闭区间)
      *
-     * @param target 目标对象
-     * @param msg    错误提示信息
+     * @param target       目标对象
+     * @param msg          错误提示信息
+     * @param minLength    最小长度
+     * @param maxLength    最大长度
      * @param defaultValue 默认值
      * @return 转化后的字符串
      */

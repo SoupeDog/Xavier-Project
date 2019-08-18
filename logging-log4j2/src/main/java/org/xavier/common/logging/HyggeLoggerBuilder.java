@@ -50,7 +50,7 @@ public class HyggeLoggerBuilder {
 
     public void buildAppLogger(EnvironmentEnum environment) {
         if (setting == null) {
-            throw new SpringBootUtilRuntimeException( "[HyggeCacheLogSetting] can't be null.");
+            throw new SpringBootUtilRuntimeException("[HyggeCacheLogSetting] can't be null.");
         }
         setting.propertiesCheck();
         Appender appender = getAppender(true, environment, setting.getMode());
@@ -145,11 +145,14 @@ public class HyggeLoggerBuilder {
                         case INT:
                         case VIP:
                         case PROD:
-                            stringBuilder.append("{\"type\":\"" + projectName + "\",").append("\"version\":").append(version).append(",")
+                            stringBuilder.append("{\"type\":\"" + projectName + "\",")
+                                    .append("\"appName\":\"").append(appName).append("\",")
+                                    .append("\"source\":\"%c{1.}\",")
+                                    .append("\"pid\":${sys:PID},")
+                                    .append("\"hostName\":\"${hostName}\",")
+                                    .append("\"version\":").append(version).append(",")
+                                    .append("\"level\":").append("\"%level\",")
                                     .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
-                                    .append("\"source\":\"%c{1.}\",").append("\"level\":")
-                                    .append("\"%level\"").append(",").append("\"hostName\":\"${hostName}\"").append(",")
-                                    .append("\"appName\":\"").append(appName).append("\",").append("\"pid\":${sys:PID},")
                                     .append("\"msg\":\"%escapeJMsg{%msg}\",")
                                     .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
                             break;
@@ -171,12 +174,14 @@ public class HyggeLoggerBuilder {
                         case INT:
                         case VIP:
                         case PROD:
-                            stringBuilder.append("{\"type\":\"framework\",").append("\"source\":\"%c{1.}\",")
+                            stringBuilder.append("{\"type\":\"framework\",")
+                                    .append("\"source\":\"%c{1.}\",")
+                                    .append("\"pid\":${sys:PID},")
+                                    .append("\"hostName\":\"${hostName}\",")
+                                    .append("\"version\":").append(version).append(",")
+                                    .append("\"level\":").append("\"%level\",")
                                     .append("\"ts\":%d{UNIX_MILLIS}{UTC},")
-                                    .append("\"level\":").append("\"%level\"").append(",")
-                                    .append("\"hostName\":\"${hostName}\"").append(",")
-                                    .append("\"appName\":\"").append(appName).append("\",")
-                                    .append("\"pid\":${sys:PID},").append("\"msg\":\"%escapeJMsg{%msg}\",")
+                                    .append("\"msg\":\"%escapeJMsg{%msg}\",")
                                     .append("\"error\":\"%escapeJMsg{%xwEx}\"}%n");
                             break;
                         default:

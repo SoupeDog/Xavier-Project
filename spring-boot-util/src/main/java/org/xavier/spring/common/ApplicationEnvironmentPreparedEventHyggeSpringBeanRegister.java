@@ -4,7 +4,6 @@ import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEven
 import org.springframework.boot.context.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
-import org.xavier.spring.common.config.LoggerConfig;
 import org.xavier.spring.common.enums.EnvironmentEnum;
 import org.xavier.spring.common.store.EnvironmentValueStore;
 
