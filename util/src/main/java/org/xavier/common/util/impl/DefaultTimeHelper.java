@@ -104,4 +104,20 @@ public class DefaultTimeHelper implements TimeHelper {
             throw new PropertiesRuntimeException("Unexpected [target]:" + target);
         }
     }
+
+    public ZoneOffset getLocalZoneOffset() {
+        return localZoneOffset;
+    }
+
+    public void setLocalZoneOffset(ZoneOffset localZoneOffset) {
+        this.localZoneOffset = localZoneOffset;
+    }
+
+    public ZoneId getLocalZoneId() {
+        return localZoneId;
+    }
+
+    public void setLocalZoneId(ZoneId localZoneId) {
+        this.localZoneId = localZoneId;
+    }
 }
