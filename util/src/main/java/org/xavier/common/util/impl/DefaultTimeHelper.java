@@ -94,8 +94,14 @@ public class DefaultTimeHelper implements TimeHelper {
         try {
             LocalDateTime targetTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(target), targetZoneId);
             switch (timeFormatEnum) {
+                case yyyyMMdd:
+                    return targetTime.format(yyyyMMdd);
                 case yyyyMMdd_HH_mm_ss:
                     return targetTime.format(yyyyMMdd_HH_mm_ss);
+                case yyyy_MM_dd_HH_mm_ss:
+                    return targetTime.format(yyyy_MM_dd_HH_mm_ss);
+                case yyyyMMddHHmmssSSS:
+                    return targetTime.format(yyyyMMddHHmmssSSS);
                 default:
                     throw new UtilRuntimeException("Unexpected [TimeFormatEnum].");
             }
