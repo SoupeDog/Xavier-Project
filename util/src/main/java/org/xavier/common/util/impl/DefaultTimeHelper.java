@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
  * @author Xavier
  * @version 1.0
  * @date 2019/8/18
- * @since Jdk 1.8
+ * @since Jdk 9
  */
 public class DefaultTimeHelper implements TimeHelper {
     protected static DateTimeFormatter yyyyMMdd = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMdd.pattern);
@@ -67,13 +67,14 @@ public class DefaultTimeHelper implements TimeHelper {
                     targetLocalTime = LocalDateTime.parse(target, yyyy_MM_dd_HH_mm_ss);
                     break;
                 case yyyyMMddHHmmssSSS:
+                    // Warning 此处 jdk 8 存在 bug， jdk 9 以后才能正确运行
                     targetLocalTime = LocalDateTime.parse(target, yyyyMMddHHmmssSSS);
                     break;
                 default:
                     throw new UtilRuntimeException("Unexpected [TimeFormatEnum].");
             }
         } catch (DateTimeParseException exception) {
-            throw new PropertiesRuntimeException("Unexpected [target]:" + target);
+            throw new PropertiesRuntimeException("Unexpected [target]:" + target, exception);
         }
         return targetLocalTime.toInstant(targetZoneOffset).toEpochMilli();
     }
