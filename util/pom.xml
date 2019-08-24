@@ -17,6 +17,12 @@
             <groupId>org.xavier</groupId>
             <artifactId>common</artifactId>
         </dependency>
+        <!--BC 工具包-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>1.59</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-json</artifactId>

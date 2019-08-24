@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.xavier.common.util.base.BasePropertiesHelper;
 import org.xavier.common.util.base.BaseRandomHelper;
 import org.xavier.common.util.exception.UtilRuntimeException;
-import org.xavier.common.util.impl.DefaultJacksonJsonHelper;
-import org.xavier.common.util.impl.DefaultPropertiesHelper;
-import org.xavier.common.util.impl.DefaultRandomHelper;
-import org.xavier.common.util.impl.DefaultTimeHelper;
+import org.xavier.common.util.impl.*;
 
 /**
  * 描述信息：<br/>
@@ -27,6 +24,7 @@ public class UtilsCreator {
     private static volatile DefaultJacksonJsonHelper jsonHelper_Indent = null;
     private static volatile RandomHelper randomHelper = null;
     private static volatile TimeHelper timeHelper = null;
+    private static volatile EncryptHelperAES encryptHelper_AES = null;
 
 
     private UtilsCreator() {
@@ -45,9 +43,9 @@ public class UtilsCreator {
             }
             return (PropertiesHelper) result;
         } catch (InstantiationException e) {
-            throw new UtilRuntimeException(500, "Fail to get PropertiesHelper.", e);
+            throw new UtilRuntimeException(550, "Fail to get PropertiesHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new UtilRuntimeException(500, "Fail to get PropertiesHelper.", e);
+            throw new UtilRuntimeException(550, "Fail to get PropertiesHelper.", e);
         }
     }
 
@@ -182,5 +180,38 @@ public class UtilsCreator {
             }
         }
         return timeHelper;
+    }
+
+    /**
+     * 返回一个 EncryptHelperAES 实例
+     *
+     * @param tClass EncryptHelperAES 的一个实现类
+     */
+    public static <T> T createEncryptHelper_AES(Class<T> tClass) {
+        try {
+            T result = tClass.newInstance();
+            if (!(result instanceof EncryptHelperAES)) {
+                throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.");
+            }
+            return result;
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(550, "Fail to get TimeHelper.", e);
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.", e);
+        }
+    }
+
+    /**
+     * 返回一个 TimeHelper 实例(单例)<br/>
+     */
+    public static EncryptHelperAES getDefaultEncryptHelper_AES() {
+        if (encryptHelper_AES == null) {
+            synchronized (EncryptHelperAES.class) {
+                if (encryptHelper_AES == null) {
+                    encryptHelper_AES = new EncryptHelperAES();
+                }
+            }
+        }
+        return encryptHelper_AES;
     }
 }
