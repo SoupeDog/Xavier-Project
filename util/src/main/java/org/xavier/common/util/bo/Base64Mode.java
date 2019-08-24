@@ -10,6 +10,9 @@ package org.xavier.common.util.bo;
  * @since Jdk 1.8
  */
 public enum Base64Mode {
+    /**
+     * 默认
+     */
     DEFAULT(1, "default");
 
     private final Integer index;

@@ -12,8 +12,14 @@ import javax.crypto.Cipher;
  * @since Jdk 1.8
  */
 public enum EncryptedAim {
-    ENCODE(Cipher.ENCRYPT_MODE,"加密过程"),
-    DECODE(Cipher.DECRYPT_MODE,"解密过程");
+    /**
+     * 加密过程
+     */
+    ENCODE(Cipher.ENCRYPT_MODE, "加密过程"),
+    /**
+     * 解密过程
+     */
+    DECODE(Cipher.DECRYPT_MODE, "解密过程");
 
     private Integer value;
     private String description;

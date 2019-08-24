@@ -24,7 +24,7 @@ public class UtilsCreator {
     private static volatile DefaultJacksonJsonHelper jsonHelper_Indent = null;
     private static volatile RandomHelper randomHelper = null;
     private static volatile TimeHelper timeHelper = null;
-    private static volatile EncryptHelperAES encryptHelper_AES = null;
+    private static volatile EncryptHelperAes encryptHelper_AES = null;
 
 
     private UtilsCreator() {
@@ -183,14 +183,14 @@ public class UtilsCreator {
     }
 
     /**
-     * 返回一个 EncryptHelperAES 实例
+     * 返回一个 EncryptHelperAes 实例
      *
-     * @param tClass EncryptHelperAES 的一个实现类
+     * @param tClass EncryptHelperAes 的一个实现类
      */
-    public static <T> T createEncryptHelper_AES(Class<T> tClass) {
+    public static <T> T createEncryptHelperAES(Class<T> tClass) {
         try {
             T result = tClass.newInstance();
-            if (!(result instanceof EncryptHelperAES)) {
+            if (!(result instanceof EncryptHelperAes)) {
                 throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.");
             }
             return result;
@@ -204,11 +204,11 @@ public class UtilsCreator {
     /**
      * 返回一个 TimeHelper 实例(单例)<br/>
      */
-    public static EncryptHelperAES getDefaultEncryptHelper_AES() {
+    public static EncryptHelperAes getDefaultEncryptHelperAes() {
         if (encryptHelper_AES == null) {
-            synchronized (EncryptHelperAES.class) {
+            synchronized (EncryptHelperAes.class) {
                 if (encryptHelper_AES == null) {
-                    encryptHelper_AES = new EncryptHelperAES();
+                    encryptHelper_AES = new EncryptHelperAes();
                 }
             }
         }
