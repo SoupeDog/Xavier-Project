@@ -5,7 +5,6 @@ import org.xavier.common.util.TimeHelper;
 import org.xavier.common.util.exception.UtilRuntimeException;
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -18,10 +17,6 @@ import java.time.format.DateTimeParseException;
  * @since Jdk 9
  */
 public class DefaultTimeHelper implements TimeHelper {
-    protected static DateTimeFormatter yyyyMMdd = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMdd.pattern);
-    protected static DateTimeFormatter yyyyMMdd_HH_mm_ss = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMdd_HH_mm_ss.pattern);
-    protected static DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyy_MM_dd_HH_mm_ss.pattern);
-    protected static DateTimeFormatter yyyyMMddHHmmssSSS = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMddHHmmssSSS.pattern);
     /**
      * 系统运行的本地时区
      */
@@ -66,9 +61,16 @@ public class DefaultTimeHelper implements TimeHelper {
                 case yyyy_MM_dd_HH_mm_ss:
                     targetLocalTime = LocalDateTime.parse(target, yyyy_MM_dd_HH_mm_ss);
                     break;
+                case yyyyMMddHHmmss:
+                    targetLocalTime = LocalDateTime.parse(target, yyyyMMddHHmmss);
+                    break;
                 case yyyyMMddHHmmssSSS:
-                    // Warning 此处 jdk 8 存在 bug， jdk 9 以后才能正确运行
-                    targetLocalTime = LocalDateTime.parse(target, yyyyMMddHHmmssSSS);
+                    // Warning  parse(target, yyyyMMddHHmmssSSS) 此处 jdk 8 存在 bug， jdk 9 以后才能正确运行
+                    // 下为兼容 java 8 的补救方式
+                    String theFirstPart = target.substring(0, 14);
+                    long millisecondVal = Long.valueOf(target.substring(14, 17)) * 1000000;
+                    targetLocalTime = LocalDateTime.parse(theFirstPart, yyyyMMddHHmmss);
+                    targetLocalTime = targetLocalTime.plusNanos(millisecondVal);
                     break;
                 default:
                     throw new UtilRuntimeException("Unexpected [TimeFormatEnum].");

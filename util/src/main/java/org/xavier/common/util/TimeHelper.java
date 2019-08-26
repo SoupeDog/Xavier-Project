@@ -2,6 +2,7 @@ package org.xavier.common.util;
 
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 描述信息：<br/>
@@ -13,6 +14,11 @@ import java.time.ZoneOffset;
  * @since Jdk 9
  */
 public interface TimeHelper {
+    DateTimeFormatter yyyyMMdd = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMdd.pattern);
+    DateTimeFormatter yyyyMMdd_HH_mm_ss = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMdd_HH_mm_ss.pattern);
+    DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyy_MM_dd_HH_mm_ss.pattern);
+    DateTimeFormatter yyyyMMddHHmmss = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMddHHmmss.pattern);
+    DateTimeFormatter yyyyMMddHHmmssSSS = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMddHHmmssSSS.pattern);
 
     /**
      * 字符串转化为 long 型毫秒级时间戳
@@ -68,9 +74,13 @@ public interface TimeHelper {
          */
         yyyy_MM_dd_HH_mm_ss(2, "yyyy-MM-dd HH:mm:ss"),
         /**
+         * 样例 20190818183000
+         */
+        yyyyMMddHHmmss(3, "yyyyMMddHHmmss"),
+        /**
          * 样例 20190818183000000
          */
-        yyyyMMddHHmmssSSS(3, "yyyyMMddHHmmssSSS");
+        yyyyMMddHHmmssSSS(4, "yyyyMMddHHmmssSSS");
 
         /**
          * 序号
