@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * @author Xavier
  * @version 1.0
  * @date 2019/8/18
- * @since Jdk 9
+ * @since Jdk 8
  */
 public interface TimeHelper {
     DateTimeFormatter yyyyMMdd = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMdd.pattern);
