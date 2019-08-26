@@ -103,6 +103,8 @@ public class DefaultTimeHelper implements TimeHelper {
                     return targetTime.format(yyyyMMdd_HH_mm_ss);
                 case yyyy_MM_dd_HH_mm_ss:
                     return targetTime.format(yyyy_MM_dd_HH_mm_ss);
+                case yyyyMMddHHmmss:
+                    return targetTime.format(yyyyMMddHHmmss);
                 case yyyyMMddHHmmssSSS:
                     return targetTime.format(yyyyMMddHHmmssSSS);
                 default:
