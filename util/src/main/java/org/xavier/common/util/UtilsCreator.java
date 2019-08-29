@@ -187,7 +187,7 @@ public class UtilsCreator {
      *
      * @param tClass EncryptHelperAes 的一个实现类
      */
-    public static <T> T createEncryptHelperAES(Class<T> tClass) {
+    public static <T> T createEncryptHelperAes(Class<T> tClass) {
         try {
             T result = tClass.newInstance();
             if (!(result instanceof EncryptHelperAes)) {
