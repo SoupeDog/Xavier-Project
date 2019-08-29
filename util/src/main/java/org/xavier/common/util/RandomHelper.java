@@ -2,6 +2,7 @@ package org.xavier.common.util;
 
 
 import org.xavier.common.enums.StringCategory;
+import org.xavier.common.util.bo.SnowFlakeFactory;
 
 /**
  * 描述信息：<br/>
@@ -14,10 +15,12 @@ import org.xavier.common.enums.StringCategory;
  */
 public interface RandomHelper {
 
-    /** 生成随机数字
+    /**
+     * 生成随机数字
+     *
      * @param minValue 随机值最小值
      * @param maxValue 随机值最大值
-     * @return
+     * @return 一个随机整数
      */
     int getRandomInteger(Number minValue, Number maxValue);
 
@@ -36,5 +39,12 @@ public interface RandomHelper {
      * @return 无 "-" 符号的 UUID
      */
     String getUniversallyUniqueIdentifier();
+
+    /**
+     * 返回一个默认的雪花 id 工厂
+     *
+     * @return 一个默认的雪花 id 工厂
+     */
+    SnowFlakeFactory getDefaultSnowFlakeFactory();
 
 }

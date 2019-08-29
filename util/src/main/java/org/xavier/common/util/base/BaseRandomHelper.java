@@ -3,6 +3,7 @@ package org.xavier.common.util.base;
 import org.xavier.common.enums.StringCategory;
 import org.xavier.common.exception.PropertiesRuntimeException;
 import org.xavier.common.util.RandomHelper;
+import org.xavier.common.util.bo.SnowFlakeFactory;
 
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -40,7 +41,7 @@ public abstract class BaseRandomHelper implements RandomHelper {
         }
         StringCategory[] stringCategories = stringCategory.clone();
         StringBuilder stringBuilder = new StringBuilder();
-        int currentStringCategoryIndex = 0;
+        int currentStringCategoryIndex;
         StringCategory currentStringCategory;
         char randomTemp;
         for (int i = 0; i < size; i++) {
@@ -56,5 +57,10 @@ public abstract class BaseRandomHelper implements RandomHelper {
     @Override
     public String getUniversallyUniqueIdentifier() {
         return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    @Override
+    public SnowFlakeFactory getDefaultSnowFlakeFactory() {
+        return new SnowFlakeFactory(803966400000L, 2, 2, 27);
     }
 }
