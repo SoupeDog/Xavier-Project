@@ -23,10 +23,10 @@ public class SnowFlakeFactoryTest {
         long startTs = System.currentTimeMillis();
         for (int i = 0; i < 10000000; i++) {
             v = snowflakeFactory.createKey();
-//            set.add(v);
+            set.add(v);
 //            System.out.println(v);
         }
-//        System.out.println(set.size());
+        System.out.println(set.size());
         System.out.println("耗时: " + (System.currentTimeMillis() - startTs) + " ms");
     }
 }

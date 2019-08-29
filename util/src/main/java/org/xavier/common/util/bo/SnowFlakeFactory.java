@@ -121,13 +121,16 @@ public class SnowFlakeFactory {
         }
         long result;
         if (currentTs == lastTs) {
+            if (index >= indexPartMaxVal) {
+                index = 0;
+                currentTs = blockToGetNextTs(currentTs);
+            }
             result = calculateKey(currentTs - startTs);
-            increaseIndex();
+            lastTs = currentTs;
         } else {
             if (currentTs > lastTs) {
-                restIndex();
+                index = 0;
                 result = calculateKey(currentTs - startTs);
-                increaseIndex();
                 lastTs = currentTs;
             } else {
                 // 时间发生回滚
@@ -138,25 +141,27 @@ public class SnowFlakeFactory {
     }
 
     /**
+     * 自旋阻塞到下一个时间戳
+     *
+     * @param currentTs 当前时间戳
+     * @return 下一个时间戳
+     */
+    private synchronized long blockToGetNextTs(long currentTs) {
+        long result = System.currentTimeMillis();
+        while (result <= currentTs) {
+            result = System.currentTimeMillis();
+        }
+        return result;
+    }
+
+    /**
      * 运算出一个 key
      */
-    private long calculateKey(long tsPart) {
-        return stablePartOrTarget
+    private synchronized long calculateKey(long tsPart) {
+        long result = stablePartOrTarget
                 | index << tsPartLength
                 | tsPart;
-    }
-
-    /**
-     * 重置计数器
-     */
-    private void restIndex() {
-        index = 0;
-    }
-
-    /**
-     * 计数器 自增
-     */
-    private void increaseIndex() {
         index += 1;
+        return result;
     }
 }

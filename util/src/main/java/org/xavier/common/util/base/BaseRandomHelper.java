@@ -61,6 +61,6 @@ public abstract class BaseRandomHelper implements RandomHelper {
 
     @Override
     public SnowFlakeFactory getDefaultSnowFlakeFactory() {
-        return new SnowFlakeFactory(803966400000L, 2, 2, 27);
+        return new SnowFlakeFactory(803966400000L, 2, 2, 12);
     }
 }
