@@ -123,7 +123,7 @@ public class SnowFlakeFactory {
         if (currentTs == lastTs) {
             if (index >= indexPartMaxVal) {
                 index = 0;
-                currentTs = blockToGetNextTs(currentTs);
+                currentTs = blockToNextTs(currentTs);
             }
             result = calculateKey(currentTs - startTs);
             lastTs = currentTs;
@@ -146,7 +146,7 @@ public class SnowFlakeFactory {
      * @param currentTs 当前时间戳
      * @return 下一个时间戳
      */
-    private synchronized long blockToGetNextTs(long currentTs) {
+    private long blockToNextTs(long currentTs) {
         long result = System.currentTimeMillis();
         while (result <= currentTs) {
             result = System.currentTimeMillis();
@@ -157,7 +157,7 @@ public class SnowFlakeFactory {
     /**
      * 运算出一个 key
      */
-    private synchronized long calculateKey(long tsPart) {
+    private long calculateKey(long tsPart) {
         long result = stablePartOrTarget
                 | index << tsPartLength
                 | tsPart;
