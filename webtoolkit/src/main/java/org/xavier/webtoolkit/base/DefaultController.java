@@ -4,7 +4,7 @@ package org.xavier.webtoolkit.base;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.xavier.common.exception.base.RequestRuntimeException;
 import org.xavier.webtoolkit.domain.ErrorResult;
@@ -19,7 +19,7 @@ import java.nio.charset.Charset;
  * @date 2019/9/2
  * @since Jdk 1.8
  */
-@Controller
+@Component
 public class DefaultController extends DefaultUtils {
 
     /**
