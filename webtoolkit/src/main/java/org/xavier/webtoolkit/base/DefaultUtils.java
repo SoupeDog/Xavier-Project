@@ -2,7 +2,7 @@ package org.xavier.webtoolkit.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.xavier.common.logging.HyggeLogger;
+import org.xavier.common.logging.core.HyggeLogger;
 import org.xavier.common.util.JsonHelper;
 import org.xavier.common.util.PropertiesHelper;
 import org.xavier.common.util.TimeHelper;

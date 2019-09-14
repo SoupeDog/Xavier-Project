@@ -1,4 +1,4 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.enums;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.core.LogEvent;

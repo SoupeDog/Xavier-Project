@@ -1,4 +1,4 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.enums;
 
 import org.xavier.common.logging.store.OutPutModeValueStore;
 import org.xavier.spring.common.exception.SpringBootUtilRuntimeException;

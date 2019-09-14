@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.xavier.common.logging.HyggeLogger;
+import org.xavier.common.logging.core.HyggeLogger;
 
 /**
  * 描述信息：<br/>

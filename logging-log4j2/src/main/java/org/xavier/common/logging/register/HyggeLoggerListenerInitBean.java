@@ -1,10 +1,11 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.register;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.context.event.ApplicationPreparedEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.env.ConfigurableEnvironment;
+import org.xavier.common.logging.core.HyggeLogger;
+import org.xavier.common.logging.core.HyggeLoggerLog4j2Impl;
 
 /**
  * 描述信息：<br/>

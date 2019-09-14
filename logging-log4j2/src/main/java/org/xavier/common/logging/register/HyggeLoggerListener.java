@@ -1,4 +1,4 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.register;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -6,6 +6,10 @@ import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEven
 import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.xavier.common.logging.config.HyggeLogSetting;
+import org.xavier.common.logging.HyggeLoggerBuilder;
+import org.xavier.common.logging.enums.HyggeLoggerOutputMode;
+import org.xavier.common.logging.enums.HyggeLoggerOutputTemplate;
 import org.xavier.common.logging.store.OutPutModeValueStore;
 import org.xavier.spring.common.HyggeContext;
 import org.xavier.spring.common.enums.EnvironmentEnum;

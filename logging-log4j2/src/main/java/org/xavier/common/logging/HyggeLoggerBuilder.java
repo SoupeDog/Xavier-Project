@@ -10,6 +10,9 @@ import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+import org.xavier.common.logging.config.HyggeLogSetting;
+import org.xavier.common.logging.core.HyggeLogger;
+import org.xavier.common.logging.core.HyggeTriggeringPolicy;
 import org.xavier.spring.common.exception.SpringBootUtilRuntimeException;
 
 /**

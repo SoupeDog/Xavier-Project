@@ -1,4 +1,4 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.core;
 
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.rolling.CronTriggeringPolicy;
@@ -6,7 +6,7 @@ import org.apache.logging.log4j.core.appender.rolling.RollingFileManager;
 import org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy;
 import org.apache.logging.log4j.core.appender.rolling.TriggeringPolicy;
 import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.config.NullConfiguration;
+import org.xavier.common.logging.config.HyggeLogSetting;
 
 /**
  * 描述信息：<br/>

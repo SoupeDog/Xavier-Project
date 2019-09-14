@@ -1,7 +1,9 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.config;
 
 
 import org.xavier.common.exception.PropertiesRuntimeException;
+import org.xavier.common.logging.enums.HyggeLoggerOutputMode;
+import org.xavier.common.logging.enums.HyggeLoggerOutputTemplate;
 import org.xavier.common.util.PropertiesHelper;
 import org.xavier.common.util.UtilsCreator;
 import org.xavier.spring.common.config.BaseLoggerConfig;

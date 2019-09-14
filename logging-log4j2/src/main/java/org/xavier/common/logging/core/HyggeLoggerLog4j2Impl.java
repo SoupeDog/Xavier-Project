@@ -1,4 +1,4 @@
-package org.xavier.common.logging;
+package org.xavier.common.logging.core;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
