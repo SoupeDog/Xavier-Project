@@ -1,21 +1,24 @@
 {
   "hints": [
     {
-      "name": "hygge.logger.name",
-      "values": [
-        {
-          "value": "hygge"
-        }
-      ]
-    },
-    {
-      "name": "hygge.logger.output.type",
+      "name": "hygge.logger.outputType",
       "values": [
         {
           "value": "console"
         },
         {
           "value": "file"
+        }
+      ]
+    },
+    {
+      "name": "hygge.logger.template",
+      "values": [
+        {
+          "value": "default"
+        },
+        {
+          "value": "escape"
         }
       ]
     },
@@ -44,6 +47,53 @@
           "value": "always"
         }
       ]
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.projectName",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.appName",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.version",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.level",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.outputType",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.template",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.filePath",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.maxFileSize",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.xavier.spring.common.config.BaseLoggerConfig",
+      "name": "hygge.logger.cronTrigger",
+      "type": "java.lang.String"
     }
   ]
 }

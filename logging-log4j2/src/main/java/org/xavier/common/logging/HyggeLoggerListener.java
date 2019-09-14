@@ -26,15 +26,18 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent applicationEnvironmentPreparedEvent) {
         ConfigurableEnvironment environment = applicationEnvironmentPreparedEvent.getEnvironment();
         logSystemCheck(applicationEnvironmentPreparedEvent.getSpringApplication().getClassLoader());
-        HyggeCacheLogSetting setting = new HyggeCacheLogSetting();
+        HyggeLogSetting setting = new HyggeLogSetting();
         setting.setProjectName(environment.getProperty("hygge.logger.name", "Hygge"));
         setting.setAppName(HyggeContext.appName);
-        setting.setVersion(environment.getProperty("hygge.logger.version", "1.2"));
+        setting.setVersion(environment.getProperty("hygge.logger.version", "unknown"));
         setting.setCurrentEnvironment(HyggeContext.currentEnvironment);
         setting.setLogLevel(LoggerLevelEnum.formatByString(environment.getProperty("hygge.logger.level", LoggerValueStore.WARNING_STRING)));
         setting.setFilePath(environment.getProperty("hygge.logger.filePath", "/"));
+        setting.setMaxFileSize(environment.getProperty("hygge.logger.maxFileSize", "10MB"));
+        // 默认每天变换一次日志文件
+        setting.setCronTrigger(environment.getProperty("hygge.logger.cronTrigger", "0 0 0 * * ? "));
         // 设置日志模板
-        switch (environment.getProperty("hygge.logger.temple", "default").toLowerCase()) {
+        switch (environment.getProperty("hygge.logger.template", "default").toLowerCase()) {
             case "escape":
                 setting.setTemplate(HyggeLoggerOutputTemplate.ESCAPE);
                 break;
@@ -48,19 +51,19 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
             case INT:
             case VIP:
             case PROD:
-                outputMode = HyggeLoggerOutputMode.formatByString(environment.getProperty("hygge.logger.output.type", OutPutModeValueStore.FILE));
+                outputMode = HyggeLoggerOutputMode.formatByString(environment.getProperty("hygge.logger.outputType", OutPutModeValueStore.FILE));
                 break;
             default:
-                outputMode = HyggeLoggerOutputMode.formatByString(environment.getProperty("hygge.logger.output.type", OutPutModeValueStore.CONSOLE));
+                outputMode = HyggeLoggerOutputMode.formatByString(environment.getProperty("hygge.logger.outputType", OutPutModeValueStore.CONSOLE));
         }
         setting.setMode(outputMode);
 
         HyggeLoggerBuilder hyggeLoggerBuilder = new HyggeLoggerBuilder(setting, getLoggerContext());
         if (HyggeContext.currentEnvironment != EnvironmentEnum.PREDEV) {
-            hyggeLoggerBuilder.buildFrameworkLogger(HyggeContext.currentEnvironment);
+            hyggeLoggerBuilder.buildFrameworkLogger();
         }
-        hyggeLoggerBuilder.buildAppLogger(HyggeContext.currentEnvironment);
-        System.out.println("覆盖完成");
+        hyggeLoggerBuilder.buildAppLogger();
+        System.out.println("HyggeLogger(1.2.1) init success.");
     }
 
     private void logSystemCheck(ClassLoader classLoader) {

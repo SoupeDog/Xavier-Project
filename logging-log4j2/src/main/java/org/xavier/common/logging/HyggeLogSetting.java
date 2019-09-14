@@ -17,7 +17,7 @@ import java.util.Objects;
  * @date 2018.12.20
  * @since Jdk 1.8
  */
-public class HyggeCacheLogSetting extends BaseLoggerConfig {
+public class HyggeLogSetting extends BaseLoggerConfig {
     /**
      * 日志输入模板
      */

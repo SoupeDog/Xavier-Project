@@ -37,6 +37,14 @@ public abstract class BaseLoggerConfig {
      * 自定义日志工具文件输出路径 ApplicationEnvironmentPreparedEventHyggeSpringBeanRegister 中会尝试重新赋值
      */
     protected String filePath;
+    /**
+     * 单个日志文件最大文件大小  10MB 、10KB
+     */
+    protected String maxFileSize;
+    /**
+     * 日志文件变更 cron 表达式
+     */
+    protected String cronTrigger;
 
     /**
      * 校验日志参数
@@ -89,5 +97,21 @@ public abstract class BaseLoggerConfig {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getMaxFileSize() {
+        return maxFileSize;
+    }
+
+    public void setMaxFileSize(String maxFileSize) {
+        this.maxFileSize = maxFileSize;
+    }
+
+    public String getCronTrigger() {
+        return cronTrigger;
+    }
+
+    public void setCronTrigger(String cronTrigger) {
+        this.cronTrigger = cronTrigger;
     }
 }
