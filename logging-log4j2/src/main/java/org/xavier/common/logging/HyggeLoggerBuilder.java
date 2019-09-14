@@ -5,13 +5,11 @@ import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.ConsoleAppender;
-import org.apache.logging.log4j.core.appender.FileAppender;
 import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
-import org.xavier.spring.common.enums.EnvironmentEnum;
 import org.xavier.spring.common.exception.SpringBootUtilRuntimeException;
 
 /**
@@ -164,25 +162,6 @@ public class HyggeLoggerBuilder {
             default:
                 stringBuilder.append("\"msg\":\"%msg\",")
                         .append("\"error\":\"%xwEx\"}%n");
-        }
-    }
-
-    private Level stringToLevel(String levelStringVal) {
-        switch (levelStringVal.toUpperCase()) {
-            case "OFF":
-                return Level.OFF;
-            case "TRACE":
-                return Level.TRACE;
-            case "DEBUG":
-                return Level.DEBUG;
-            case "INFO":
-                return Level.INFO;
-            case "WARNING":
-                return Level.WARN;
-            case "ERROR":
-                return Level.ERROR;
-            default:
-                return Level.WARN;
         }
     }
 }

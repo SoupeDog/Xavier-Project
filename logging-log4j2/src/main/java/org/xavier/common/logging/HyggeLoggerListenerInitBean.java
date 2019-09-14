@@ -22,7 +22,7 @@ public class HyggeLoggerListenerInitBean implements ApplicationListener<Applicat
         if (!beanFactory.containsBean(HyggeLogger.DEFAULT_LOGGER_NAME)) {
             HyggeLogger logger = new HyggeLoggerLog4j2Impl(LogManager.getLogger(HyggeLogger.DEFAULT_LOGGER_NAME));
             beanFactory.registerSingleton(HyggeLogger.DEFAULT_LOGGER_NAME, logger);
-            logger.info("HyggeLogger 初始化成功");
+            logger.always("HyggeLogger 初始化成功");
         }
     }
 }

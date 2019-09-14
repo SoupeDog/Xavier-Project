@@ -27,7 +27,7 @@ public class HyggeLoggerListener implements ApplicationListener<ApplicationEnvir
         ConfigurableEnvironment environment = applicationEnvironmentPreparedEvent.getEnvironment();
         logSystemCheck(applicationEnvironmentPreparedEvent.getSpringApplication().getClassLoader());
         HyggeLogSetting setting = new HyggeLogSetting();
-        setting.setProjectName(environment.getProperty("hygge.logger.name", "Hygge"));
+        setting.setProjectName(environment.getProperty("hygge.logger.projectName", "Hygge"));
         setting.setAppName(HyggeContext.appName);
         setting.setVersion(environment.getProperty("hygge.logger.version", "unknown"));
         setting.setCurrentEnvironment(HyggeContext.currentEnvironment);
