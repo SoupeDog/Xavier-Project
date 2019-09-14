@@ -74,7 +74,7 @@ public class DefaultController extends DefaultUtils {
         return builder.body(successHook(entity));
     }
 
-    public ResponseEntity<?> fail(HttpStatus status, Float errorCode, String msg) {
+    public ResponseEntity<?> fail(HttpStatus status, Number errorCode, String msg) {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(status);
         builder.contentType(mediaType);
