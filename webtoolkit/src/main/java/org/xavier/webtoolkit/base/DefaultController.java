@@ -52,7 +52,7 @@ public class DefaultController extends DefaultUtils {
     }
 
     @ExceptionHandler(RequestRuntimeException.class)
-    public ResponseEntity<?> RequestException_RuntimeHandler(RequestRuntimeException e) {
+    public ResponseEntity<?> RequestRuntimeExceptionHandler(RequestRuntimeException e) {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.BAD_REQUEST);
         builder.contentType(mediaType);
