@@ -57,6 +57,7 @@ public class HttpHelperTest {
                     }
                 };
                 restTemplate.setErrorHandler(responseErrorHandler);
+                // 解决解析中文乱码问题
                 List<HttpMessageConverter<?>> converters = restTemplate.getMessageConverters();
                 int needReplaceIndex;
                 boolean needRemove = false;

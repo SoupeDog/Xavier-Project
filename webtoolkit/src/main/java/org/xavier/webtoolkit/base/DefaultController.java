@@ -42,15 +42,6 @@ public class DefaultController extends DefaultUtils {
         return errorResult;
     }
 
-    @ExceptionHandler(Throwable.class)
-    public ResponseEntity<?> serviceErrorHandler(Throwable e) {
-        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
-        ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-        builder.contentType(mediaType);
-        logger.error(e.getMessage(), e);
-        return builder.body(failHook(new ErrorResult(500, e.getMessage()), builder));
-    }
-
     @ExceptionHandler(RequestRuntimeException.class)
     public ResponseEntity<?> RequestRuntimeExceptionHandler(RequestRuntimeException e) {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
@@ -58,6 +49,15 @@ public class DefaultController extends DefaultUtils {
         builder.contentType(mediaType);
         logger.warn(e.getMessage());
         return builder.body(failHook(new ErrorResult(e.getStateCode(), e.getMessage()), builder));
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<?> serviceErrorHandler(Throwable e) {
+        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
+        ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        builder.contentType(mediaType);
+        logger.error(e.getMessage(), e);
+        return builder.body(failHook(new ErrorResult(500, e.getMessage()), builder));
     }
 
     public ResponseEntity<?> success() {
