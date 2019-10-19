@@ -25,6 +25,7 @@ public class UtilsCreator {
     private static volatile RandomHelper randomHelper = null;
     private static volatile TimeHelper timeHelper = null;
     private static volatile EncryptHelperAes encryptHelper_AES = null;
+    private static volatile DefaultCollectionHelper collectionHelper = null;
 
 
     private UtilsCreator() {
@@ -213,5 +214,37 @@ public class UtilsCreator {
             }
         }
         return encryptHelper_AES;
+    }
+    /**
+     * 返回一个 DefaultCollectionHelper 实例
+     *
+     * @param tClass DefaultCollectionHelper 的一个实现类
+     */
+    public static <T> T createDefaultCollectionHelper(Class<T> tClass) {
+        try {
+            T result = tClass.newInstance();
+            if (!(result instanceof DefaultCollectionHelper)) {
+                throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.");
+            }
+            return result;
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(550, "Fail to get TimeHelper.", e);
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.", e);
+        }
+    }
+
+    /**
+     * 返回一个 CollectionHelper 实例(单例)<br/>
+     */
+    public static DefaultCollectionHelper getDefaultCollectionHelper() {
+        if (collectionHelper == null) {
+            synchronized (DefaultCollectionHelper.class) {
+                if (collectionHelper == null) {
+                    collectionHelper = new DefaultCollectionHelper();
+                }
+            }
+        }
+        return collectionHelper;
     }
 }

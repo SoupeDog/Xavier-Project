@@ -15,6 +15,7 @@
         <module>spring-boot-util</module>
         <module>logging-log4j2</module>
         <module>webtoolkit</module>
+        <module>http-helper</module>
     </modules>
 
     <dependencyManagement>

@@ -28,7 +28,7 @@ public class DefaultController extends DefaultUtils {
      * @param object 成功返回值
      * @return 处理后的成功返回值
      */
-    protected Object successHook(Object object) {
+    protected Object successHook(Object object, ResponseEntity.BodyBuilder builder) {
         return object;
     }
 
@@ -38,7 +38,7 @@ public class DefaultController extends DefaultUtils {
      * @param errorResult 错误信息
      * @return 处理后的失败返回值
      */
-    protected Object failHook(ErrorResult errorResult) {
+    protected Object failHook(ErrorResult errorResult, ResponseEntity.BodyBuilder builder) {
         return errorResult;
     }
 
@@ -48,7 +48,7 @@ public class DefaultController extends DefaultUtils {
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         builder.contentType(mediaType);
         logger.error(e.getMessage(), e);
-        return builder.body(failHook(new ErrorResult(500, e.getMessage())));
+        return builder.body(failHook(new ErrorResult(500, e.getMessage()), builder));
     }
 
     @ExceptionHandler(RequestRuntimeException.class)
@@ -57,28 +57,27 @@ public class DefaultController extends DefaultUtils {
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.BAD_REQUEST);
         builder.contentType(mediaType);
         logger.warn(e.getMessage());
-        return builder.body(failHook(new ErrorResult(e.getStateCode(), e.getMessage())));
+        return builder.body(failHook(new ErrorResult(e.getStateCode(), e.getMessage()), builder));
     }
 
     public ResponseEntity<?> success() {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.OK);
         builder.contentType(mediaType);
-        return builder.body(successHook(null));
+        return builder.body(successHook(null, builder));
     }
 
     public ResponseEntity<?> success(Object entity) {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.OK);
         builder.contentType(mediaType);
-        return builder.body(successHook(entity));
+        return builder.body(successHook(entity, builder));
     }
 
     public ResponseEntity<?> fail(HttpStatus status, Number errorCode, String msg) {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         ResponseEntity.BodyBuilder builder = ResponseEntity.status(status);
         builder.contentType(mediaType);
-        return builder.body(failHook(new ErrorResult(errorCode, msg)));
+        return builder.body(failHook(new ErrorResult(errorCode, msg), builder));
     }
-
 }
