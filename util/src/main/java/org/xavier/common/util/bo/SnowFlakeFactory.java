@@ -104,11 +104,11 @@ public class SnowFlakeFactory {
 
     public void init(Number part1Val, Number part2Val) {
         if (part1Val.intValue() > this.part1MaxVal) {
-            throw new UtilRuntimeException(550, "Unexpected part1Val,it should less than" + this.part1MaxVal + ".");
+            throw new UtilRuntimeException(550, "Unexpected part1Val,it should not more than " + this.part1MaxVal + ".");
         }
         this.part1OrTarget = part1Val.longValue() << (tsPartLength + indexPartLength + part2Length);
         if (part2Val.intValue() > this.part2MaxVal) {
-            throw new UtilRuntimeException(550, "Unexpected part2Val,it should less than" + this.part2MaxVal + ".");
+            throw new UtilRuntimeException(550, "Unexpected part2Val,it should not more than " + this.part2MaxVal + ".");
         }
         this.part2OrTarget = part1Val.longValue() << (tsPartLength + indexPartLength);
         this.stablePartOrTarget = part1OrTarget | part2OrTarget;

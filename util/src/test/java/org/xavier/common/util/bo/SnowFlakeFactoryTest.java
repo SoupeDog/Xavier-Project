@@ -17,7 +17,7 @@ public class SnowFlakeFactoryTest {
     @Test
     public void test() {
         SnowFlakeFactory snowflakeFactory = UtilsCreator.getDefaultRandomHelperInstance().getDefaultSnowFlakeFactory();
-        snowflakeFactory.init(1, 1);
+        snowflakeFactory.init(1, 0);
         TreeSet<Long> set = new TreeSet();
         long v = 0;
         long startTs = System.currentTimeMillis();
