@@ -26,6 +26,7 @@ public class UtilsCreator {
     private static volatile TimeHelper timeHelper = null;
     private static volatile EncryptHelperAes encryptHelper_AES = null;
     private static volatile DefaultCollectionHelper collectionHelper = null;
+    private static volatile DefaultSqlHelper sqlHelper = null;
 
 
     private UtilsCreator() {
@@ -192,13 +193,13 @@ public class UtilsCreator {
         try {
             T result = tClass.newInstance();
             if (!(result instanceof EncryptHelperAes)) {
-                throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.");
+                throw new UtilRuntimeException(550, "[tClass] should implement BaseEncryptHelper.");
             }
             return result;
         } catch (InstantiationException e) {
             throw new UtilRuntimeException(550, "Fail to get TimeHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.", e);
+            throw new UtilRuntimeException(550, "[tClass] should implement BaseEncryptHelper.", e);
         }
     }
 
@@ -215,6 +216,7 @@ public class UtilsCreator {
         }
         return encryptHelper_AES;
     }
+
     /**
      * 返回一个 DefaultCollectionHelper 实例
      *
@@ -224,13 +226,13 @@ public class UtilsCreator {
         try {
             T result = tClass.newInstance();
             if (!(result instanceof DefaultCollectionHelper)) {
-                throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.");
+                throw new UtilRuntimeException(550, "[tClass] should implement CollectionHelper.");
             }
             return result;
         } catch (InstantiationException e) {
             throw new UtilRuntimeException(550, "Fail to get TimeHelper.", e);
         } catch (IllegalAccessException e) {
-            throw new UtilRuntimeException(550, "[tClass] should implement TimeHelper.", e);
+            throw new UtilRuntimeException(550, "[tClass] should implement CollectionHelper.", e);
         }
     }
 
@@ -246,5 +248,38 @@ public class UtilsCreator {
             }
         }
         return collectionHelper;
+    }
+
+    /**
+     * 返回一个 DefaultSqlHelper 实例
+     *
+     * @param tClass DefaultSqlHelper 的一个实现类
+     */
+    public static <T> T createDefaultSqlHelper(Class<T> tClass) {
+        try {
+            T result = tClass.newInstance();
+            if (!(result instanceof DefaultSqlHelper)) {
+                throw new UtilRuntimeException(550, "[tClass] should implement SqlHelper.");
+            }
+            return result;
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(550, "Fail to get TimeHelper.", e);
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(550, "[tClass] should implement SqlHelper.", e);
+        }
+    }
+
+    /**
+     * 返回一个 DefaultSqlHelper 实例(单例)<br/>
+     */
+    public static DefaultSqlHelper getDefaultSqlHelper() {
+        if (sqlHelper == null) {
+            synchronized (DefaultSqlHelper.class) {
+                if (sqlHelper == null) {
+                    sqlHelper = new DefaultSqlHelper();
+                }
+            }
+        }
+        return sqlHelper;
     }
 }

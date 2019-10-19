@@ -66,7 +66,7 @@ public enum ColumnType {
     private Number index;
     private String description;
 
-    private ColumnType(Number index, String description) {
+    ColumnType(Number index, String description) {
         this.index = index;
         this.description = description;
     }

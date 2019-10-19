@@ -440,7 +440,7 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
     }
 
     @Override
-    public Integer intRangeNotNull(Object target, Integer minLength, Integer maxLength, String msg) {
+    public Integer intRangeNotNull(Object target, Number minLength, Number maxLength, String msg) {
         if (target == null) {
             throw new PropertiesRuntimeException(msg);
         }

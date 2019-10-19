@@ -314,7 +314,7 @@ public interface PropertiesHelper {
      * @param msg       错误提示信息
      * @return 转化后的整型
      */
-    Integer intRangeNotNull(Object target, Integer minLength, Integer maxLength, String msg);
+    Integer intRangeNotNull(Object target, Number minLength, Number maxLength, String msg);
 
     /**
      * 将目标对象转化为 Integer，若对象为 null 或 空字符串时,将被赋为默认值
