@@ -5,9 +5,7 @@ import org.xavier.common.util.CollectionHelper;
 import org.xavier.common.util.PropertiesHelper;
 import org.xavier.common.util.UtilsCreator;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -27,16 +25,41 @@ public abstract class BaseCollectionHelper implements CollectionHelper {
     }
 
     @Override
-    public <T, R> ArrayList<R> filterCollectionNotEmpty(Collection<T> target, String msg, Class<T> tClass, Class<R> rClass, Function<T, R> function) {
+    public <T, R> ArrayList<R> filterCollectionNotEmptyAsArrayList(Boolean isUnique, Collection<T> target, String msg, Class<T> tClass, Class<R> rClass, Function<T, R> function) {
         if (target == null) {
             throw new PropertiesRuntimeException(msg);
         }
-        Iterator iterator = target.iterator();
         ArrayList<R> result = new ArrayList(target.size());
-        while (iterator.hasNext()) {
-            R item = function.apply((T) iterator.next());
-            if (item != null && !propertiesHelper.stringIsNullOrEmpty(item.toString())) {
-                result.add(item);
+        for (T collectionItem : target) {
+            if (collectionItem != null) {
+                R resultItem = function.apply(collectionItem);
+                if (resultItem != null && !propertiesHelper.stringIsNullOrEmpty(resultItem.toString())) {
+                    if (isUnique) {
+                        if (!result.contains(resultItem)) {
+                            result.add(resultItem);
+                        }
+                    } else {
+                        result.add(resultItem);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public <T, K, V> HashMap<K, V> filterCollectionNotEmptyAsHashMap(Collection<T> target, String msg, Class<T> tClass, Class<K> kClass, Class<V> vClass, Function<T, K> kFunction, Function<T, V> vFunction) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        HashMap<K, V> result = new HashMap(target.size());
+        for (T collectionItem : target) {
+            if (collectionItem != null) {
+                K key = kFunction.apply(collectionItem);
+                V value = vFunction.apply(collectionItem);
+                if (key != null && !propertiesHelper.stringIsNullOrEmpty(key.toString()) && value != null && !propertiesHelper.stringIsNullOrEmpty(value.toString())) {
+                    result.put(key, value);
+                }
             }
         }
         return result;
