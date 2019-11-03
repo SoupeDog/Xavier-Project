@@ -3,9 +3,7 @@ package org.xavier.webtoolkit.base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xavier.common.logging.core.HyggeLogger;
-import org.xavier.common.util.JsonHelper;
-import org.xavier.common.util.PropertiesHelper;
-import org.xavier.common.util.TimeHelper;
+import org.xavier.common.util.*;
 
 /**
  * 描述信息：<br/>
@@ -28,4 +26,8 @@ public class DefaultUtils {
     protected PropertiesHelper propertiesHelper;
     @Autowired
     protected TimeHelper timeHelper;
+    @Autowired
+    protected SqlHelper sqlHelper;
+    @Autowired
+    protected CollectionHelper collectionHelper;
 }

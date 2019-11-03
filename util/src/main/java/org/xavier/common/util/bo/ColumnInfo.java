@@ -43,7 +43,7 @@ public class ColumnInfo {
 
     public ColumnInfo(String columnName, String columnAlias, ColumnType columnType, boolean nullable, Number minLength, Number maxLength) {
         this.columnName = columnName;
-        this.columnAlias = columnAlias;
+        this.columnAlias = propertiesHelper.stringOfNullable(columnAlias, columnName);
         this.columnType = columnType;
         this.nullable = propertiesHelper.booleanFormatOfNullable(nullable, true, String.format("[%s] should be a [%s] property.", columnName, columnType.getDescription()));
         this.minLength = minLength;

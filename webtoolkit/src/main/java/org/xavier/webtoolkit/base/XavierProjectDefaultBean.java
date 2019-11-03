@@ -3,10 +3,8 @@ package org.xavier.webtoolkit.base;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.xavier.common.util.JsonHelper;
-import org.xavier.common.util.PropertiesHelper;
-import org.xavier.common.util.TimeHelper;
-import org.xavier.common.util.UtilsCreator;
+import org.xavier.common.logging.core.HyggeLogger;
+import org.xavier.common.util.*;
 
 /**
  * 描述信息：<br/>
@@ -39,5 +37,20 @@ public class XavierProjectDefaultBean {
     @Bean
     public TimeHelper timeHelper() {
         return UtilsCreator.getDefaultTimeHelperInstance();
+    }
+
+    @Bean
+    public SqlHelper sqlHelper() {
+        return UtilsCreator.getDefaultSqlHelper();
+    }
+
+    @Bean
+    public RandomHelper randomHelper() {
+        return UtilsCreator.getDefaultRandomHelperInstance();
+    }
+
+    @Bean
+    public CollectionHelper collectionHelper() {
+        return UtilsCreator.getDefaultCollectionHelper();
     }
 }
