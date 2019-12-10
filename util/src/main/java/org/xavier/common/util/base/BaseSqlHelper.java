@@ -28,7 +28,9 @@ public abstract class BaseSqlHelper implements SqlHelper {
         HashMap<String, Object> result = new HashMap(checkInfoCollection.size());
         for (ColumnInfo columnInfo : checkInfoCollection) {
             targetTemp = target.get(columnInfo.getColumnName());
-            result.put(columnInfo.getColumnAlias(), columnInfo.checkAndGetColumn(targetTemp));
+            if (targetTemp != null) {
+                result.put(columnInfo.getColumnAlias(), columnInfo.checkAndGetColumn(targetTemp));
+            }
         }
         return result;
     }
