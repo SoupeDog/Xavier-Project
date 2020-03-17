@@ -2,6 +2,8 @@ package org.xavier.common.util.impl;
 
 import org.xavier.common.util.base.BasePropertiesHelper;
 
+import java.math.BigDecimal;
+
 /**
  * 描述信息：<br/>
  * 不做任何额外处理的基本 PropertiesHelper
@@ -50,6 +52,11 @@ public class DefaultPropertiesHelper extends BasePropertiesHelper {
 
     @Override
     protected Double hookDouble(Double target) {
+        return target;
+    }
+
+    @Override
+    protected BigDecimal hookBigDecimal(BigDecimal target) {
         return target;
     }
 

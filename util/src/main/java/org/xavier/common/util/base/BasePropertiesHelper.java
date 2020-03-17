@@ -6,6 +6,8 @@ import org.xavier.common.exception.PropertiesRuntimeException;
 import org.xavier.common.util.PropertiesHelper;
 import org.xavier.common.util.exception.UtilRuntimeException;
 
+import java.math.BigDecimal;
+
 /**
  * 描述信息：<br/>
  * 参数工具基类
@@ -81,6 +83,14 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
      * @return 转化后的参数
      */
     protected abstract Double hookDouble(Double target);
+
+    /**
+     * 参数非空且符合预期时触发
+     *
+     * @param target 被转化的对象
+     * @return 转化后的参数
+     */
+    protected abstract BigDecimal hookBigDecimal(BigDecimal target);
 
     /**
      * 参数非空且符合预期时触发
@@ -644,6 +654,67 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
             return defaultValue.doubleValue();
         }
         return doubleRange(target, minLength, maxLength, msg);
+    }
+
+    @Override
+    public BigDecimal bigDecimalRange(Object target, String msg) {
+        if (target == null) {
+            return hookBigDecimal(null);
+        }
+        try {
+            BigDecimal result = new BigDecimal(string(target));
+            return hookBigDecimal(result);
+        } catch (NumberFormatException e) {
+            throw new PropertiesRuntimeException(msg, e);
+        }
+    }
+
+    @Override
+    public BigDecimal bigDecimalRange(Object target, BigDecimal minValue, BigDecimal maxValue, String msg) {
+        if (target == null) {
+            return hookBigDecimal(null);
+        }
+        try {
+            BigDecimal result = new BigDecimal(string(target));
+            if (result.compareTo(minValue) < 0 || result.compareTo(maxValue) > 0) {
+                throw new PropertiesRuntimeException(msg);
+            }
+            return hookBigDecimal(result);
+        } catch (NumberFormatException e) {
+            throw new PropertiesRuntimeException(msg, e);
+        }
+    }
+
+    @Override
+    public BigDecimal bigDecimalRangeNotNull(Object target, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return bigDecimalRange(target, msg);
+    }
+
+    @Override
+    public BigDecimal bigDecimalRangeNotNull(Object target, BigDecimal minValue, BigDecimal maxValue, String msg) {
+        if (target == null) {
+            throw new PropertiesRuntimeException(msg);
+        }
+        return bigDecimalRange(target, minValue, maxValue, msg);
+    }
+
+    @Override
+    public BigDecimal bigDecimalRangeOfNullable(Object target, BigDecimal defaultValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue;
+        }
+        return bigDecimalRange(target, msg);
+    }
+
+    @Override
+    public BigDecimal bigDecimalRangeOfNullable(Object target, BigDecimal defaultValue, BigDecimal minValue, BigDecimal maxValue, String msg) {
+        if (target == null || "".equals(target.toString().trim())) {
+            return defaultValue;
+        }
+        return bigDecimalRange(target, minValue, maxValue, msg);
     }
 
     @Override

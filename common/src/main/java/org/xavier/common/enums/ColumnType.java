@@ -59,9 +59,13 @@ public enum ColumnType {
      */
     MAP(11, "Map"),
     /**
+     * 长小数类型
+     */
+    BIG_DECIMAL(12, "BigDecimal"),
+    /**
      * 其他对象类型
      */
-    OTHER_OBJECT(12, "Object");
+    OTHER_OBJECT(13, "Object");
 
     private Number index;
     private String description;
