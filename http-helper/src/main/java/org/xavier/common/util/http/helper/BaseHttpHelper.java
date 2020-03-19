@@ -97,12 +97,12 @@ public abstract class BaseHttpHelper implements HttpHelper {
 
     @Override
     public <T> HttpHelperResponse<T> get(String url, Class<T> tClass) {
-        return get(url, null, MediaType.APPLICATION_JSON_UTF8, tClass);
+        return get(url, null, MediaType.APPLICATION_JSON, tClass);
     }
 
     @Override
     public <T> HttpHelperResponse<T> get(String url, HttpHeaders httpHeaders, Class<T> tClass) {
-        return get(url, httpHeaders, MediaType.APPLICATION_JSON_UTF8, tClass);
+        return get(url, httpHeaders, MediaType.APPLICATION_JSON, tClass);
     }
 
     @Override
@@ -128,12 +128,12 @@ public abstract class BaseHttpHelper implements HttpHelper {
 
     @Override
     public <T> HttpHelperResponse<T> get(String url, TypeReference<T> typeReference) {
-        return get(url, null, MediaType.APPLICATION_JSON_UTF8, typeReference);
+        return get(url, null, MediaType.APPLICATION_JSON, typeReference);
     }
 
     @Override
     public <T> HttpHelperResponse<T> get(String url, HttpHeaders httpHeaders, TypeReference<T> typeReference) {
-        return get(url, httpHeaders, MediaType.APPLICATION_JSON_UTF8, typeReference);
+        return get(url, httpHeaders, MediaType.APPLICATION_JSON, typeReference);
     }
 
     @Override
@@ -153,12 +153,12 @@ public abstract class BaseHttpHelper implements HttpHelper {
 
     @Override
     public <T> HttpHelperResponse<T> post(String url, Object body, Class<T> tClass) {
-        return post(url, body, null, MediaType.APPLICATION_JSON_UTF8, tClass);
+        return post(url, body, null, MediaType.APPLICATION_JSON, tClass);
     }
 
     @Override
     public <T> HttpHelperResponse<T> post(String url, Object body, HttpHeaders httpHeaders, Class<T> tClass) {
-        return post(url, body, httpHeaders, MediaType.APPLICATION_JSON_UTF8, tClass);
+        return post(url, body, httpHeaders, MediaType.APPLICATION_JSON, tClass);
     }
 
     @Override
@@ -183,12 +183,12 @@ public abstract class BaseHttpHelper implements HttpHelper {
 
     @Override
     public <T> HttpHelperResponse<T> post(String url, Object body, TypeReference<T> typeReference) {
-        return post(url, body, null, MediaType.APPLICATION_JSON_UTF8, typeReference);
+        return post(url, body, null, MediaType.APPLICATION_JSON, typeReference);
     }
 
     @Override
     public <T> HttpHelperResponse<T> post(String url, Object body, HttpHeaders httpHeaders, TypeReference<T> typeReference) {
-        return post(url, body, httpHeaders, MediaType.APPLICATION_JSON_UTF8, typeReference);
+        return post(url, body, httpHeaders, MediaType.APPLICATION_JSON, typeReference);
     }
 
     @Override
