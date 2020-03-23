@@ -38,10 +38,10 @@ public class CollectionHelperTest {
 
         JsonHelper jsonHelper = UtilsCreator.getDefaultJsonHelperInstance(true);
 
-        ArrayList<Integer> list1 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsArrayList(true, map.values(), "错误", User.class, Integer.class, (u) -> u.getAge());
-        ArrayList<Integer> list2 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsArrayList(true, list, "错误", User.class, Integer.class, (u) -> u.getAge());
-        HashMap<String, Integer> map1 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsHashMap(map.values(), "错误", User.class, String.class, Integer.class, (u) -> u.getName(), (u) -> u.getAge());
-        HashMap<String, Integer> map2 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsHashMap(list, "错误", User.class, String.class, Integer.class, (u) -> u.getName(), (u) -> u.getAge());
+        ArrayList<Integer> list1 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsArrayList(true, map.values(), "错误", (u) -> u.getAge());
+        ArrayList<Integer> list2 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsArrayList(true, list, "错误", (u) -> u.getAge());
+        HashMap<String, Integer> map1 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsHashMap(map.values(), "错误", (u) -> u.getName(), (u) -> u.getAge());
+        HashMap<String, Integer> map2 = UtilsCreator.getDefaultCollectionHelper().filterCollectionNotEmptyAsHashMap(list, "错误", (u) -> u.getName(), (u) -> u.getAge());
 
         System.out.println(jsonHelper.format(list1));
         System.out.println(jsonHelper.format(list2));

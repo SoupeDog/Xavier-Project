@@ -25,7 +25,7 @@ public abstract class BaseCollectionHelper implements CollectionHelper {
     }
 
     @Override
-    public <T, R> ArrayList<R> filterCollectionNotEmptyAsArrayList(Boolean isUnique, Collection<T> target, String msg, Class<T> tClass, Class<R> rClass, Function<T, R> function) {
+    public <T, R> ArrayList<R> filterCollectionNotEmptyAsArrayList(Boolean isUnique, Collection<T> target, String msg, Function<T, R> function) {
         if (target == null) {
             throw new PropertiesRuntimeException(msg);
         }
@@ -48,7 +48,7 @@ public abstract class BaseCollectionHelper implements CollectionHelper {
     }
 
     @Override
-    public <T, K, V> HashMap<K, V> filterCollectionNotEmptyAsHashMap(Collection<T> target, String msg, Class<T> tClass, Class<K> kClass, Class<V> vClass, Function<T, K> kFunction, Function<T, V> vFunction) {
+    public <T, K, V> HashMap<K, V> filterCollectionNotEmptyAsHashMap(Collection<T> target, String msg, Function<T, K> kFunction, Function<T, V> vFunction) {
         if (target == null) {
             throw new PropertiesRuntimeException(msg);
         }
