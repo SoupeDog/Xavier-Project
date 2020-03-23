@@ -20,7 +20,7 @@ import java.util.Map;
 public abstract class BaseSqlHelper implements SqlHelper {
 
     @Override
-    public HashMap<String, Object> createFinalUpdateData(Map target, Collection<ColumnInfo> checkInfoCollection) {
+    public HashMap<String, Object> createFinalUpdateData(Map<?, ?> target, Collection<ColumnInfo> checkInfoCollection) {
         if (target == null) {
             throw new PropertiesRuntimeException("Target of createFinalUpdateData can't be null.");
         }
@@ -36,7 +36,7 @@ public abstract class BaseSqlHelper implements SqlHelper {
     }
 
     @Override
-    public HashMap<String, Object> createFinalUpdateDataWithDefaultTsColumn(Long updateTs, Map target, Collection<ColumnInfo> checkInfoCollection) {
+    public HashMap<String, Object> createFinalUpdateDataWithDefaultTsColumn(Long updateTs, Map<?, ?> target, Collection<ColumnInfo> checkInfoCollection) {
         HashMap<String, Object> result = createFinalUpdateData(target, checkInfoCollection);
         result.put("lastUpdateTs", updateTs);
         return result;
