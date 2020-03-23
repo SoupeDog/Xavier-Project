@@ -25,7 +25,7 @@ public interface SqlHelper {
      * @param checkInfoCollection 筛选条件信息
      * @return 生成数据库记录更新用的 map
      */
-    HashMap<String, Object> createFinalUpdateData(Map target, Collection<ColumnInfo> checkInfoCollection);
+    HashMap<String, Object> createFinalUpdateData(Map<?, ?> target, Collection<ColumnInfo> checkInfoCollection);
 
     /**
      * 根据属性 map 集合筛选出特定属性，并生成最终更新用的 map
@@ -35,5 +35,5 @@ public interface SqlHelper {
      * @param checkInfoCollection 筛选条件信息
      * @return 生成数据库记录更新用的 map
      */
-    HashMap<String, Object> createFinalUpdateDataWithDefaultTsColumn(Long updateTs, Map target, Collection<ColumnInfo> checkInfoCollection);
+    HashMap<String, Object> createFinalUpdateDataWithDefaultTsColumn(Long updateTs, Map<?, ?> target, Collection<ColumnInfo> checkInfoCollection);
 }
