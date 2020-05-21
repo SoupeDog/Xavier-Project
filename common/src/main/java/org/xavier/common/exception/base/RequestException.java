@@ -11,6 +11,15 @@ package org.xavier.common.exception.base;
  */
 public class RequestException extends Exception {
     /**
+     * 是否启用抑制功能 默认否
+     */
+    protected static boolean DEFAULT_ENABLE_SUPPRESSION = false;
+    /**
+     * 是否追溯堆栈 默认追溯
+     */
+    protected static boolean DEFAULT_WRITABLE_STACKTRACE = true;
+
+    /**
      * 自定义状态码 默认400
      */
     private Number stateCode = 400;
@@ -24,27 +33,27 @@ public class RequestException extends Exception {
     }
 
     public RequestException(String msg) {
-        super(msg);
+        super(msg, null, DEFAULT_ENABLE_SUPPRESSION, DEFAULT_WRITABLE_STACKTRACE);
     }
 
     public RequestException(Number stateCode, String msg) {
-        super(msg);
+        super(msg, null, DEFAULT_ENABLE_SUPPRESSION, DEFAULT_WRITABLE_STACKTRACE);
         this.stateCode = stateCode;
     }
 
     public RequestException(Number stateCode, String msg, Throwable cause) {
-        super(msg, cause);
+        super(msg, cause, DEFAULT_ENABLE_SUPPRESSION, DEFAULT_WRITABLE_STACKTRACE);
         this.stateCode = stateCode;
     }
 
     public RequestException(Number stateCode, String msg, String extraInfo) {
-        super(msg);
+        super(msg, null, DEFAULT_ENABLE_SUPPRESSION, DEFAULT_WRITABLE_STACKTRACE);
         this.stateCode = stateCode;
         this.extraInfo = extraInfo;
     }
 
     public RequestException(Number stateCode, String msg, String extraInfo, Throwable cause) {
-        super(msg, cause);
+        super(msg, cause, DEFAULT_ENABLE_SUPPRESSION, DEFAULT_WRITABLE_STACKTRACE);
         this.stateCode = stateCode;
         this.extraInfo = extraInfo;
     }
