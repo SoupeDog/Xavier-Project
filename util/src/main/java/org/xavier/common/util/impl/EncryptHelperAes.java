@@ -2,9 +2,9 @@ package org.xavier.common.util.impl;
 
 
 import org.xavier.common.util.base.BaseEncryptHelper;
-import org.xavier.common.util.bo.Base64Mode;
-import org.xavier.common.util.bo.EncryptedAim;
-import org.xavier.common.util.bo.WorkModeAes;
+import org.xavier.common.util.enums.Base64Mode;
+import org.xavier.common.util.enums.EncryptedAim;
+import org.xavier.common.util.enums.WorkModeAes;
 import org.xavier.common.util.exception.UtilRuntimeException;
 
 import javax.crypto.BadPaddingException;

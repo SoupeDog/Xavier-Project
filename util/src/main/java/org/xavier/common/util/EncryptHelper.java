@@ -1,7 +1,7 @@
 package org.xavier.common.util;
 
 import org.xavier.common.enums.StringFormatMode;
-import org.xavier.common.util.bo.Base64Mode;
+import org.xavier.common.util.enums.Base64Mode;
 
 import java.util.Base64;
 

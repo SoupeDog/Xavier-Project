@@ -1,4 +1,4 @@
-package org.xavier.common.util.bo;
+package org.xavier.common.util.enums;
 
 import javax.crypto.Cipher;
 
