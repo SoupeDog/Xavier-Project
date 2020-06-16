@@ -1,16 +1,19 @@
-package org.xavier.common.util.bo;
+package org.xavier.common.util.impl;
 
+
+import org.xavier.common.util.RandomUniqueGenerator;
 import org.xavier.common.util.exception.UtilRuntimeException;
 
 /**
  * 描述信息：<br/>
+ * 雪花算法 id 生成器
  *
  * @author Xavier
  * @version 1.0
  * @date 2019/8/29
  * @since Jdk 1.8
  */
-public class SnowFlakeFactory {
+public class SnowFlakeGenerator implements RandomUniqueGenerator {
     /**
      * 可自定义部分
      */
@@ -87,7 +90,7 @@ public class SnowFlakeFactory {
      */
     private long lastTs = -1L;
 
-    public SnowFlakeFactory(Long startTs, Number part1Length, Number part2Length, Number indexPartLength) {
+    public SnowFlakeGenerator(Long startTs, Number part1Length, Number part2Length, Number indexPartLength) {
         if ((part1Length.intValue() + part2Length.intValue() + indexPartLength.intValue()) >= CUSTOM_LENGTH) {
             throw new UtilRuntimeException(550, "Unexpected init properties of SnowFlakeFactory.");
         }
@@ -114,6 +117,7 @@ public class SnowFlakeFactory {
         this.stablePartOrTarget = part1OrTarget | part2OrTarget;
     }
 
+    @Override
     public synchronized long createKey() {
         long currentTs = System.currentTimeMillis();
         if (currentTs >= endTs) {
@@ -163,5 +167,12 @@ public class SnowFlakeFactory {
                 | tsPart;
         index += 1;
         return result;
+    }
+
+    /**
+     * 返回最早出现重复的 UTC 时间戳
+     */
+    public long getEndTs() {
+        return endTs;
     }
 }

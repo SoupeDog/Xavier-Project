@@ -38,23 +38,13 @@ public class EncryptHelperAes extends BaseEncryptHelper {
         Cipher cipher = Cipher.getInstance(workModeAes.getVal(), "BC");
         switch (workModeAes) {
             case AES_ECB_NOPADDING:
-                cipher.init(encryptedAim.getValue(), secretKeySpec);
-                break;
             case AES_ECB_PKCS5_PADDING:
-                cipher.init(encryptedAim.getValue(), secretKeySpec);
-                break;
             case AES_ECB_PKCS7_PADDING:
                 cipher.init(encryptedAim.getValue(), secretKeySpec);
                 break;
             case AES_CBC_NOPADDING:
-                cipher.init(encryptedAim.getValue(), secretKeySpec, iv);
-                break;
             case AES_CBC_PKCS5_PADDING:
-                cipher.init(encryptedAim.getValue(), secretKeySpec, iv);
-                break;
             case AES_CBC_PKCS7_PADDING:
-                cipher.init(encryptedAim.getValue(), secretKeySpec, iv);
-                break;
             case AES_CBC_ZERO_PADDING:
                 cipher.init(encryptedAim.getValue(), secretKeySpec, iv);
                 break;

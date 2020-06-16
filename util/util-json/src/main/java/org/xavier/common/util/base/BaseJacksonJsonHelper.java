@@ -1,7 +1,7 @@
 package org.xavier.common.util.base;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,12 +32,17 @@ public abstract class BaseJacksonJsonHelper implements JsonHelper<ObjectMapper> 
     protected PropertiesHelper propertiesHelper;
 
     public BaseJacksonJsonHelper() {
-        initDefaultObjectMapper();
+        initDefaultObjectMapper(false);
         propertiesHelper = UtilsCreator.getDefaultPropertiesHelperInstance();
     }
 
-    public BaseJacksonJsonHelper(PropertiesHelper propertiesHelper) {
-        initDefaultObjectMapper();
+    public BaseJacksonJsonHelper(boolean indent) {
+        initDefaultObjectMapper(indent);
+        propertiesHelper = UtilsCreator.getDefaultPropertiesHelperInstance();
+    }
+
+    public BaseJacksonJsonHelper(boolean indent, PropertiesHelper propertiesHelper) {
+        initDefaultObjectMapper(indent);
         this.propertiesHelper = propertiesHelper;
     }
 
@@ -51,14 +56,18 @@ public abstract class BaseJacksonJsonHelper implements JsonHelper<ObjectMapper> 
         this.propertiesHelper = propertiesHelper;
     }
 
-    protected void initDefaultObjectMapper() {
+    /**
+     * @param indent 是否开启缩进
+     */
+    protected void initDefaultObjectMapper(boolean indent) {
         mapper = new ObjectMapper();
         //反序列化出现多余属性时,选择忽略不抛出异常
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // 开启缩进
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, indent);
         // 开启允许数字以 0 开头
-        mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+//        mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+        mapper.configure(JsonReadFeature.ALLOW_LEADING_ZEROS_FOR_NUMBERS.mappedFeature(), true);
     }
 
     public ObjectMapper getMapper() {

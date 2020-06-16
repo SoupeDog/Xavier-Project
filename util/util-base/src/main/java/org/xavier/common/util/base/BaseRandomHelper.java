@@ -3,7 +3,8 @@ package org.xavier.common.util.base;
 import org.xavier.common.enums.StringCategory;
 import org.xavier.common.exception.PropertiesRuntimeException;
 import org.xavier.common.util.RandomHelper;
-import org.xavier.common.util.bo.SnowFlakeFactory;
+import org.xavier.common.util.RandomUniqueGenerator;
+import org.xavier.common.util.impl.SnowFlakeGenerator;
 
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -60,7 +61,7 @@ public abstract class BaseRandomHelper implements RandomHelper {
     }
 
     @Override
-    public SnowFlakeFactory getDefaultSnowFlakeFactory() {
-        return new SnowFlakeFactory(803966400000L, 2, 5, 12);
+    public RandomUniqueGenerator getSnowFlakeGenerator() {
+        return new SnowFlakeGenerator(803966400000L, 2, 5, 12);
     }
 }

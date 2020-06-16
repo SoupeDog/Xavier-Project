@@ -1,6 +1,10 @@
 package org.xavier.common.util;
 
 import org.xavier.common.enums.ColumnType;
+import org.xavier.common.util.exception.UtilRuntimeException;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * 描述信息：<br/>
@@ -12,6 +16,36 @@ import org.xavier.common.enums.ColumnType;
  * @since Jdk 1.8
  */
 public interface JsonHelper<S> {
+    String DEFAULT_PATH = "org.xavier.common.util.impl.DefaultJacksonJsonHelper";
+
+    /**
+     * 返回一个默认工具（这个方法会影响到 org.xavier.common.util.UtilsCreator 的静态实例）
+     *
+     * @param indent 是否开启缩进
+     * @return 默认工具
+     */
+    static JsonHelper createHelper(boolean indent) {
+        try {
+            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Constructor constructor = defaultClass.getConstructor(Boolean.class);
+            Object resultTemp = constructor.newInstance(indent);
+            if (!(resultTemp instanceof JsonHelper)) {
+                throw new UtilRuntimeException(String.format("Class(%s) should implement JsonHelper.", DEFAULT_PATH));
+            }
+            return (JsonHelper) resultTemp;
+        } catch (ClassNotFoundException e) {
+            throw new UtilRuntimeException(String.format("Class(%s) was not found.", DEFAULT_PATH));
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        } catch (NoSuchMethodException e) {
+            throw new UtilRuntimeException(String.format("Fail to get constructor of %s(Boolean).", DEFAULT_PATH));
+        } catch (InvocationTargetException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        }
+    }
+
     /**
      * 格式化对象或者字符串
      *

@@ -9,39 +9,45 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.xavier</groupId>
     <artifactId>util</artifactId>
     <version>2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>util-base</module>
+        <module>util-define</module>
+        <module>util-json</module>
+        <module>util-encrypt</module>
+    </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.xavier</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <!--BC 工具包-->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.59</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-web</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-boot-starter</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--BC 工具包-->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>1.59</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xavier</groupId>
+                <artifactId>util-define</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xavier</groupId>
+                <artifactId>util-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

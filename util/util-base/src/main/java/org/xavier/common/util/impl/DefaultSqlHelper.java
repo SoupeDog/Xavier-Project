@@ -12,4 +12,6 @@ import org.xavier.common.util.base.BaseSqlHelper;
  * @since Jdk 1.8
  */
 public class DefaultSqlHelper extends BaseSqlHelper {
+
+
 }

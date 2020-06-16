@@ -15,6 +15,11 @@ import org.xavier.common.util.base.BaseJacksonJsonHelper;
  */
 public class DefaultJacksonJsonHelper extends BaseJacksonJsonHelper {
     public DefaultJacksonJsonHelper() {
+        super();
+    }
+
+    public DefaultJacksonJsonHelper(boolean indent) {
+        super(indent);
     }
 
     public DefaultJacksonJsonHelper(ObjectMapper mapper) {

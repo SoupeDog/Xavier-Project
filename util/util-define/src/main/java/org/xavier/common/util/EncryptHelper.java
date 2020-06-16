@@ -2,6 +2,7 @@ package org.xavier.common.util;
 
 import org.xavier.common.enums.StringFormatMode;
 import org.xavier.common.util.enums.Base64Mode;
+import org.xavier.common.util.exception.UtilRuntimeException;
 
 import java.util.Base64;
 
@@ -15,6 +16,29 @@ import java.util.Base64;
  * @since Jdk 1.8
  */
 public interface EncryptHelper {
+    String DEFAULT_PATH = "org.xavier.common.util.impl.EncryptHelperAes";
+
+    /**
+     * 返回一个默认工具（这个方法会影响到 org.xavier.common.util.UtilsCreator 的静态实例）
+     *
+     * @return 默认工具
+     */
+    static EncryptHelper createHelper() {
+        try {
+            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Object resultTemp = defaultClass.newInstance();
+            if (!(resultTemp instanceof EncryptHelper)) {
+                throw new UtilRuntimeException(String.format("Class(%s) should implement EncryptHelper.", DEFAULT_PATH));
+            }
+            return (EncryptHelper) resultTemp;
+        } catch (ClassNotFoundException e) {
+            throw new UtilRuntimeException(String.format("Class(%s) was not found.", DEFAULT_PATH));
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        }
+    }
 
     /**
      * 获取 Base64 处理工具

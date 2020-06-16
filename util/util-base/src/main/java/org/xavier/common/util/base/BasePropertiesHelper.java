@@ -724,14 +724,10 @@ public abstract class BasePropertiesHelper implements PropertiesHelper {
         }
         switch (target.toString().toLowerCase()) {
             case "true":
-                hookBoolean(true);
-                return true;
-            case "false":
-                hookBoolean(false);
-                return false;
             case "1":
                 hookBoolean(true);
                 return true;
+            case "false":
             case "0":
                 hookBoolean(false);
                 return false;
