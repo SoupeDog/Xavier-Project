@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.xavier</groupId>
-            <artifactId>util</artifactId>
+            <artifactId>util-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.xavier</groupId>

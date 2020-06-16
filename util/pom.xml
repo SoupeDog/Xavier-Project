@@ -15,19 +15,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>util-base</module>
         <module>util-define</module>
+        <module>util-base</module>
         <module>util-json</module>
         <module>util-encrypt</module>
+        <module>util-starter</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -45,6 +38,16 @@
             <dependency>
                 <groupId>org.xavier</groupId>
                 <artifactId>util-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xavier</groupId>
+                <artifactId>util-json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xavier</groupId>
+                <artifactId>util-encrypt</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -27,7 +27,7 @@ public interface JsonHelper<S> {
     static JsonHelper createHelper(boolean indent) {
         try {
             Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
-            Constructor constructor = defaultClass.getConstructor(Boolean.class);
+            Constructor constructor = defaultClass.getConstructor(boolean.class);
             Object resultTemp = constructor.newInstance(indent);
             if (!(resultTemp instanceof JsonHelper)) {
                 throw new UtilRuntimeException(String.format("Class(%s) should implement JsonHelper.", DEFAULT_PATH));

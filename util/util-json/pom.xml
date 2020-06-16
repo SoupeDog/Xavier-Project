@@ -17,7 +17,6 @@
         <dependency>
             <groupId>org.xavier</groupId>
             <artifactId>util-define</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.xavier</groupId>

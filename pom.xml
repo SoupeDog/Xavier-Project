@@ -27,7 +27,7 @@
             </dependency>
             <dependency>
                 <groupId>org.xavier</groupId>
-                <artifactId>util</artifactId>
+                <artifactId>util-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -3,7 +3,6 @@ package org.xavier.webtoolkit.base;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.xavier.common.logging.core.HyggeLogger;
 import org.xavier.common.util.*;
 
 /**
@@ -41,7 +40,7 @@ public class XavierProjectDefaultBean {
 
     @Bean
     public SqlHelper sqlHelper() {
-        return UtilsCreator.getDefaultSqlHelper();
+        return UtilsCreator.getDefaultSqlHelperInstance();
     }
 
     @Bean
@@ -51,6 +50,6 @@ public class XavierProjectDefaultBean {
 
     @Bean
     public CollectionHelper collectionHelper() {
-        return UtilsCreator.getDefaultCollectionHelper();
+        return UtilsCreator.getDefaultCollectionHelperInstance();
     }
 }

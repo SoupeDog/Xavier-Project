@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>org.xavier</groupId>
-            <artifactId>util</artifactId>
+            <artifactId>util-starter</artifactId>
         </dependency>
     </dependencies>
 
