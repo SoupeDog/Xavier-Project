@@ -2,6 +2,7 @@ package org.xavier.common.util;
 
 
 import org.xavier.common.enums.StringCategory;
+import org.xavier.common.util.exception.UtilRuntimeException;
 
 /**
  * 描述信息：<br/>
@@ -13,6 +14,29 @@ import org.xavier.common.enums.StringCategory;
  * @since Jdk 1.8
  */
 public interface RandomHelper {
+    String DEFAULT_PATH = "org.xavier.common.util.impl.DefaultRandomHelper";
+
+    /**
+     * 返回一个默认工具（这个方法会影响到 org.xavier.common.util.UtilsCreator 的静态实例）
+     *
+     * @return 默认工具
+     */
+    static RandomHelper createHelper() {
+        try {
+            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Object resultTemp = defaultClass.newInstance();
+            if (!(resultTemp instanceof RandomHelper)) {
+                throw new UtilRuntimeException(String.format("Class(%s) should implement RandomHelper.", DEFAULT_PATH));
+            }
+            return (RandomHelper) resultTemp;
+        } catch (ClassNotFoundException e) {
+            throw new UtilRuntimeException(String.format("Class(%s) was not found.", DEFAULT_PATH));
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        }
+    }
 
     /**
      * 生成随机数字
@@ -40,10 +64,9 @@ public interface RandomHelper {
     String getUniversallyUniqueIdentifier();
 
     /**
-     * 返回一个默认的雪花 id 工厂
+     * 返回一个默认唯一编号生成器 (默认雪花算法 id 生成器)
      *
-     * @return 一个默认的雪花 id 工厂
+     * @return 默认唯一编号生成器
      */
-    SnowFlakeGenerator getSnowFlakeGenerator();
-
+    RandomUniqueGenerator getSnowFlakeGenerator();
 }

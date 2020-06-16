@@ -3,6 +3,7 @@ package org.xavier.common.util;
 
 import org.xavier.common.enums.ColumnType;
 import org.xavier.common.enums.StringFormatMode;
+import org.xavier.common.util.exception.UtilRuntimeException;
 
 import java.math.BigDecimal;
 
@@ -16,6 +17,29 @@ import java.math.BigDecimal;
  * @since Jdk 1.8
  */
 public interface PropertiesHelper {
+    String DEFAULT_PATH = "org.xavier.common.util.impl.DefaultPropertiesHelper";
+
+    /**
+     * 返回一个默认工具（这个方法会影响到 org.xavier.common.util.UtilsCreator 的静态实例）
+     *
+     * @return 默认工具
+     */
+    static PropertiesHelper createHelper() {
+        try {
+            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Object resultTemp = defaultClass.newInstance();
+            if (!(resultTemp instanceof PropertiesHelper)) {
+                throw new UtilRuntimeException(String.format("Class(%s) should implement PropertiesHelper.", DEFAULT_PATH));
+            }
+            return (PropertiesHelper) resultTemp;
+        } catch (ClassNotFoundException e) {
+            throw new UtilRuntimeException(String.format("Class(%s) was not found.", DEFAULT_PATH));
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        }
+    }
 
     /**
      * 判断字符串是否为 空(去格式后空字符串) 或 null

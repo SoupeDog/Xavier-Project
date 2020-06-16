@@ -1,6 +1,7 @@
 package org.xavier.common.util;
 
 import org.xavier.common.util.enums.TimeFormatEnum;
+import org.xavier.common.util.exception.UtilRuntimeException;
 
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -21,6 +22,30 @@ public interface TimeHelper {
     DateTimeFormatter yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyy_MM_dd_HH_mm_ss.pattern);
     DateTimeFormatter yyyyMMddHHmmss = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMddHHmmss.pattern);
     DateTimeFormatter yyyyMMddHHmmssSSS = DateTimeFormatter.ofPattern(TimeFormatEnum.yyyyMMddHHmmssSSS.pattern);
+
+    String DEFAULT_PATH = "org.xavier.common.util.impl.DefaultTimeHelper";
+
+    /**
+     * 返回一个默认工具（这个方法会影响到 org.xavier.common.util.UtilsCreator 的静态实例）
+     *
+     * @return 默认工具
+     */
+    static TimeHelper createHelper() {
+        try {
+            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Object resultTemp = defaultClass.newInstance();
+            if (!(resultTemp instanceof CollectionHelper)) {
+                throw new UtilRuntimeException(String.format("Class(%s) should implement TimeHelper.", DEFAULT_PATH));
+            }
+            return (TimeHelper) resultTemp;
+        } catch (ClassNotFoundException e) {
+            throw new UtilRuntimeException(String.format("Class(%s) was not found.", DEFAULT_PATH));
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        }
+    }
 
     /**
      * 字符串转化为 long 型毫秒级时间戳

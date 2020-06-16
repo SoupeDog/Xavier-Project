@@ -1,5 +1,7 @@
 package org.xavier.common.util;
 
+import org.xavier.common.util.exception.UtilRuntimeException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,6 +19,29 @@ import java.util.function.Function;
  * @since Jdk 1.8
  */
 public interface CollectionHelper {
+    String DEFAULT_PATH = "org.xavier.common.util.impl.DefaultCollectionHelper";
+
+    /**
+     * 返回一个默认工具（这个方法会影响到 org.xavier.common.util.UtilsCreator 的静态实例）
+     *
+     * @return 默认工具
+     */
+    static CollectionHelper createHelper() {
+        try {
+            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Object resultTemp = defaultClass.newInstance();
+            if (!(resultTemp instanceof CollectionHelper)) {
+                throw new UtilRuntimeException(String.format("Class(%s) should implement CollectionHelper.", DEFAULT_PATH));
+            }
+            return (CollectionHelper) resultTemp;
+        } catch (ClassNotFoundException e) {
+            throw new UtilRuntimeException(String.format("Class(%s) was not found.", DEFAULT_PATH));
+        } catch (IllegalAccessException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        } catch (InstantiationException e) {
+            throw new UtilRuntimeException(String.format("Fail to create instance of Class(%s).", DEFAULT_PATH));
+        }
+    }
 
     /**
      * 过滤 Collection ,将目标 Collection 非空且字符串值不为 "" 的元素组成新的 ArrayList
