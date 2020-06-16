@@ -16,7 +16,6 @@
         <module>logging-log4j2</module>
         <module>webtoolkit</module>
         <module>http-helper</module>
-        <module>util-define</module>
     </modules>
 
     <dependencyManagement>
