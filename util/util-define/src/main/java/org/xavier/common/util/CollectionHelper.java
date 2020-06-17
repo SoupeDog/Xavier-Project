@@ -28,7 +28,7 @@ public interface CollectionHelper {
      */
     static CollectionHelper createHelper() {
         try {
-            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Class defaultClass = Thread.currentThread().getContextClassLoader().loadClass(DEFAULT_PATH);
             Object resultTemp = defaultClass.newInstance();
             if (!(resultTemp instanceof CollectionHelper)) {
                 throw new UtilRuntimeException(String.format("Class(%s) should implement CollectionHelper.", DEFAULT_PATH));

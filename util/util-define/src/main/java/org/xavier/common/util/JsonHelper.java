@@ -26,7 +26,7 @@ public interface JsonHelper<S> {
      */
     static JsonHelper createHelper(boolean indent) {
         try {
-            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Class defaultClass = Thread.currentThread().getContextClassLoader().loadClass(DEFAULT_PATH);
             Constructor constructor = defaultClass.getConstructor(boolean.class);
             Object resultTemp = constructor.newInstance(indent);
             if (!(resultTemp instanceof JsonHelper)) {

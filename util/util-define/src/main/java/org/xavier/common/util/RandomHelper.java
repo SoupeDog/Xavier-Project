@@ -23,7 +23,7 @@ public interface RandomHelper {
      */
     static RandomHelper createHelper() {
         try {
-            Class defaultClass = ClassLoader.getSystemClassLoader().loadClass(DEFAULT_PATH);
+            Class defaultClass = Thread.currentThread().getContextClassLoader().loadClass(DEFAULT_PATH);
             Object resultTemp = defaultClass.newInstance();
             if (!(resultTemp instanceof RandomHelper)) {
                 throw new UtilRuntimeException(String.format("Class(%s) should implement RandomHelper.", DEFAULT_PATH));
