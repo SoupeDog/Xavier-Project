@@ -2,6 +2,7 @@ package org.xavier.common.util.bo;
 
 import org.xavier.common.enums.ColumnType;
 import org.xavier.common.util.PropertiesHelper;
+import org.xavier.common.util.UtilsCreator;
 import org.xavier.common.util.exception.UtilRuntimeException;
 
 /**
@@ -14,7 +15,7 @@ import org.xavier.common.util.exception.UtilRuntimeException;
  * @since Jdk 1.8
  */
 public class ColumnInfo {
-    private static PropertiesHelper propertiesHelper;
+    private static PropertiesHelper propertiesHelper= UtilsCreator.getDefaultPropertiesHelperInstance();
     /**
      * 属性名称
      */
@@ -39,13 +40,6 @@ public class ColumnInfo {
      * 最大长度
      */
     private Number maxLength;
-
-    /**
-     * 初始化内部参数工具(如果不初始化否则无法正常工作)
-     */
-    public static void init(PropertiesHelper propertiesHelper) {
-        ColumnInfo.propertiesHelper = propertiesHelper;
-    }
 
     public ColumnInfo(String columnName, String columnAlias, ColumnType columnType, boolean nullable, Number minLength, Number maxLength) {
         this.columnName = columnName;

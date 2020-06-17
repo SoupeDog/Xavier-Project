@@ -17,8 +17,8 @@ public class UtilsCreator {
     private static volatile RandomHelper randomHelper = null;
     private static volatile TimeHelper timeHelper = null;
     private static volatile SqlHelper sqlHelper = null;
-    private static volatile JsonHelper jsonHelper = null;
-    private static volatile JsonHelper jsonHelper_Indent = null;
+    private static volatile JsonHelper<?> jsonHelper = null;
+    private static volatile JsonHelper<?> jsonHelper_Indent = null;
     private static volatile EncryptHelper encryptHelper = null;
 
 
@@ -165,7 +165,7 @@ public class UtilsCreator {
     /**
      * 返回一个 DefaultJsonHelper 实例(单例)<br/>
      */
-    public static JsonHelper getDefaultJsonHelperInstance(Boolean indent) {
+    public static JsonHelper<?> getDefaultJsonHelperInstance(Boolean indent) {
         if (indent) {
             if (jsonHelper_Indent == null) {
                 synchronized (JsonHelper.class) {
@@ -238,11 +238,8 @@ public class UtilsCreator {
             throw new UtilRuntimeException(550, "Create target can't be null.");
         }
         try {
-            C result = customClass.newInstance();
-            return result;
-        } catch (InstantiationException e) {
-            throw new UtilRuntimeException(550, "Fail to get instance of " + customClass.getName() + ".", e);
-        } catch (IllegalAccessException e) {
+            return customClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new UtilRuntimeException(550, "Fail to get instance of " + customClass.getName() + ".", e);
         }
     }
