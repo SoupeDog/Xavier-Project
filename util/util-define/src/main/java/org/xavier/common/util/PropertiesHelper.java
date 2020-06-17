@@ -26,7 +26,7 @@ public interface PropertiesHelper {
      */
     static PropertiesHelper createHelper() {
         try {
-            Class defaultClass = Thread.currentThread().getContextClassLoader().loadClass(DEFAULT_PATH);
+            Class defaultClass = PropertiesHelper.class.getClassLoader().loadClass(DEFAULT_PATH);
             Object resultTemp = defaultClass.newInstance();
             if (!(resultTemp instanceof PropertiesHelper)) {
                 throw new UtilRuntimeException(String.format("Class(%s) should implement PropertiesHelper.", DEFAULT_PATH));

@@ -32,9 +32,9 @@ public interface TimeHelper {
      */
     static TimeHelper createHelper() {
         try {
-            Class defaultClass = Thread.currentThread().getContextClassLoader().loadClass(DEFAULT_PATH);
+            Class defaultClass = TimeHelper.class.getClassLoader().loadClass(DEFAULT_PATH);
             Object resultTemp = defaultClass.newInstance();
-            if (!(resultTemp instanceof CollectionHelper)) {
+            if (!(resultTemp instanceof TimeHelper)) {
                 throw new UtilRuntimeException(String.format("Class(%s) should implement TimeHelper.", DEFAULT_PATH));
             }
             return (TimeHelper) resultTemp;
