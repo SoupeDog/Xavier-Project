@@ -15,7 +15,19 @@
     <dependencies>
         <dependency>
             <groupId>org.xavier</groupId>
-            <artifactId>util-starter</artifactId>
+            <artifactId>util-define</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xavier</groupId>
+            <artifactId>util-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xavier</groupId>
+            <artifactId>util-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xavier</groupId>
+            <artifactId>util-encrypt</artifactId>
         </dependency>
         <dependency>
             <groupId>org.xavier</groupId>
