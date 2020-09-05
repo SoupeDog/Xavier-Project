@@ -102,7 +102,7 @@
         <!-- 编译时的编码 -->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <maven.test.skip>true</maven.test.skip>
-        <springboot.version>2.2.1.RELEASE</springboot.version>
+        <springboot.version>2.3.3.RELEASE</springboot.version>
     </properties>
 
     <!--打包插件-->
