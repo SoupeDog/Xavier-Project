@@ -18,11 +18,11 @@ import java.util.List;
  * @since Jdk 1.8
  */
 @Plugin(name = "escapeJMsg", category = PatternConverter.CATEGORY)
-@ConverterKeys({ "escapeJMsg"})
+@ConverterKeys({"escapeJMsg"})
 public class HyggeLoggerPattenConverter extends LogEventPatternConverter {
     private final List<PatternFormatter> formatters;
 
-    public HyggeLoggerPattenConverter(List<PatternFormatter> formatters){
+    public HyggeLoggerPattenConverter(List<PatternFormatter> formatters) {
         super("escapeJMsg", "escapeJMsg");
         this.formatters = formatters;
     }
@@ -49,8 +49,14 @@ public class HyggeLoggerPattenConverter extends LogEventPatternConverter {
         for (PatternFormatter formatter : this.formatters) {
             formatter.format(event, buf);
         }
-        if(buf.length() > 0){
+        if (buf.length() > 0) {
             toAppendTo.append(StringEscapeUtils.escapeJava(buf.toString()));
         }
+    }
+
+    // 此 Patten 进行异常处理，需终止后续异常常规流程
+    @Override
+    public boolean handlesThrowable() {
+        return true;
     }
 }

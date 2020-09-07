@@ -133,7 +133,6 @@ public class HyggeLoggerBuilder {
                         .setLayout(layout)
                         .withLocking(false)
                         .build();
-                System.out.println(result);
                 break;
             default:
                 result = ConsoleAppender.newBuilder().setName("frwkConsoleJsonAppender")
